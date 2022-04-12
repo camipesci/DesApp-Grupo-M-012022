@@ -10,4 +10,3 @@ before_cache:
 
 jdk:
   - oraclejdk8
-  - 
