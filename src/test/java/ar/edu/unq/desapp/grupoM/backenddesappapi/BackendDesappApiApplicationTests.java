@@ -1,14 +1,13 @@
-package com.example.demo;
+package ar.edu.unq.desapp.grupoM.backenddesappapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class BackendDesappApiApplicationTests {
 
 	@Test
 	void contextLoads() {
-		// not implemented
 	}
 
 }
