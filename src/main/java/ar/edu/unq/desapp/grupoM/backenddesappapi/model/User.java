@@ -13,6 +13,8 @@ public class User  {
     private Integer wallet;
 
 
+
+
     public User(String name, String lastName, String email, String address, String password, BigInteger cvu, Integer wallet) {
         this.name = name;
         this.lastName = lastName;
@@ -23,8 +25,16 @@ public class User  {
         this.wallet = wallet;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
 
     public BigInteger getCvu() {
         return cvu;
+    }
+
+    public String getName() {
+        return name;
     }
 }
