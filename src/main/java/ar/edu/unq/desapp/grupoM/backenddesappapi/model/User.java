@@ -2,7 +2,8 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import java.math.BigInteger;
 
-public class User  {
+
+public class User {
 
     private String name;
     private String lastName;
@@ -15,7 +16,7 @@ public class User  {
 
 
 
-    public User(String name, String lastName, String email, String address, String password, BigInteger cvu, Integer wallet) {
+    public User(String name, String lastName, String email, String address, String password, BigInteger cvu, Integer wallet)  {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -36,5 +37,21 @@ public class User  {
 
     public String getName() {
         return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Integer getWallet() {
+        return wallet;
     }
 }
