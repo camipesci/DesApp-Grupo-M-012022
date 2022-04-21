@@ -24,7 +24,14 @@ public class UserTest {
         BigInteger cvu = new BigInteger("123456789101234567891012");
         User user = new User("Juan","Perez","juan@gmail.com","quilmes","123",cvu,12345678);
         assertThat(user.getCvu()).isEqualTo(cvu);
+
     }
+
+
+
+
+
+
 
 
 }
