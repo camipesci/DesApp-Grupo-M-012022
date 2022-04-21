@@ -21,9 +21,10 @@ public class UserTest {
 
     @Test
     public void userCreation() {
-        BigInteger cvu = new BigInteger("123456789101234567891012");
-        User user = new User("Juan","Perez","juan@gmail.com","quilmes","123",cvu,12345678);
-        assertThat(user.getCvu()).isEqualTo(cvu);
+        BigInteger cvu = new BigInteger("1234567890987654321234");
+        String name = "Juan";
+        User user = new User(name,"Perez","juanperez123@gmail.com","quilmes oeste","Password123@",cvu,12345678);
+        assertThat(user.getName()).isEqualTo(name);
 
     }
 

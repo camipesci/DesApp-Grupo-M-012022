@@ -1,12 +1,16 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigInteger;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class User  {
-
     @NotNull
     private String name;
     @NotNull
@@ -23,9 +27,10 @@ public class User  {
     private Integer wallet;
 
 
+    public User(String name, String lastName, String email, String address,
+                String password, BigInteger cvu, Integer wallet) {
 
-    public User(String name, String lastName, String email, String address, String password, BigInteger cvu, Integer wallet) {
-        //if (this.isValidUser()) {
+            this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
             this.name = name;
             this.lastName = lastName;
             this.email = email;
@@ -33,45 +38,55 @@ public class User  {
             this.password = password;
             this.cvu = cvu;
             this.wallet = wallet;
-       // }else
-        //{raise IvalidUserException}
     }
 
-  // public Boolean isValidUser(){
- //       return;
- //   }
 
+    // Validations
 
+    public  void validateUserParameters(String name, String lastName, String email, String address,
+                                           String password, BigInteger cvu, Integer wallet){
+        if (!this.validNameOrLastName(name)) {  throw new InvalidNameException(name); }
+        if (!this.validNameOrLastName(lastName)) {  throw new InvalidLastNameException(lastName); }
+        if (!this.validEmail(email)) {  throw new InvalidEmailException(email); }
+        if (!this.validAddress(address)) {  throw new InvalidAddressException(address); }
+        if (!this.validPassword(password)) {  throw new InvalidPasswordException(password); }
+        if (!this.validCvu(cvu)) {  throw new InvalidCvuException(cvu); }
+        if (!this.validWallet(wallet)) {  throw new InvalidWalletException(wallet); }
+    }
 
     public Boolean validNameOrLastName (String name){
 
         return name.length() > 3 && name.length() < 30;
     }
 
-    public Boolean validEmail (){
-        return this.email.matches("(\\S.\\S)(@)(\\S.\\S)(.\\S[a-z]{2,3})");
+    public Boolean validEmail(String username){
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+        Matcher mather = pattern.matcher(username);
+        return mather.find();
     }
 
-    public Boolean validAddress (){
-
-        return this.address.length() > 10 && address.length() < 30;
+    public Boolean validAddress(String address){
+        return address.length() > 10 && address.length() < 30;
     }
 
-    public Boolean validCvu (){
-
-        return this.cvu.toString().length() == 22;
+    public Boolean validCvu ( BigInteger cvu){
+        return cvu.toString().length() == 22;
     }
 
-    public Boolean validWallet (){
-
-        return this.wallet.toString().length()== 8;
+    public Boolean validWallet (Integer wallet){
+        return wallet.toString().length()== 8;
     }
 
-    public Boolean validPassword (){
+    public Boolean validPassword(String username){
+        Pattern pattern = Pattern
+                .compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
 
-      return this.password.matches("^(?=.\\d)(?=.[a-z])(?=.[A-Z])(?=.[@#$%]).{6,30}$");
+        Matcher mather = pattern.matcher(username);
+        return mather.find();
     }
-
 
     public String getName() {
         return name;
