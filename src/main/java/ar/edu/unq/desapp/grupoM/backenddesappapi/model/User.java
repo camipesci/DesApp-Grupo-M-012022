@@ -111,4 +111,8 @@ public class User  {
     public Integer getWallet() {
         return wallet;
     }
+
+    public String getPassword() {
+        return password;
+    }
 }
