@@ -60,10 +60,10 @@ public class User  {
     }
 
     public Boolean validEmail(String username){
-        String regex  = "^(?=.{1,64}@)[\\p{L}0-9\\+_-]+(\\.[\\p{L}0-9\\+_-]+)*@"
+        String email_regexp  = "^(?=.{1,64}@)[\\p{L}0-9\\+_-]+(\\.[\\p{L}0-9\\+_-]+)*@"
                 + "[^-][\\p{L}0-9\\+-]+(\\.[\\p{L}0-9\\+-]+)*(\\.[\\p{L}]{2,})$";
         Pattern pattern = Pattern
-                .compile(regex);
+                .compile(email_regexp);
 
         Matcher mather = pattern.matcher(username);
         return mather.find();
