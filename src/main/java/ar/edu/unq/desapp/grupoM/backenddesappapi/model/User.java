@@ -26,18 +26,16 @@ public class User  {
     @NotNull
     private Integer wallet;
 
-
-    public User(String name, String lastName, String email, String address,
-                String password, BigInteger cvu, Integer wallet) {
-
-            this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
-            this.name = name;
-            this.lastName = lastName;
-            this.email = email;
-            this.address = address;
-            this.password = password;
-            this.cvu = cvu;
-            this.wallet = wallet;
+    public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
+                @NotNull String password, @NotNull BigInteger cvu, @NotNull Integer wallet) {
+        this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.password = password;
+        this.cvu = cvu;
+        this.wallet = wallet;
     }
 
 
