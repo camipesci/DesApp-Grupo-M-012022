@@ -60,10 +60,9 @@ public class User  {
     }
 
     public Boolean validEmail(String username){
-        String regExp = "A-Za-z0-9";
+        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         Pattern pattern = Pattern
-                .compile("^[_"+regExp+"-\\+]+(\\.[_"+regExp+"-]+)*@"
-                        + "["+regExp+"-]+(\\.["+regExp+"]+)*(\\.[A-Za-z]{2,})$");
+                .compile(regex);
 
         Matcher mather = pattern.matcher(username);
         return mather.find();
