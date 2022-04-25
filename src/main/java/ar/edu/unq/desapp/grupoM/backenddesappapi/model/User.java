@@ -60,8 +60,7 @@ public class User  {
     }
 
     public Boolean validEmail(String username){
-        String email_regexp  = "^(?=.{1,64}@)[\\p{L}0-9\\+_-]+(\\.[\\p{L}0-9\\+_-]+)*@"
-                + "[^-][\\p{L}0-9\\+-]+(\\.[\\p{L}0-9\\+-]+)*(\\.[\\p{L}]{2,})$";
+        String email_regexp  = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
         Pattern pattern = Pattern
                 .compile(email_regexp);
 
