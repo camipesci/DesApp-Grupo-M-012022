@@ -15,9 +15,6 @@ jobs:
     steps:
       - checkout
       - run:
-           name: add permissions
-           command: icacls * /reset /t /c /q
-      - run:
           name: "Run tests"
           command: ./gradlew test
 
