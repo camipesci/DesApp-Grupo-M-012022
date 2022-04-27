@@ -14,9 +14,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      - permission:
-          - name: add permissions
-          - command: icacls * /reset /t /c /q
+      - run:
+           name: add permissions
+           command: icacls * /reset /t /c /q
       - run:
           name: "Run tests"
           command: ./gradlew test
