@@ -25,7 +25,7 @@ public class UserService {
         return this.users;
     }
 
-    public User create_new_user(User newUser) {
+    public User createUser(User newUser) {
         User user = newUser;
         users.add(user);
         return user;
