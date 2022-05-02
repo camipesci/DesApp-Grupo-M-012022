@@ -4,16 +4,11 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.InvalidEmailEx
 import ar.edu.unq.desapp.grupoM.backenddesappapi.webservice.UserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 @Service
@@ -37,23 +32,28 @@ public class UserService {
     }
 
 
-    public User getUser(@PathVariable Integer wallet) {
-        User user = allUsers().stream().filter(u -> u.getWallet().equals(wallet)).findFirst().get();
+    public User getUser(@PathVariable Integer user_wallet) {
+        User user = allUsers().stream().filter(u -> u.getWallet().equals(user_wallet)).findFirst().get();
         return user;
     }
 
     public User updateUser(Integer user_wallet, User userUpdate) {
-
         User newUser = userUpdate;
+        User userToModify = null;
         try {
-            allUsers().add(newUser);
-            //Remove all User
-            allUsers().removeIf(u -> u.getWallet().equals(user_wallet));
+            userToModify = allUsers().stream().filter(u -> u.getWallet().equals(user_wallet)).findFirst().get();
+            userToModify.setAddress(userUpdate.getAddress());
+            userToModify.setCvu(userUpdate.getCvu());
+            userToModify.setEmail(userUpdate.getEmail());
+            userToModify.setLastName(userUpdate.getLastName());
+            userToModify.setName(userUpdate.getName());
+            userToModify.setPassword(userUpdate.getPassword());
+            userToModify.setWallet(userUpdate.getWallet());
         }
         catch(InvalidEmailException e ){
-            logger.info("Error delete user " + e.getMessage());
+            logger.info("Error while updating user " + e.getMessage());
         }
 
-        return newUser;
+        return userToModify;
     }
 }

@@ -1,11 +1,8 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.math.BigInteger;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,5 +109,33 @@ public class User  {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCvu(BigInteger cvu) {
+        this.cvu = cvu;
+    }
+
+    public void setWallet(Integer wallet) {
+        this.wallet = wallet;
     }
 }
