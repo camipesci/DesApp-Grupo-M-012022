@@ -17,7 +17,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.jetbrains:annotations:20.1.0'
 	implementation 'org.jetbrains:annotations:20.1.0'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'junit:junit:4.13.1'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

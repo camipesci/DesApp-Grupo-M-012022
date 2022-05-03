@@ -1,34 +1,33 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CryptoCurrency {
+
     @NotNull
-    private String name;
+    private String nameCrypto;
     @NotNull
-    private Float price;
+    private Double price;
     @NotNull
-    private Date price_date;
+    private LocalDate price_date;
 
 
-
-    public CryptoCurrency(@NotNull String name, @NotNull Float price, @NotNull Date price_date) {
-        this.name = name;
+    public CryptoCurrency(@NotNull String name, @NotNull Double price, @NotNull LocalDate price_date) {
+        this.nameCrypto = name;
         this.price = price;
         this.price_date = price_date;
     }
 
     public String getName() {
-        return name;
+        return nameCrypto;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public Date getPrice_date() {
+    public LocalDate getPrice_date() {
         return price_date;
     }
 }

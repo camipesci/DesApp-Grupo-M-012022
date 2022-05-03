@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Enumeration;
 
 public class Transaction {
@@ -9,17 +8,18 @@ public class Transaction {
     @NotNull
     private String  cryptoCurrency;
     @NotNull
-    private Float cryptoAmount;
+    private Double cryptoAmount;
     @NotNull
-    private Float cryptoPrice;
+    private Double cryptoPrice;
     @NotNull
-    private Float cryptoArsPrice;
+    private Double cryptoArsPrice;
     @NotNull
-    private String user;
-    @NotNull Enumeration operation;
+    private User user;
+    @NotNull
+    Enumeration operation;
 
-    public Transaction(@NotNull String cryptoCurrency, @NotNull Float cryptoAmount, @NotNull Float cryptoPrice
-            , @NotNull Float cryptoArsPrice, @NotNull String user, @NotNull Enumeration operation) {
+    public Transaction(@NotNull String cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
+            , @NotNull Double cryptoArsPrice, @NotNull User user, @NotNull Enumeration operation) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
@@ -32,19 +32,19 @@ public class Transaction {
         return cryptoCurrency;
     }
 
-    public Float getCryptoAmount() {
+    public Double getCryptoAmount() {
         return cryptoAmount;
     }
 
-    public Float getCryptoPrice() {
+    public Double getCryptoPrice() {
         return cryptoPrice;
     }
 
-    public Float getCryptoArsPrice() {
+    public Double getCryptoArsPrice() {
         return cryptoArsPrice;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 

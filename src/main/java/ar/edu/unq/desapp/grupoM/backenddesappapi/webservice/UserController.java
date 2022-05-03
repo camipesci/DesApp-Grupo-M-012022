@@ -15,23 +15,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 public class UserController {
    UserService userService = new UserService();
 
-   /*
-        Nomenclatura de API REST
-
-        entidad
-        id de entidad
-
-        BASE_URL: localhost:8080
-        API: /api
-        ENTITY: users
-        ID_ENTITY: user_wallet
-
-        GET /api/users
-        POST /api/users
-        PUT /api/users
-        DELETE /api/users
-   */
-
     @PostMapping("/api/users")
     @ResponseBody
     public ResponseEntity<User> createUser(@RequestBody User newUser) {
