@@ -15,6 +15,7 @@ class CryptoCurrencyTest {
     public void createCryptoCurrencyTest() {
         CryptoCurrency BNBUSDT = CryptoBuilder.crypto().build();
         assertEquals(BNBUSDT.getName(), "BNBUSDT");
+
     }
 
 }

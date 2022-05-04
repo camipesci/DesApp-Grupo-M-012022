@@ -11,6 +11,7 @@ class TransactionTest {
 
     @Test
     public void createTransactionTest() {
+
         User user = UserBuilder.user().build();
         Transaction transaction1 = TransactionBuilder.transaction().withUser(user).build();
 
