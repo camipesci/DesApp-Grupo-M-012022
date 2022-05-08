@@ -1,12 +1,15 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.MockUserGenerateService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/mockaccount")
 public class MockUserController {
     private final MockUserGenerateService dummyUserGenerateService;
 
@@ -14,9 +17,16 @@ public class MockUserController {
         this.dummyUserGenerateService = dummyUserGenerateService;
     }
 
-    @GetMapping("/generatedummyaccounts")
+    @GetMapping("/api/usersmock")
     public void generateDummyUsers() {
         dummyUserGenerateService.generateUsers();
     }
+
+    /*@GetMapping("/api/usersmock")
+    public ResponseEntity<List<User>> generateDummyUsers() {
+        dummyUserGenerateService.generateUsers();
+        List<User> users = userService.getUsers();
+        return ResponseEntity.ok().body(users);
+    }*/
 
 }

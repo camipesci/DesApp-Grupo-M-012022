@@ -1,2 +1,10 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.service;public class UserIdGenerationService {
+package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserIdGenerationService {
+    public Long newUserId() {
+        return System.nanoTime();
+    }
 }

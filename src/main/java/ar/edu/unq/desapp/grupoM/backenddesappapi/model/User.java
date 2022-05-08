@@ -1,31 +1,53 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User  {
-    @NotNull
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
-    @NotNull
+
     private String lastName;
-    @NotNull
+
     private String email;
-    @NotNull
+
     private String address;
-    @NotNull
+
     private String password;
-    @NotNull
-    private BigInteger cvu;
-    @NotNull
+
+    private String cvu;
+
     private Integer wallet;
+
+    /*public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
                 @NotNull String password, @NotNull BigInteger cvu, @NotNull Integer wallet) {
-        this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
+       // this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -137,5 +159,5 @@ public class User  {
 
     public void setWallet(Integer wallet) {
         this.wallet = wallet;
-    }
+    }*/
 }
