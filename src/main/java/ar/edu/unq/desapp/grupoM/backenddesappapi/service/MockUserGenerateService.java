@@ -11,35 +11,35 @@ import java.math.BigInteger;
 public class MockUserGenerateService {
 
     @Autowired
-    private UserRepository accountRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserIdGenerationService accountIdGenerationService;
+    private UserIdGenerationService userIdGenerationService;
 
     public void generateUsers() {
         User user1=  User.builder()
-                .id(accountIdGenerationService.newUserId())
+                .id(userIdGenerationService.newUserId())
                 .name("Ricardo")
-                .lastName("LastNameasdsad")
+                .lastName("Fort")
                 .address("Av. La plata 123")
-                .email("nicolas@gmail.com")
-                .password("Marta123@")
+                .email("ricardo@gmail.com")
+                .password("Ricardo123@")
                 .cvu("1234567891234567891012")
-                .wallet(88888688)
+                .wallet(11111111)
                 .build();
-        accountRepository.save(user1);
+        userRepository.save(user1);
 
         User user2=  User.builder()
-                .id(accountIdGenerationService.newUserId())
+                .id(userIdGenerationService.newUserId())
                 .name("Martita")
-                .lastName("LastNameasdasd")
+                .lastName("Fort")
                 .address("Av. La plata 321")
-                .email("nicolas@gmail.com")
+                .email("marta@gmail.com")
                 .password("Marta123@")
-                .cvu("1234567891234567891012")
+                .cvu("1234567891234567891013")
                 .wallet(88888888)
                 .build();
 
-        accountRepository.save(user2);
+        userRepository.save(user2);
     }
 }

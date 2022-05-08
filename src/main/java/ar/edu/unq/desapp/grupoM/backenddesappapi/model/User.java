@@ -37,7 +37,7 @@ public class User  {
 
     private Integer wallet;
 
-    /*public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -46,8 +46,8 @@ public class User  {
     }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
-                @NotNull String password, @NotNull BigInteger cvu, @NotNull Integer wallet) {
-       // this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
+                @NotNull String password, @NotNull String cvu, @NotNull Integer wallet) {
+        this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -61,7 +61,7 @@ public class User  {
     // Validations
 
     public  void validateUserParameters(String name, String lastName, String email, String address,
-                                           String password, BigInteger cvu, Integer wallet){
+                                           String password, String cvu, Integer wallet){
         if (!this.validNameOrLastName(name)) {  throw new InvalidNameException(name); }
         if (!this.validNameOrLastName(lastName)) {  throw new InvalidLastNameException(lastName); }
         if (!this.validEmail(email)) {  throw new InvalidEmailException(email); }
@@ -89,8 +89,8 @@ public class User  {
         return address.length() > 10 && address.length() < 30;
     }
 
-    public Boolean validCvu ( BigInteger cvu){
-        return cvu.toString().length() == 22;
+    public Boolean validCvu ( String cvu){
+        return cvu.length() == 22;
     }
 
     public Boolean validWallet (Integer wallet){
@@ -121,7 +121,7 @@ public class User  {
         return address;
     }
 
-    public BigInteger getCvu() {
+    public String getCvu() {
         return cvu;
     }
 
@@ -153,11 +153,11 @@ public class User  {
         this.password = password;
     }
 
-    public void setCvu(BigInteger cvu) {
+    public void setCvu(String cvu) {
         this.cvu = cvu;
     }
 
     public void setWallet(Integer wallet) {
         this.wallet = wallet;
-    }*/
+    }
 }

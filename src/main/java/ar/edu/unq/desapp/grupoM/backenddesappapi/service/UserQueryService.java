@@ -17,10 +17,15 @@ public class UserQueryService {
 
 
     public Optional<User> getUserById(Long accountId) {
-        return  userRepository.findById(accountId);
+        return userRepository.findById(accountId);
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return (List<User>) userRepository.findAll();
+    }
+
+    public User findUserById(Long id) throws Exception {
+        return userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
     }
 }
+

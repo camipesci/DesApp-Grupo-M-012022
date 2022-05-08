@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions;
 
-import java.math.BigInteger;
 
 public class InvalidCvuException extends RuntimeException {
-    public InvalidCvuException(BigInteger cvu) {
+    public InvalidCvuException(String cvu) {
         super("Specified cvu "+ cvu +" is invalid.");
     }
 }
