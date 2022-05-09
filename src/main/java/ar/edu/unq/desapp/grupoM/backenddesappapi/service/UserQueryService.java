@@ -15,17 +15,35 @@ public class UserQueryService {
     @Autowired
     private UserRepository userRepository;
 
+    public User createUser(String name, String lastName, String email, String address, String password, String cvu, Integer wallet) {
+        User newUser = new User(name, lastName, email, address, password, cvu, wallet);
 
-    public Optional<User> getUserById(Long accountId) {
-        return userRepository.findById(accountId);
+        return userRepository.save(newUser);
+    }
+
+    public User updateUser(Long id, String name, String lastName, String email, String address, String password, String cvu, Integer wallet) {
+        User userToModify = userRepository.findById(id).get();
+        userToModify.name = name;
+        userToModify.lastName = lastName;
+        userToModify.email = email;
+        userToModify.address = address;
+        userToModify.cvu = cvu;
+        userToModify.wallet = wallet;
+
+
+        return userRepository.save(userToModify);
     }
 
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
 
-    public User findUserById(Long id) throws Exception {
+    public User findUser(Long id) throws Exception {
         return userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+    }
+
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
     }
 }
 

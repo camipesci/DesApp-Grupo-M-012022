@@ -21,21 +21,21 @@ import java.util.regex.Pattern;
 public class User  {
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
 
-    private String name;
+    public String name;
 
-    private String lastName;
+    public String lastName;
 
-    private String email;
+    public String email;
 
-    private String address;
+    public String address;
 
-    private String password;
+    public String password;
 
-    private String cvu;
+    public String cvu;
 
-    private Integer wallet;
+    public Integer wallet;
 
     public Long getId() {
         return id;
