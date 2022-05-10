@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class MockUserController {
+public class UserQueryController {
+
+
     private final MockUserGenerateService dummyUserGenerateService;
+
     @Autowired
     private UserQueryService userService;
 
-    public MockUserController(MockUserGenerateService dummyUserGenerateService) {
-        this.dummyUserGenerateService = dummyUserGenerateService;
-    }
+    public UserQueryController(MockUserGenerateService dummyUserGenerateService) {
+            this.dummyUserGenerateService = dummyUserGenerateService;
+        }
+
 
     @GetMapping("/api/v2/dummy_data")
     public void generateDummyUsers() {
@@ -64,4 +68,4 @@ public class MockUserController {
     }
 
 
-}
+    }

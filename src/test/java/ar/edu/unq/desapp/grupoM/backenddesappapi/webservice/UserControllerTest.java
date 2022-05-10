@@ -62,13 +62,13 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(String.valueOf(body)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("name", is(user.getName())))
-                .andExpect(jsonPath("lastName", is(user.getLastName())))
-                .andExpect(jsonPath("email", is(user.getEmail())))
-                .andExpect(jsonPath("address", is(user.getAddress())))
-                .andExpect(jsonPath("password", is(user.getPassword())))
-                .andExpect(jsonPath("cvu", is(user.getCvu())))
-                .andExpect(jsonPath("wallet", is(user.getWallet())))
+                .andExpect(jsonPath("name", is(user.name)))
+                .andExpect(jsonPath("lastName", is(user.lastName)))
+                .andExpect(jsonPath("email", is(user.email)))
+                .andExpect(jsonPath("address", is(user.address)))
+                .andExpect(jsonPath("password", is(user.password)))
+                .andExpect(jsonPath("cvu", is(user.cvu)))
+                .andExpect(jsonPath("wallet", is(user.wallet)))
                 .andReturn();
 
     }
@@ -123,14 +123,14 @@ class UserControllerTest {
     public void createUser() {
         userController.createUser(user);
         User createdUser = userController.allUsers().getBody().stream().findFirst().get();
-        assertEquals(createdUser.getName(), user.getName());
+        assertEquals(createdUser.name, user.name);
 
     }
 
     @Test
     public void getUser() {
-        User getUser = userController.getUser(user.getWallet()).getBody();
-        assertEquals(getUser.getName(), user.getName());
+        User getUser = userController.getUser(user.wallet).getBody();
+        assertEquals(getUser.name, user.name);
     }
 
     @Test
@@ -149,9 +149,9 @@ class UserControllerTest {
     public void updateUser() {
         // update user params
         User updateUserParams = userBuilder.build();
-        userController.updateUser(user.getWallet(), updateUserParams);
+        userController.updateUser(user.wallet, updateUserParams);
 
-        assertEquals(user.getName(), updateUserParams.getName());
+        assertEquals(user.name, updateUserParams.name);
     }
 
     @Test
@@ -161,7 +161,7 @@ class UserControllerTest {
         assertEquals(users.size(), 1);
 
         // after deletion, there are no more users
-        userController.deleteUser(user.getWallet());
+        userController.deleteUser(user.wallet);
         assertEquals(users.size(), 0);
 
 
@@ -169,13 +169,13 @@ class UserControllerTest {
 
     private JSONObject generateUserBody(User user) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", user.getName());
-        jsonObject.put("lastName", user.getLastName());
-        jsonObject.put("email", user.getEmail());
-        jsonObject.put("address", user.getAddress());
-        jsonObject.put("password", user.getPassword());
-        jsonObject.put("cvu", user.getCvu());
-        jsonObject.put("wallet", user.getWallet());
+        jsonObject.put("name", user.name);
+        jsonObject.put("lastName", user.lastName);
+        jsonObject.put("email", user.email);
+        jsonObject.put("address", user.address);
+        jsonObject.put("password", user.password);
+        jsonObject.put("cvu", user.cvu);
+        jsonObject.put("wallet", user.wallet);
         return jsonObject;
     }
 }

@@ -11,7 +11,7 @@ import java.math.BigInteger;
 public class MockUserGenerateService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository ;
 
     @Autowired
     private UserIdGenerationService userIdGenerationService;
