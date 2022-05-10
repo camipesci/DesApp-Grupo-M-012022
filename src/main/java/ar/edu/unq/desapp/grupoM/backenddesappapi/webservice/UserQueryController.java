@@ -13,21 +13,8 @@ import java.util.List;
 @RestController
 public class UserQueryController {
 
-
-    private final MockUserGenerateService dummyUserGenerateService;
-
     @Autowired
     private UserQueryService userService;
-
-    public UserQueryController(MockUserGenerateService dummyUserGenerateService) {
-            this.dummyUserGenerateService = dummyUserGenerateService;
-        }
-
-
-    @GetMapping("/api/v2/dummy_data")
-    public void generateDummyUsers() {
-        dummyUserGenerateService.generateUsers();
-    }
 
     @PostMapping("/api/v2/users")
     @ResponseBody

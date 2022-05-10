@@ -1,57 +1,42 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.MockUserGenerateService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserQueryService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+@SpringBootTest
+class UserQueryControllerTest extends TestControllerHelper {
 
-class UserQueryControllerTest {
-
-/*
-    UserQueryController userQueryController = new UserQueryController() ;
-    UserBuilder userBuilder = new UserBuilder();
-    User user = userBuilder.build();
-
-    private JSONObject generateUserBody(User user) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", user.name);
-        jsonObject.put("lastName", user.lastName);
-        jsonObject.put("email", user.email);
-        jsonObject.put("address", user.address);
-        jsonObject.put("password", user.password);
-        jsonObject.put("cvu", user.cvu);
-        jsonObject.put("wallet", user.wallet);
-        return jsonObject;
+    @Test
+    void createUser() throws Exception {
+       User created_user = userQueryController.createUser(user).getBody();
+       assertEquals(userQueryController.findUser(created_user.id).getBody().name, created_user.name);
     }
 
     @Test
-   public void createUser() {
-        userQueryController.createUser(user);
-        User createdUser = userQueryController.getUsers().getBody().stream().findFirst().get();
-        assertEquals(createdUser.name, user.name);
+    void updateUser() throws Exception {
+        // user delete
+        User updated_user = userQueryController.updateUser(controller_user.id, another_user).getBody();
+        assertEquals(userQueryController.findUser(updated_user.id).getBody().name, updated_user.name);
     }
 
-    */
+    @Test
+    void getUsers() {
+        assertEquals(userQueryController.getUsers().getBody().get(0).name, controller_user.name);
+    }
 
+    @Test
+    void findUser() throws Exception {
+        assertEquals(userQueryController.findUser(controller_user.id).getBody().id, controller_user.id);
+    }
+
+    @Test
+    void deleteUser() throws Exception {
+        // user delete
+        userQueryController.deleteUser(controller_user.id);
+        assertEquals(userQueryController.getUsers().getBody().size(), 0);
+    }
 }

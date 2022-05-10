@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -15,7 +15,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 public class UserController {
    UserService userService = new UserService();
 
-    @PostMapping("/api/users")
+    @PostMapping("/api/v1/users")
     @ResponseBody
     public ResponseEntity<User> createUser(@RequestBody User newUser) {
         User user = userService.createUser(newUser);

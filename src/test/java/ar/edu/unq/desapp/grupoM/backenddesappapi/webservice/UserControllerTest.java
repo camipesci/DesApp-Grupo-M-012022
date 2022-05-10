@@ -58,7 +58,7 @@ class UserControllerTest {
 
         JSONObject body = generateUserBody(user);
 
-        MvcResult mvcResult =  mockMvc.perform(post("http://localhost:8080/api/users")
+        MvcResult mvcResult =  mockMvc.perform(post("http://localhost:8080/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(String.valueOf(body)))
                 .andExpect(status().isOk())
