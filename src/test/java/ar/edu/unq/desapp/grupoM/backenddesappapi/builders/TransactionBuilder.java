@@ -2,6 +2,8 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
+
+import java.util.Date;
 import java.util.Enumeration;
 
 public class TransactionBuilder  {
@@ -11,14 +13,15 @@ public class TransactionBuilder  {
     private Double cryptoAmount = 0.01;
     private Double cryptoPrice = 120.10;
     private Double cryptoArsPrice = 200.20;
-    private User user = UserBuilder.user().build();
-    private Enumeration operation = null;
+    private Long user = UserBuilder.user().build().id;
+    private Date date = null;
+    private String transactionType = null;
 
 
     public static TransactionBuilder transaction(){ return new TransactionBuilder();}
 
     public Transaction build() {
-        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user,operation);
+        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user,date,transactionType);
     }
 
     public TransactionBuilder withCryptoCurrency(String aCryptoCurrency){
@@ -42,7 +45,7 @@ public class TransactionBuilder  {
     }
 
      public TransactionBuilder withUser(User aUser){
-        user = aUser;
+        user = aUser.id;
         return this;
     }
 
