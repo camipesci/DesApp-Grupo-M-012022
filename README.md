@@ -5,7 +5,7 @@
   - Nicolas Rodriguez: | Github: nicolaslrod | Email: rodriguez.n@outlook.com |
 
 # API Documentation:
- - https://app.swaggerhub.com/apis/nicolaslrod/desappgrupom/1.0.0
+ - https://app.swaggerhub.com/apis-docs/nicolaslrod/desappgrupom/1.0.0
 
 # Deploy Heroku Link:
 - https://desappgrupom.herokuapp.com/
