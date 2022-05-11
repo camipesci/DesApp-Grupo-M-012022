@@ -59,8 +59,8 @@ public class Transaction {
         return cryptoArsPrice;
     }
 
-    public long getUserId() {
-        return userid;
+    public Long getUserId() {
+        return this.userid;
     }
 
     public String gettransactionType() {

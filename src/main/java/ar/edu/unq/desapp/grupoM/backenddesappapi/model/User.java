@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
