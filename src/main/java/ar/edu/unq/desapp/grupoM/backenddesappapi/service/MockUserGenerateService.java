@@ -5,8 +5,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-
 @Service
 public class MockUserGenerateService {
 
@@ -16,7 +14,7 @@ public class MockUserGenerateService {
     @Autowired
     private UserIdGenerationService userIdGenerationService;
 
-    public void generateUsers() {
+    public MockUserGenerateService generateUsers() {
         User user1=  User.builder()
                 .id(userIdGenerationService.newUserId())
                 .name("Ricardo")
@@ -41,5 +39,6 @@ public class MockUserGenerateService {
                 .build();
 
         userRepository.save(user2);
+        return null;
     }
 }

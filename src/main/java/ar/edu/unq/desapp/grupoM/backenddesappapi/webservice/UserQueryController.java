@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 public class UserQueryController {
+    @Autowired
+    MockUserGenerateService dummyUserGenerateService;
 
     @Autowired
     private UserQueryService userService;
@@ -54,5 +56,8 @@ public class UserQueryController {
         return ResponseEntity.ok().body("User deleted");
     }
 
-
+    @GetMapping("/api/v2/dummy_data")
+    public void generateDummyUsers() {
+        dummyUserGenerateService.generateUsers();
+    }
     }
