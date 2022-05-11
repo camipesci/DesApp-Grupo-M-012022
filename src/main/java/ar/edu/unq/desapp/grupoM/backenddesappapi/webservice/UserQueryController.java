@@ -44,14 +44,14 @@ public class UserQueryController {
 
     @GetMapping("/api/v2/users/{user_id}")
     public ResponseEntity<User> findUser(@PathVariable Long user_id) throws Exception {
-        Long id = Long.valueOf(user_id);
+        Long id = new Long(user_id);
         User user = userService.findUser(id);
         return ResponseEntity.ok().body(user);
     }
 
     @DeleteMapping("/api/v2/users/{user_id}")
     public ResponseEntity deleteUser(@PathVariable Long user_id) throws Exception {
-        Long id = Long.valueOf(user_id);
+        Long id = new Long(user_id);
         userService.deleteUser(id);
         return ResponseEntity.ok().body("User deleted");
     }
