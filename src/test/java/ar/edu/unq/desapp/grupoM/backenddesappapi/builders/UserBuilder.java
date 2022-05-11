@@ -11,7 +11,7 @@ public class UserBuilder {
     private String email = "ricardoFort@gmail.com";
     private String address = "Av. Mitre 1030";
     private String password = "Ricardo123@";
-    private BigInteger cvu = new BigInteger("1234567890987654321234");
+    private String cvu = "1234567890987654321234";
     private Integer wallet = 12345678;
 
     public static UserBuilder user(){ return new UserBuilder();}
@@ -45,7 +45,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder withCvu(BigInteger aCvu){
+    public UserBuilder withCvu(String aCvu){
         cvu = aCvu;
         return this;
     }

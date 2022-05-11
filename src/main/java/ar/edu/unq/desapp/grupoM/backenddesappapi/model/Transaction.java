@@ -1,10 +1,22 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
-import java.util.Enumeration;
+import lombok.Builder;
+import javax.persistence.*;
+import java.util.Date;
 
+
+@Entity
+@Table(name = "transaction")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Transaction {
-
+    @Id
+    @GeneratedValue
+    public Long id;
     @NotNull
     private String  cryptoCurrency;
     @NotNull
@@ -14,18 +26,21 @@ public class Transaction {
     @NotNull
     private Double cryptoArsPrice;
     @NotNull
-    private User user;
+    private Long userid;
     @NotNull
-    Enumeration operation;
+    private Date date;
+    @NotNull
+    private String transactionType;
 
     public Transaction(@NotNull String cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
-            , @NotNull Double cryptoArsPrice, @NotNull User user, @NotNull Enumeration operation) {
+            , @NotNull Double cryptoArsPrice, @NotNull Long userid,@NotNull Date date, @NotNull String transactionType) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
         this.cryptoArsPrice = cryptoArsPrice;
-        this.user = user;
-        this.operation = operation;
+        this.userid = userid;
+        this.date = date;
+        this.transactionType = transactionType;
     }
 
     public String getCryptoCurrency() {
@@ -44,11 +59,11 @@ public class Transaction {
         return cryptoArsPrice;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return this.userid;
     }
 
-    public Enumeration getOperation() {
-        return operation;
+    public String gettransactionType() {
+        return transactionType;
     }
 }

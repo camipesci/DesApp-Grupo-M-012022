@@ -37,7 +37,7 @@ public class UserTest {
 
      @Test
     public void UserWithCvu() {
-        BigInteger cvu = new BigInteger("1234567890987654321234");
+        String cvu = "1234567890987654321234";
         User ricardo = UserBuilder.user().withCvu(cvu).build();
         assertEquals(ricardo.getCvu(), cvu);
     }
@@ -83,7 +83,7 @@ public class UserTest {
 
     @Test
     public void UserWithInvalidCvu(){
-        BigInteger cvu = new BigInteger("123");
+        String cvu = "123";
         assertThrows(InvalidCvuException.class , ()->  UserBuilder.user().withCvu(cvu).build() );
     }
 

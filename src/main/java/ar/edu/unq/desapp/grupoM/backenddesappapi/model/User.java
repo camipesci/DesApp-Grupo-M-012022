@@ -1,30 +1,51 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import java.math.BigInteger;
+
+import javax.persistence.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User  {
-    @NotNull
-    private String name;
-    @NotNull
-    private String lastName;
-    @NotNull
-    private String email;
-    @NotNull
-    private String address;
-    @NotNull
-    private String password;
-    @NotNull
-    private BigInteger cvu;
-    @NotNull
-    private Integer wallet;
+    @Id
+    @GeneratedValue
+    public Long id;
+
+    public String name;
+
+    public String lastName;
+
+    public String email;
+
+    public String address;
+
+    public String password;
+
+    public String cvu;
+
+    public Integer wallet;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
-                @NotNull String password, @NotNull BigInteger cvu, @NotNull Integer wallet) {
+                @NotNull String password, @NotNull String cvu, @NotNull Integer wallet) {
         this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
         this.name = name;
         this.lastName = lastName;
@@ -39,7 +60,7 @@ public class User  {
     // Validations
 
     public  void validateUserParameters(String name, String lastName, String email, String address,
-                                           String password, BigInteger cvu, Integer wallet){
+                                           String password, String cvu, Integer wallet){
         if (!this.validNameOrLastName(name)) {  throw new InvalidNameException(name); }
         if (!this.validNameOrLastName(lastName)) {  throw new InvalidLastNameException(lastName); }
         if (!this.validEmail(email)) {  throw new InvalidEmailException(email); }
@@ -67,8 +88,8 @@ public class User  {
         return address.length() > 10 && address.length() < 30;
     }
 
-    public Boolean validCvu ( BigInteger cvu){
-        return cvu.toString().length() == 22;
+    public Boolean validCvu ( String cvu){
+        return cvu.length() == 22;
     }
 
     public Boolean validWallet (Integer wallet){
@@ -83,59 +104,4 @@ public class User  {
         return mather.find();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public BigInteger getCvu() {
-        return cvu;
-    }
-
-    public Integer getWallet() {
-        return wallet;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setCvu(BigInteger cvu) {
-        this.cvu = cvu;
-    }
-
-    public void setWallet(Integer wallet) {
-        this.wallet = wallet;
-    }
 }
