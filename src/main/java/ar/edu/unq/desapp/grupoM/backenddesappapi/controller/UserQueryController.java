@@ -1,9 +1,8 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.MockUserGenerateService;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockUserGenerateService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserQueryService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class UserQueryController {
     @Autowired
     private UserQueryService userService;
 
-    @PostMapping("/api/v2/users")
+    @PostMapping("/api/users")
     @ResponseBody
     public ResponseEntity<User> createUser(@RequestBody User newUser) {
         User user = userService.createUser(newUser.name, newUser.lastName, newUser.email, newUser.address,
@@ -26,7 +25,7 @@ public class UserQueryController {
         return ResponseEntity.ok().body(user);
     }
 
-    @PutMapping("/api/v2/users/{id}")
+    @PutMapping("/api/users/{id}")
     @ResponseBody
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
         User updatedUser = userService.updateUser(id, updateUser.name, updateUser.lastName, updateUser.email, updateUser.address,
@@ -35,26 +34,26 @@ public class UserQueryController {
     }
 
 
-    @GetMapping("/api/v2/users")
+    @GetMapping("/api/users")
     public ResponseEntity<List<User>> getUsers() {
 
         List<User> users = userService.getUsers();
         return ResponseEntity.ok().body(users);
     }
 
-    @GetMapping("/api/v2/users/{user_id}")
+    @GetMapping("/api/users/{user_id}")
     public ResponseEntity<User> findUser(@PathVariable Long user_id) throws Exception {
         User user = userService.findUser(user_id);
         return ResponseEntity.ok().body(user);
     }
 
-    @DeleteMapping("/api/v2/users/{user_id}")
+    @DeleteMapping("/api/users/{user_id}")
     public ResponseEntity deleteUser(@PathVariable Long user_id) throws Exception {
         userService.deleteUser(user_id);
         return ResponseEntity.ok().body("User deleted");
     }
 
-    @GetMapping("/api/v2/dummy_data")
+    @GetMapping("/api/dummy_data")
     public void generateDummyUsers() {
         dummyUserGenerateService.generateUsers();
     }
