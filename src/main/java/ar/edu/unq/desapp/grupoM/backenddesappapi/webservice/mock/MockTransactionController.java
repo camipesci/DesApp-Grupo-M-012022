@@ -1,6 +1,6 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice.mock;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.MockTransactionGenerateService;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockTransactionGenerateService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.MockUserGenerateService;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockUserGenerateService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserQueryService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
