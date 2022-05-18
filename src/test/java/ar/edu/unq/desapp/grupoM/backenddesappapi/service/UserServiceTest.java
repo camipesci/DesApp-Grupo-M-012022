@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserQueryServiceTest extends TestServiceHelper {
+class UserServiceTest extends TestServiceHelper {
 
     @Test
     void createUser() throws Exception {

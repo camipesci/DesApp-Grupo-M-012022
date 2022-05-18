@@ -6,7 +6,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.mock.MockTransactionController;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserQueryController;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class TestServiceHelper {
     public Transaction h2_transaction ;
 
     @Autowired
-    UserQueryService userQueryService;
+    UserService userQueryService;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    UserQueryController userQueryController;
+    UserController userQueryController;
 
     @Autowired
     TransactionQueryService transactionQueryService;
