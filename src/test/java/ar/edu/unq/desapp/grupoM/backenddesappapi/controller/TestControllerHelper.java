@@ -1,11 +1,9 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserQueryService;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

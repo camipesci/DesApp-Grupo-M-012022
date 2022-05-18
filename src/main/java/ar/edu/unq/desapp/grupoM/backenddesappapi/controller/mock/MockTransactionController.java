@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice.mock;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.mock;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockTransactionGenerateService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionQueryService;
