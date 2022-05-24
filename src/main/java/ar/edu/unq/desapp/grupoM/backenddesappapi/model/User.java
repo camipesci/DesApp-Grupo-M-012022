@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.helpers.Generator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,49 +44,35 @@ public class User  {
     public void setId(Long id) {
         this.id = id;
     }
-    public Integer setwallet() {
-        return getRandomNumber(10000000,99999999);
-    }
 
-    public String setcvu() {
-        Integer numeroAleatorio = getRandomNumber(10000000,99999999);
-        Integer numeroAleatorio2 = getRandomNumber(10000000,99999999);
-        Integer numeroAleatorio3 = getRandomNumber(100000,999999);
-
-        return numeroAleatorio.toString() + numeroAleatorio2.toString() + numeroAleatorio3.toString() ;
-    }
-
-    private Integer getRandomNumber(Integer min, Integer max) {
-        Integer random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
-        return random_int;
+    public void generateWalletAndCVU(){
+        Generator random = new Generator();
+        this.cvu = random.generateCVU();
+        this.wallet = random.generateWallet();
     }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
                 @NotNull String password) {
-        Integer wallet_validate = setwallet();
-        String cvu_validate = setcvu();
-        this.validateUserParameters(name, lastName, email, address, password, cvu_validate , wallet_validate);
+        this.generateWalletAndCVU();
+        this.validateUserParameters(name, lastName, email, address, password);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.password = password;
-        this.cvu = cvu_validate;
-        this.wallet = wallet_validate;
     }
 
 
     // Validations
 
-    public  void validateUserParameters(String name, String lastName, String email, String address,
-                                           String password, String cvu, Integer wallet){
+    public  void validateUserParameters(String name, String lastName, String email, String address, String password){
         if (!this.validNameOrLastName(name)) {  throw new InvalidNameException(name); }
         if (!this.validNameOrLastName(lastName)) {  throw new InvalidLastNameException(lastName); }
         if (!this.validEmail(email)) {  throw new InvalidEmailException(email); }
         if (!this.validAddress(address)) {  throw new InvalidAddressException(address); }
         if (!this.validPassword(password)) {  throw new InvalidPasswordException(password); }
-        if (!this.validCvu(cvu)) {  throw new InvalidCvuException(cvu); }
-        if (!this.validWallet(wallet)) {  throw new InvalidWalletException(wallet); }
+        if (!this.validCvu(this.cvu)) {  throw new InvalidCvuException(this.cvu); }
+        if (!this.validWallet(this.wallet)) {  throw new InvalidWalletException(this.wallet); }
     }
 
     public Boolean validNameOrLastName (String name){
@@ -106,7 +93,7 @@ public class User  {
         return address.length() > 10 && address.length() < 30;
     }
 
-    public Boolean validCvu ( String cvu){
+    public Boolean validCvu (String cvu){
         return cvu.length() == 22;
     }
 
