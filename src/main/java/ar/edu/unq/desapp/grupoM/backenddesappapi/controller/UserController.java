@@ -25,7 +25,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<UserDTO> createUser(@RequestBody User newUser) {
         User user = userService.createUser(newUser.name, newUser.lastName, newUser.email, newUser.address,
-                newUser.password, newUser.cvu, newUser.wallet);
+                newUser.password, newUser.cvu);
         return ResponseEntity.status(HttpStatus.CREATED).body(UserDTO.from(user));
     }
 

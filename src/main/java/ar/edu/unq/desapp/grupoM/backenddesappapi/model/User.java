@@ -43,17 +43,26 @@ public class User  {
     public void setId(Long id) {
         this.id = id;
     }
+    public Integer setwallet() {
+        return getRandomNumber(10000000,99999999);
+    }
+
+    private Integer getRandomNumber(Integer min, Integer max) {
+        Integer random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        return random_int;
+    }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
-                @NotNull String password, @NotNull String cvu, @NotNull Integer wallet) {
-        this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
+                @NotNull String password, @NotNull String cvu) {
+        Integer wallet_validate = setwallet();
+        this.validateUserParameters(name, lastName, email, address, password, cvu , wallet_validate);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.password = password;
         this.cvu = cvu;
-        this.wallet = wallet;
+        this.wallet = wallet_validate;
     }
 
 

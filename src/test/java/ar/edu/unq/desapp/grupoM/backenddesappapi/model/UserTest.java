@@ -42,11 +42,6 @@ public class UserTest {
         assertEquals(ricardo.getCvu(), cvu);
     }
 
-    @Test
-    public void UserWithWallet() {
-        User ricardo = UserBuilder.user().withWallet(12345678).build();
-        assertEquals(ricardo.getWallet(), 12345678);
-    }
 
     @Test
     public void UserWithPassword() {

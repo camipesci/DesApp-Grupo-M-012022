@@ -12,12 +12,11 @@ public class UserBuilder {
     private String address = "Av. Mitre 1030";
     private String password = "Ricardo123@";
     private String cvu = "1234567890987654321234";
-    private Integer wallet = 12345678;
 
     public static UserBuilder user(){ return new UserBuilder();}
 
     public User build() {
-        return new User(name, lastname, email, address, password, cvu, wallet);
+        return new User(name, lastname, email, address, password, cvu);
     }
 
     public UserBuilder withName(String aName){
@@ -49,12 +48,6 @@ public class UserBuilder {
         cvu = aCvu;
         return this;
     }
-
-    public UserBuilder withWallet(Integer aWallet){
-        wallet = aWallet;
-        return this;
-    }
-
 
 
 }
