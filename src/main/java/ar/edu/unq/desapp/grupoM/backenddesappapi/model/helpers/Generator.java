@@ -4,20 +4,21 @@ import java.util.Random;
 
 public class Generator {
     public  String generateCVU() {
-        return generateRandomNumber(22);
+        String chars = "0123456789";
+        Integer cvu_len = 22;
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(cvu_len);
+        for (int i = 0; i < cvu_len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
     }
 
     public Integer generateWallet() {
-        Integer wallet = Integer.parseInt(generateRandomNumber(8));
-        return wallet;
+        return getRandomNumber(10000000,99999999);
     }
 
-    public String generateRandomNumber(Integer len) {
-        String chars = "0123456789";
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        return sb.toString();
+    private Integer getRandomNumber(Integer min, Integer max) {
+        Integer random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        return random_int;
     }
 }
