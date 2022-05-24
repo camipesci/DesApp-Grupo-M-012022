@@ -35,13 +35,6 @@ public class UserTest {
         assertEquals(ricardo.getEmail(), "ricardoFort@gmail.com");
     }
 
-     @Test
-    public void UserWithCvu() {
-        String cvu = "1234567890987654321234";
-        User ricardo = UserBuilder.user().withCvu(cvu).build();
-        assertEquals(ricardo.getCvu(), cvu);
-    }
-
 
     @Test
     public void UserWithPassword() {
@@ -74,12 +67,6 @@ public class UserTest {
     @Test
     public void UserCannotHaveAnEmptyPassword(){
         assertThrows(InvalidPasswordException.class , ()->  UserBuilder.user().withPassword("").build() );
-    }
-
-    @Test
-    public void UserWithInvalidCvu(){
-        String cvu = "123";
-        assertThrows(InvalidCvuException.class , ()->  UserBuilder.user().withCvu(cvu).build() );
     }
 
     @Test

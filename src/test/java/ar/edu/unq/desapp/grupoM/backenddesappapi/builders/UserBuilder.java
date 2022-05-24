@@ -1,8 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
-
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 
-import java.math.BigInteger;
 
 public class UserBuilder {
 
@@ -11,12 +9,11 @@ public class UserBuilder {
     private String email = "ricardoFort@gmail.com";
     private String address = "Av. Mitre 1030";
     private String password = "Ricardo123@";
-    private String cvu = "1234567890987654321234";
 
     public static UserBuilder user(){ return new UserBuilder();}
 
     public User build() {
-        return new User(name, lastname, email, address, password, cvu);
+        return new User(name, lastname, email, address, password);
     }
 
     public UserBuilder withName(String aName){
@@ -41,11 +38,6 @@ public class UserBuilder {
 
     public UserBuilder withPassword(String aPassword){
         password = aPassword;
-        return this;
-    }
-
-    public UserBuilder withCvu(String aCvu){
-        cvu = aCvu;
         return this;
     }
 

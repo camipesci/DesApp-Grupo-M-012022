@@ -47,21 +47,30 @@ public class User  {
         return getRandomNumber(10000000,99999999);
     }
 
+    public String setcvu() {
+        Integer numeroAleatorio = getRandomNumber(10000000,99999999);
+        Integer numeroAleatorio2 = getRandomNumber(10000000,99999999);
+        Integer numeroAleatorio3 = getRandomNumber(100000,999999);
+
+        return numeroAleatorio.toString() + numeroAleatorio2.toString() + numeroAleatorio3.toString() ;
+    }
+
     private Integer getRandomNumber(Integer min, Integer max) {
         Integer random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
         return random_int;
     }
 
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
-                @NotNull String password, @NotNull String cvu) {
+                @NotNull String password) {
         Integer wallet_validate = setwallet();
-        this.validateUserParameters(name, lastName, email, address, password, cvu , wallet_validate);
+        String cvu_validate = setcvu();
+        this.validateUserParameters(name, lastName, email, address, password, cvu_validate , wallet_validate);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.password = password;
-        this.cvu = cvu;
+        this.cvu = cvu_validate;
         this.wallet = wallet_validate;
     }
 

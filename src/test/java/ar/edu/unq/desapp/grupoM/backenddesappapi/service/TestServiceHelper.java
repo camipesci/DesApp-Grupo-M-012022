@@ -39,8 +39,7 @@ public class TestServiceHelper {
     @BeforeEach
     void setup() {
         // create user
-        h2_user = userQueryService.createUser(user.name,user.lastName,user.email,user.address,user.password
-                                              ,user.cvu);
+        h2_user = userQueryService.createUser(user.name,user.lastName,user.email,user.address,user.password);
         // create transaction
         h2_transaction = transactionQueryService.createTransaction(transaction.getCryptoCurrency(),
                                                                    transaction.getCryptoAmount(),

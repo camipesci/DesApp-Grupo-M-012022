@@ -18,8 +18,6 @@ class UserControllerTest extends TestControllerHelper {
        assertEquals(created_user.lastName, create_user_data.lastName);
        assertEquals(created_user.email, create_user_data.email);
        assertEquals(created_user.address, create_user_data.address);
-       assertEquals(created_user.cvu, create_user_data.cvu);
-
 
     }
 
