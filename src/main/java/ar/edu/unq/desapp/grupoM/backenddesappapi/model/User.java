@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.helpers.Generator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,30 +45,34 @@ public class User  {
         this.id = id;
     }
 
+    public void generateWalletAndCVU(){
+        Generator random = new Generator();
+        this.cvu = random.generateCVU();
+        this.wallet = random.generateWallet();
+    }
+
     public User(@NotNull String name, @NotNull String lastName, @NotNull String email, @NotNull String address,
-                @NotNull String password, @NotNull String cvu, @NotNull Integer wallet) {
-        this.validateUserParameters(name, lastName, email, address, password, cvu, wallet);
+                @NotNull String password) {
+        this.generateWalletAndCVU();
+        this.validateUserParameters(name, lastName, email, address, password);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.password = password;
-        this.cvu = cvu;
-        this.wallet = wallet;
     }
 
 
     // Validations
 
-    public  void validateUserParameters(String name, String lastName, String email, String address,
-                                           String password, String cvu, Integer wallet){
+    public  void validateUserParameters(String name, String lastName, String email, String address, String password){
         if (!this.validNameOrLastName(name)) {  throw new InvalidNameException(name); }
         if (!this.validNameOrLastName(lastName)) {  throw new InvalidLastNameException(lastName); }
         if (!this.validEmail(email)) {  throw new InvalidEmailException(email); }
         if (!this.validAddress(address)) {  throw new InvalidAddressException(address); }
         if (!this.validPassword(password)) {  throw new InvalidPasswordException(password); }
-        if (!this.validCvu(cvu)) {  throw new InvalidCvuException(cvu); }
-        if (!this.validWallet(wallet)) {  throw new InvalidWalletException(wallet); }
+        if (!this.validCvu(this.cvu)) {  throw new InvalidCvuException(this.cvu); }
+        if (!this.validWallet(this.wallet)) {  throw new InvalidWalletException(this.wallet); }
     }
 
     public Boolean validNameOrLastName (String name){
@@ -88,7 +93,7 @@ public class User  {
         return address.length() > 10 && address.length() < 30;
     }
 
-    public Boolean validCvu ( String cvu){
+    public Boolean validCvu (String cvu){
         return cvu.length() == 22;
     }
 

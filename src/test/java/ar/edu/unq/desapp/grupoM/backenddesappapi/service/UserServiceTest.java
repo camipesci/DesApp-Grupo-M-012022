@@ -6,12 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserQueryServiceTest extends TestServiceHelper {
+class UserServiceTest extends TestServiceHelper {
 
     @Test
     void createUser() throws Exception {
         // adds a new user
-       User created_user = userQueryService.createUser(user.name,user.lastName,user.email,user.address,user.password,user.cvu, user.wallet);
+       User created_user = userQueryService.createUser(user.name,user.lastName,user.email,user.address,user.password);
 
         // check creation
         assertEquals(userQueryService.findUser(created_user.id).name, created_user.name);

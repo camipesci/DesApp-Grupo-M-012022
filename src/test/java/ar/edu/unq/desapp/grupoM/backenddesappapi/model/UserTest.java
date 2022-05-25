@@ -5,7 +5,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import java.math.BigInteger;
 
 @SpringBootTest
 public class UserTest {
@@ -35,18 +34,6 @@ public class UserTest {
         assertEquals(ricardo.getEmail(), "ricardoFort@gmail.com");
     }
 
-     @Test
-    public void UserWithCvu() {
-        String cvu = "1234567890987654321234";
-        User ricardo = UserBuilder.user().withCvu(cvu).build();
-        assertEquals(ricardo.getCvu(), cvu);
-    }
-
-    @Test
-    public void UserWithWallet() {
-        User ricardo = UserBuilder.user().withWallet(12345678).build();
-        assertEquals(ricardo.getWallet(), 12345678);
-    }
 
     @Test
     public void UserWithPassword() {
@@ -82,12 +69,6 @@ public class UserTest {
     }
 
     @Test
-    public void UserWithInvalidCvu(){
-        String cvu = "123";
-        assertThrows(InvalidCvuException.class , ()->  UserBuilder.user().withCvu(cvu).build() );
-    }
-
-    @Test
     public void UserWithAShortName(){
         assertThrows(InvalidNameException.class , ()->  UserBuilder.user().withName("a").build() );
     }
@@ -111,20 +92,5 @@ public class UserTest {
     public void UserWithInvalidPassword(){
         assertThrows(InvalidPasswordException.class , ()->  UserBuilder.user().withPassword("123").build() );
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
