@@ -3,13 +3,13 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.model.helpers;
 import java.util.Random;
 
 public class Generator {
+    private Random rnd = new Random();
     public  String generateCVU() {
         String chars = "0123456789";
         Integer cvu_len = 22;
-        Random rnd = new Random();
         StringBuilder sb = new StringBuilder(cvu_len);
         for (int i = 0; i < cvu_len; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+            sb.append(chars.charAt(this.rnd.nextInt(chars.length())));
         return sb.toString();
     }
 
