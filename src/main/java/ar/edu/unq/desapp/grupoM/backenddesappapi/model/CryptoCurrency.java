@@ -1,33 +1,35 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import java.time.LocalDate;
+import java.util.Date;
 
+@NoArgsConstructor
 public class CryptoCurrency {
 
     @NotNull
-    private String nameCrypto;
+    public String symbol;
     @NotNull
-    private Double price;
+    public Double price;
     @NotNull
-    private LocalDate price_date;
+    public Date price_date;
 
 
-    public CryptoCurrency(@NotNull String name, @NotNull Double price, @NotNull LocalDate price_date) {
-        this.nameCrypto = name;
+    public CryptoCurrency(@NotNull String symbol, @NotNull Double price, @NotNull Date price_date) {
+        this.symbol = symbol;
         this.price = price;
         this.price_date = price_date;
     }
 
     public String getName() {
-        return nameCrypto;
+        return symbol;
     }
 
     public Double getPrice() {
         return price;
     }
 
-    public LocalDate getPrice_date() {
+    public Date getPrice_date() {
         return price_date;
     }
 }
