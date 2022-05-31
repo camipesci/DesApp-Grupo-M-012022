@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -23,6 +24,7 @@ public class TestControllerHelper {
     @Autowired
     UserRepository userRepository;
 
+
     @Autowired
     UserController userController;
 
@@ -30,6 +32,7 @@ public class TestControllerHelper {
     void setup() {
         // create user
        controller_user = userController.createUser(create_user_data).getBody();
+
     }
 
 

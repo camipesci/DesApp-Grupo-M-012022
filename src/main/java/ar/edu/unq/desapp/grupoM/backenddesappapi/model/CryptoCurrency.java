@@ -1,13 +1,23 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.Enumeration;
 
+@Entity
+@Table(name = "cryptos")
+@Data
 @NoArgsConstructor
 public class CryptoCurrency {
 
+    @Id
+    @GeneratedValue
+    public Long id;
     @NotNull
     public String symbol;
     @NotNull
