@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
@@ -16,6 +17,7 @@ public class TestControllerHelper {
     public User create_user_data = userBuilder.build();
     public User update_user_data = userBuilder.withName("Another name").build();
     public UserDTO controller_user;
+    public CryptoDTO crypto;
 
     @Autowired
     UserService userService;
@@ -28,11 +30,14 @@ public class TestControllerHelper {
     @Autowired
     UserController userController;
 
+    @Autowired
+    BinanceController binanceController;
+
     @BeforeEach
     void setup() {
         // create user
        controller_user = userController.createUser(create_user_data).getBody();
-
+       crypto = binanceController.getCryptoPrice("ALICEUSDT").getBody();
     }
 
 
