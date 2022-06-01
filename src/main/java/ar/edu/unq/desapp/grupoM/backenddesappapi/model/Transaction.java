@@ -30,10 +30,15 @@ public class Transaction {
     @NotNull
     private Date date;
     @NotNull
-    private String transactionType;
+    private Transaction.TransactionType transactionType;
+
+    public enum TransactionType {
+        COMPRA,
+        VENTA
+    }
 
     public Transaction(@NotNull String cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
-            , @NotNull Double cryptoArsPrice, @NotNull Long userid,@NotNull Date date, @NotNull String transactionType) {
+            , @NotNull Double cryptoArsPrice, @NotNull Long userid,@NotNull Date date, @NotNull  Transaction.TransactionType transactionType) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
@@ -43,27 +48,8 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public String getCryptoCurrency() {
-        return cryptoCurrency;
-    }
-
-    public Double getCryptoAmount() {
-        return cryptoAmount;
-    }
-
-    public Double getCryptoPrice() {
-        return cryptoPrice;
-    }
-
-    public Double getCryptoArsPrice() {
-        return cryptoArsPrice;
-    }
-
-    public Long getUserId() {
-        return this.userid;
-    }
-
-    public String gettransactionType() {
-        return transactionType;
+    public void calculateCryptoArsPrice(){
+       // Double usdPrice =  USDPriceController.getUsdPrice();
+        //this.cryptoArsPrice = this.cryptoPrice * usdPrice;
     }
 }

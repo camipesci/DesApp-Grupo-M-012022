@@ -45,9 +45,9 @@ public class TestServiceHelper {
                                                                    transaction.getCryptoAmount(),
                                                                    transaction.getCryptoPrice(),
                                                                    transaction.getCryptoArsPrice(),
-                                                                   transaction.getUserId(),
+                                                                   transaction.getUserid(),
                                                                    transaction.getDate(),
-                                                                   transaction.gettransactionType());
+                                                                   transaction.getTransactionType());
     }
 
 

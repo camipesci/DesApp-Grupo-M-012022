@@ -27,7 +27,7 @@ public class TransactionQueryService {
     }
 
     public Transaction createTransaction(String cryptoCurrency, Double cryptoAmount, Double cryptoPrice,
-                                        Double cryptoArsPrice, Long userid, Date date, String transactionType){
+                                        Double cryptoArsPrice, Long userid, Date date,  Transaction.TransactionType transactionType){
 
         Transaction newTransaction = new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,
                                                      cryptoArsPrice, userid, date, transactionType);

@@ -15,7 +15,7 @@ public class TransactionBuilder  {
     private Double cryptoArsPrice = 200.20;
     private Long user = UserBuilder.user().build().id;
     private Date date = null;
-    private String transactionType = null;
+    private Transaction.TransactionType transactionType = null;
 
 
     public static TransactionBuilder transaction(){ return new TransactionBuilder();}
