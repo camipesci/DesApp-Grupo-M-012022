@@ -46,7 +46,7 @@ public class MockTransactionGenerateService {
                 .cryptoArsPrice (1000.0)
                 .userid (user1.id)
                 .date (new Date())
-                .transactionType ("COMPRA")
+                .transactionType (Transaction.TransactionType.VENTA)
                 .build();
         transactionrRepository.save(transaction1);
 
@@ -58,7 +58,7 @@ public class MockTransactionGenerateService {
                 .cryptoArsPrice (1000.0)
                 .userid (user1.id)
                 .date (new Date())
-                .transactionType ("VENTA")
+                .transactionType (Transaction.TransactionType.COMPRA)
                 .build();
         transactionrRepository.save(transaction2);
 

@@ -16,7 +16,7 @@ class TransactionQueryServiceTest extends TestServiceHelper {
 
     @Test
     void findTransaction() throws Exception {
-        assertEquals(transactionQueryService.findTransaction(h2_transaction.id).getUserId(), h2_transaction.getUserId());
+        assertEquals(transactionQueryService.findTransaction(h2_transaction.id).getUserid(), h2_transaction.getUserid());
         assertEquals(transactionQueryService.getTransactions().size(), 1);
     }
 }
