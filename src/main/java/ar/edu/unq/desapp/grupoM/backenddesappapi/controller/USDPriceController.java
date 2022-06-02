@@ -1,10 +1,9 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CurrencyService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,13 +59,17 @@ public class USDPriceController {
 
 
     @GetMapping("/api/usd_price")
-    public ResponseEntity<?> getUSDPrice() throws IOException {
+    public ResponseEntity<String> getUSDPrice() throws IOException {
         URL url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestProperty("Accept", "application/json");
         http.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2NjA0MDYsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYW1pbGEucGVzY2kuYUBnbWFpbC5jb20ifQ.F-5_ZVANljRvZ3qdfA9R-P2LH0PiuBJmOJOkmMJoPDiFeShlVK_FiQ0UDCOrRAthBKER2B0y98jGH_QibkUwQw");
+        String response = this.getResponseBody(http);
+        JSONArray array = new JSONArray(response);
+        JSONObject json = new JSONObject();
+        json.put("usd_prices", array.get(array.length() -1));
+        return ResponseEntity.ok().body(json.toString());
 
-        return ResponseEntity.ok().body(this.getResponseBody(http));
     }
 
     public static String getResponseBody(HttpURLConnection conn) {
