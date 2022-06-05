@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class User  {
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
     public String name;
 
@@ -36,6 +36,10 @@ public class User  {
     public String cvu;
 
     public Integer wallet;
+
+    public Integer operations;
+
+    public Integer score;
 
     public Long getId() {
         return id;
@@ -60,6 +64,8 @@ public class User  {
         this.email = email;
         this.address = address;
         this.password = password;
+        this.operations = 0;
+
     }
 
 
@@ -107,6 +113,15 @@ public class User  {
 
         Matcher mather = pattern.matcher(username);
         return mather.find();
+    }
+
+    public String reputation(){
+        if(this.score==0){
+            return "No operations";
+        }else{
+            Integer reputation = this.score / this.operations;
+            return reputation.toString();
+        }
     }
 
 }

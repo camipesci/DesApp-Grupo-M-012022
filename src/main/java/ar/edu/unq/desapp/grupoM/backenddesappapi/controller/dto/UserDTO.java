@@ -34,14 +34,14 @@ public class UserDTO {
     public Integer wallet;
 
     public static UserDTO from(User user) {
-        return new UserDTO(user.id, user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
+        return new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
     }
 
     public static List<UserDTO> from(List<User> users) {
         List<UserDTO> usersDTOList = new ArrayList<UserDTO>();
         for (User user : users)
         {
-            UserDTO newUserDto = new UserDTO(user.id, user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
+            UserDTO newUserDto = new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
             usersDTOList.add(newUserDto);
         }
         return usersDTOList;

@@ -16,35 +16,59 @@ import java.util.Date;
 public class Transaction {
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
     @NotNull
-    private String  cryptoCurrency;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private CryptoCurrency  cryptoCurrency;
     @NotNull
-    private Double cryptoAmount;
+    public Double cryptoAmount;
     @NotNull
-    private Double cryptoPrice;
+    public Double cryptoPrice;
     @NotNull
-    private Double cryptoArsPrice;
+    public Double cryptoArsPrice;
+    @JoinColumn(name="User")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull
-    private Long userid;
+    private User user;
     @NotNull
-    private Date date;
-    @NotNull
-    private Transaction.TransactionType transactionType;
+    public Transaction.TransactionType transactionType;
+
+    public User getUser() {
+        return user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public CryptoCurrency getCryptoCurrency() {
+        return cryptoCurrency;
+    }
+
+    public void setCryptoCurrency(CryptoCurrency cryptoCurrency) {
+        this.cryptoCurrency = cryptoCurrency;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public enum TransactionType {
         COMPRA,
         VENTA
     }
 
-    public Transaction(@NotNull String cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
-            , @NotNull Double cryptoArsPrice, @NotNull Long userid,@NotNull Date date, @NotNull  Transaction.TransactionType transactionType) {
+    public Transaction(@NotNull CryptoCurrency cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
+            , @NotNull Double cryptoArsPrice, @NotNull User user, @NotNull  Transaction.TransactionType transactionType) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
         this.cryptoArsPrice = cryptoArsPrice;
-        this.userid = userid;
-        this.date = date;
+        this.user = user;
         this.transactionType = transactionType;
     }
 
@@ -52,4 +76,6 @@ public class Transaction {
        // Double usdPrice =  USDPriceController.getUsdPrice();
         //this.cryptoArsPrice = this.cryptoPrice * usdPrice;
     }
+
+
 }

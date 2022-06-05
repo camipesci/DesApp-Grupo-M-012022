@@ -40,24 +40,22 @@ public class MockTransactionGenerateService {
         userRepository.save(user1);
         Transaction transaction1=  Transaction.builder()
                 .id (transactionIdGenerationService.newTransactionId())
-                .cryptoCurrency("USD")
+                .cryptoCurrency(null)
                 .cryptoAmount  (1.0)
                 .cryptoPrice (2.0)
                 .cryptoArsPrice (1000.0)
-                .userid (user1.id)
-                .date (new Date())
+                .user (user1)
                 .transactionType (Transaction.TransactionType.VENTA)
                 .build();
         transactionrRepository.save(transaction1);
 
         Transaction transaction2=  Transaction.builder()
                 .id (transactionIdGenerationService.newTransactionId())
-                .cryptoCurrency("USD")
+                .cryptoCurrency(null)
                 .cryptoAmount  (1.0)
                 .cryptoPrice (2.0)
                 .cryptoArsPrice (1000.0)
-                .userid (user1.id)
-                .date (new Date())
+                .user (user1)
                 .transactionType (Transaction.TransactionType.COMPRA)
                 .build();
         transactionrRepository.save(transaction2);

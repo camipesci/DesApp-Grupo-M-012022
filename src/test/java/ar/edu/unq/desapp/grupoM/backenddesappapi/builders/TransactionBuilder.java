@@ -1,30 +1,29 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 
-import java.util.Date;
-import java.util.Enumeration;
 
 public class TransactionBuilder  {
 
 
-    private String cryptoCurrency = "BNBUSDT";
-    private Double cryptoAmount = 0.01;
-    private Double cryptoPrice = 120.10;
-    private Double cryptoArsPrice = 200.20;
-    private Long user = UserBuilder.user().build().id;
-    private Date date = null;
-    private Transaction.TransactionType transactionType = null;
+    public CryptoCurrency cryptoCurrency = CryptoBuilder.crypto().build();
+    public Double cryptoAmount = 0.01;
+    public Double cryptoPrice = 120.10;
+    public Double cryptoArsPrice = 200.20;
+    public User user = UserBuilder.user().build();
+    public Transaction.TransactionType transactionType = Transaction.TransactionType.COMPRA;
+
 
 
     public static TransactionBuilder transaction(){ return new TransactionBuilder();}
 
     public Transaction build() {
-        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user,date,transactionType);
+        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user,transactionType);
     }
 
-    public TransactionBuilder withCryptoCurrency(String aCryptoCurrency){
+    public TransactionBuilder withCryptoCurrency(CryptoCurrency aCryptoCurrency){
         cryptoCurrency = aCryptoCurrency;
         return this;
     }
@@ -45,7 +44,7 @@ public class TransactionBuilder  {
     }
 
      public TransactionBuilder withUser(User aUser){
-        user = aUser.id;
+        user = aUser;
         return this;
     }
 

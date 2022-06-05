@@ -17,13 +17,21 @@ public class CryptoCurrency {
 
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
     @NotNull
     public String symbol;
     @NotNull
     public Double price;
     @NotNull
     public Date price_date;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public enum Cryptos {
             ALICEUSDT,

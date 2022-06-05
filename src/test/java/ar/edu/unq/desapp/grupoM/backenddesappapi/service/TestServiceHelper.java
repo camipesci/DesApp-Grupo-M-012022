@@ -31,7 +31,7 @@ public class TestServiceHelper {
     UserController userQueryController;
 
     @Autowired
-    TransactionQueryService transactionQueryService;
+    TransactionService transactionQueryService;
 
     @Autowired
     MockTransactionController mockTransactionController;
@@ -45,8 +45,7 @@ public class TestServiceHelper {
                                                                    transaction.getCryptoAmount(),
                                                                    transaction.getCryptoPrice(),
                                                                    transaction.getCryptoArsPrice(),
-                                                                   transaction.getUserid(),
-                                                                   transaction.getDate(),
+                                                                   transaction.getUser(),
                                                                    transaction.getTransactionType());
     }
 
