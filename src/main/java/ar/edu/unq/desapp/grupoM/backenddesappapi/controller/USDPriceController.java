@@ -56,19 +56,27 @@ public class USDPriceController {
         }
     }*/
 
+/*TransactionController.create_transaction(user_id, CriptoName)
+    // busca al usuario UserController
+    // Busca la cripto, con el precio CryptoController
+    // busca el valor del dolar UsdPriceController
 
-
+    Transaction.new(User.id, crypto.name, cryptoInsArs )
+*/
     @GetMapping("/api/usd_price")
     public ResponseEntity<String> getUSDPrice() throws IOException {
         URL url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestProperty("Accept", "application/json");
         http.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2NjA0MDYsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYW1pbGEucGVzY2kuYUBnbWFpbC5jb20ifQ.F-5_ZVANljRvZ3qdfA9R-P2LH0PiuBJmOJOkmMJoPDiFeShlVK_FiQ0UDCOrRAthBKER2B0y98jGH_QibkUwQw");
+
         String response = this.getResponseBody(http);
-        JSONArray array = new JSONArray(response);
-        JSONObject json = new JSONObject();
-        json.put("usd_prices", array.get(array.length() -1));
-        return ResponseEntity.ok().body(json.toString());
+        JSONArray usd_prices_array = new JSONArray(response);
+        JSONObject today_usd_price = new JSONObject();
+        JSONObject usd_price = (JSONObject) usd_prices_array.get(usd_prices_array.length() -1);
+        Double price_value = usd_price.getDouble("v");
+        today_usd_price.put("today_usd_price",  usd_prices_array.get(usd_prices_array.length() -1));
+        return ResponseEntity.ok().body(price_value.toString());
 
     }
 
