@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceController;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.IOException;
 import java.util.Date;
 
 @Entity
@@ -25,6 +27,7 @@ public class CryptoCurrency {
     @NotNull
     public Date price_date;
 
+
     public Long getId() {
         return id;
     }
@@ -33,8 +36,10 @@ public class CryptoCurrency {
         this.id = id;
     }
 
-    public Double getArsPrice() {
-        return 0.0;
+    public Double getArsPrice() throws IOException {
+        USDPriceController usdPriceController = new USDPriceController();
+        Double usd_price = usdPriceController.getUSDPriceDouble();
+        return usd_price * price;
     }
 
     public enum Cryptos {

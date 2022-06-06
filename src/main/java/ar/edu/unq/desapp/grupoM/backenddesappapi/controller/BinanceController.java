@@ -68,6 +68,7 @@ public class BinanceController {
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
+    // This is the exception raised by binance when passing an invalid crypto name
     public ResponseEntity handleException(HttpClientErrorException e) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)

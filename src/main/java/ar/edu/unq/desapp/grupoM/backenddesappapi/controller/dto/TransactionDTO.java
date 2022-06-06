@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TransactionDTO {
     @JsonProperty
-    public CryptoCurrency  cryptoCurrency;
+    public CryptoDTO  cryptoCurrency;
     @JsonProperty
     public Double cryptoAmount;
     @JsonProperty
@@ -29,13 +29,13 @@ public class TransactionDTO {
     @JsonProperty
     public Double cryptoArsPrice;
     @JsonProperty
-    public User user;
+    public UserDTO user;
     @JsonProperty
     public Transaction.TransactionType transactionType;
 
     public static TransactionDTO from(Transaction transaction) {
-        return new TransactionDTO(transaction.getCryptoCurrency(),transaction.cryptoAmount, transaction.cryptoPrice,
-                                  transaction.cryptoArsPrice, transaction.getUser(),
+        return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
+                                  transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
                                   transaction.transactionType);
     }
 /*
@@ -49,9 +49,8 @@ public class TransactionDTO {
         return transactionsDTOList;
     }
 */
-    public TransactionDTO( CryptoCurrency cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice
-            ,  Double cryptoArsPrice,  User user, Transaction.TransactionType transactionType) {
-
+    public TransactionDTO( CryptoDTO cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice,  Double cryptoArsPrice,
+                           UserDTO user, Transaction.TransactionType transactionType) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;

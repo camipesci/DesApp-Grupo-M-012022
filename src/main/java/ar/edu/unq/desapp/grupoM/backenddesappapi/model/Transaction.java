@@ -27,13 +27,17 @@ public class Transaction {
     @NotNull
     public Double cryptoArsPrice;
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     @NotNull
     private User user;
     @NotNull
     public Transaction.TransactionType transactionType;
 
     public User getUser() {
+        return user;
+    }
+
+    public User getUserId() {
         return user;
     }
 
@@ -71,11 +75,5 @@ public class Transaction {
         this.user = user;
         this.transactionType = transactionType;
     }
-
-    public void calculateCryptoArsPrice(){
-       // Double usdPrice =  USDPriceController.getUsdPrice();
-        //this.cryptoArsPrice = this.cryptoPrice * usdPrice;
-    }
-
 
 }
