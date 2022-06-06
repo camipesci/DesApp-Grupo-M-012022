@@ -33,6 +33,10 @@ public class CryptoCurrency {
         this.id = id;
     }
 
+    public Double getArsPrice() {
+        return 0.0;
+    }
+
     public enum Cryptos {
             ALICEUSDT,
             MATICUSDT,

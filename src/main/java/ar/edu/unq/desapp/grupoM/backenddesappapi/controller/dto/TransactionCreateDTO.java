@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 public class TransactionCreateDTO {
 
     public String cryptoSymbol;
-    public Float amountOfCrypto;
+    public Double amountOfCrypto;
     public String transactionType;
     public Long userId;
 
-    public TransactionCreateDTO(String cryptoSymbol, Float amountOfCrypto, String transactionType, Long userId) {
+    public TransactionCreateDTO(String cryptoSymbol, Double amountOfCrypto, String transactionType, Long userId) {
         this.cryptoSymbol = cryptoSymbol;
         this.amountOfCrypto = amountOfCrypto;
         this.transactionType = transactionType;

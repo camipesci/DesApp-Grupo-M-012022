@@ -14,14 +14,14 @@ import java.util.List;
 public class TransactionService {
 
     @Autowired
-    private TransactionRepository transactionrRepository;
+    private TransactionRepository transactionRepository;
 
     public List<Transaction> getTransactions() {
-        return (List<Transaction>) transactionrRepository.findAll();
+        return (List<Transaction>) transactionRepository.findAll();
     }
 
     public Transaction findTransaction(Long id) throws Exception {
-        return transactionrRepository.findById(id).orElseThrow(() -> new Exception("Transaction not found"));
+        return transactionRepository.findById(id).orElseThrow(() -> new Exception("Transaction not found"));
     }
 
     public Transaction createTransaction(CryptoCurrency cryptoCurrency, Double cryptoAmount, Double cryptoPrice,
@@ -30,7 +30,7 @@ public class TransactionService {
         Transaction newTransaction = new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,
                                                      cryptoArsPrice, user, transactionType);
 
-        return transactionrRepository.save(newTransaction);
+        return transactionRepository.save(newTransaction);
     }
 }
 
