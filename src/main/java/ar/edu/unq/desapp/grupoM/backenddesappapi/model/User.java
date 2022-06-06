@@ -20,8 +20,9 @@ import java.util.regex.Pattern;
 @Builder
 public class User  {
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long user_id;
 
     public String name;
 
@@ -42,11 +43,11 @@ public class User  {
     public Integer score;
 
     public Long getId() {
-        return id;
+        return user_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long user_id) {
+        this.user_id = user_id;
     }
 
     public void generateWalletAndCVU(){
@@ -65,6 +66,7 @@ public class User  {
         this.address = address;
         this.password = password;
         this.operations = 0;
+        this.score = 0;
 
     }
 

@@ -26,8 +26,8 @@ public class Transaction {
     public Double cryptoPrice;
     @NotNull
     public Double cryptoArsPrice;
-    @JoinColumn(name="User")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @NotNull
     private User user;
     @NotNull

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,21 +34,29 @@ public class UserDTO {
     @JsonProperty
     public Integer wallet;
 
+    @JsonProperty
+    public Integer score;
+
+    @JsonProperty
+    public Integer operations;
+
     public static UserDTO from(User user) {
-        return new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
+        return new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet,
+                            user.score, user.operations);
     }
 
     public static List<UserDTO> from(List<User> users) {
         List<UserDTO> usersDTOList = new ArrayList<UserDTO>();
         for (User user : users)
         {
-            UserDTO newUserDto = new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet);
+            UserDTO newUserDto = new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet, user.score, user.operations);
             usersDTOList.add(newUserDto);
         }
         return usersDTOList;
     }
 
-    public UserDTO(Long id, String name, String lastName, String email, String address, String cvu, Integer wallet) {
+    public UserDTO(Long id, String name, String lastName, String email, String address, String cvu, Integer wallet,
+                   Integer score, Integer operations) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -55,5 +64,7 @@ public class UserDTO {
         this.address = address;
         this.cvu = cvu;
         this.wallet = wallet;
+        this.score = score;
+        this.operations = operations;
     }
 }

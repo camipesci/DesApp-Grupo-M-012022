@@ -2,19 +2,17 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionrRepository;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionIdGenerationService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserIdGenerationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class MockTransactionGenerateService {
     @Autowired
-    private TransactionrRepository transactionrRepository ;
+    private TransactionRepository transactionrRepository ;
 
     @Autowired
     private TransactionIdGenerationService transactionIdGenerationService;
@@ -28,7 +26,7 @@ public class MockTransactionGenerateService {
 
     public void generateTransaction() {
         User user1=  User.builder()
-                .id(userIdGenerationService.newUserId())
+                .user_id(userIdGenerationService.newUserId())
                 .name("Ricardo")
                 .lastName("Fort")
                 .address("Av. La plata 123")

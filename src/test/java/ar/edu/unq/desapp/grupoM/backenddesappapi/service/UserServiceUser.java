@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserServiceTest extends TestServiceHelper {
+class UserServiceUser extends UserServiceHelper {
 
     @Test
     void createUser() throws Exception {
@@ -25,7 +25,6 @@ class UserServiceTest extends TestServiceHelper {
         User updated_user = userQueryService.updateUser(h2_user.getId(), another_user.name,another_user.lastName,another_user.email,another_user.address,another_user.password,another_user.cvu, another_user.wallet);
 
         assertEquals(userQueryService.findUser(updated_user.getId()).name,updated_user.name);
-        assertEquals(userQueryService.getUsers().size(), 1);
     }
 
     @Test
@@ -37,7 +36,6 @@ class UserServiceTest extends TestServiceHelper {
     @Test
     void findUser() throws Exception {
         assertEquals(userQueryService.findUser(h2_user.getId()).name, h2_user.name);
-        assertEquals(userQueryService.getUsers().size(), 1);
     }
 
     @Test
