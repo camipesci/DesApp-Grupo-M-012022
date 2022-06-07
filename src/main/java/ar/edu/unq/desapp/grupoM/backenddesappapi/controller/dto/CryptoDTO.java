@@ -24,7 +24,7 @@ public class CryptoDTO {
     public String price_date;
 
     public static CryptoDTO from(CryptoCurrency crypto) {
-        return new CryptoDTO(crypto.symbol, crypto.price, crypto.price_date);
+        return new CryptoDTO(crypto.getSymbol(), crypto.getPrice(), crypto.getPrice_date());
     }
 
     public static List<CryptoDTO> from(List<CryptoCurrency> cryptos) {

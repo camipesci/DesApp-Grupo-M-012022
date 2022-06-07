@@ -41,8 +41,8 @@ public class UserDTO {
     public Integer operations;
 
     public static UserDTO from(User user) {
-        return new UserDTO(user.getId(), user.name, user.lastName, user.email, user.address, user.cvu, user.wallet,
-                            user.score, user.operations);
+        return new UserDTO(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getAddress(), user.getCvu(), user.getWallet(),
+                            user.getScore(), user.getOperations());
     }
 
     public static List<UserDTO> from(List<User> users) {

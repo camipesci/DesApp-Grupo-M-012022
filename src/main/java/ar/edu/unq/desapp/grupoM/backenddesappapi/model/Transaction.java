@@ -32,6 +32,8 @@ public class Transaction {
     private User user;
     @NotNull
     public Transaction.TransactionType transactionType;
+    @NotNull
+    public Date date;
 
     public User getUser() {
         return user;
@@ -62,8 +64,8 @@ public class Transaction {
     }
 
     public enum TransactionType {
-        COMPRA,
-        VENTA
+        PURCHASE,
+        SALE
     }
 
     public Transaction(@NotNull CryptoCurrency cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
@@ -74,6 +76,7 @@ public class Transaction {
         this.cryptoArsPrice = cryptoArsPrice;
         this.user = user;
         this.transactionType = transactionType;
+        this.date = new Date();
     }
 
 }

@@ -13,7 +13,7 @@ public class TransactionBuilder  {
     public Double cryptoPrice = 120.10;
     public Double cryptoArsPrice = 200.20;
     public User user = UserBuilder.user().build();
-    public Transaction.TransactionType transactionType = Transaction.TransactionType.COMPRA;
+    public Transaction.TransactionType transactionType = Transaction.TransactionType.PURCHASE;
 
 
 

@@ -40,6 +40,8 @@ public class User  {
 
     public Integer operations;
 
+    public Integer successful_operations;
+
     public Integer score;
 
     public Long getId() {
