@@ -56,7 +56,6 @@ public class TransactionDTO {
 
     public TransactionDTO( CryptoDTO cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice,  Double cryptoArsPrice,
                            UserDTO user, Transaction.Type type, Transaction.Status status) {
-
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;

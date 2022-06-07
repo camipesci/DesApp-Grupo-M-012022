@@ -38,17 +38,23 @@ public class TransactionController {
     public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionCreateDTO transactionCreateDTO) throws IOException {
         CryptoCurrency crypto = currencyService.findBySymbolIs(transactionCreateDTO.cryptoSymbol).get(0);
         User user = userService.findUser(transactionCreateDTO.userId);
+        Transaction transaction = null;
 
-
-        Transaction transaction = transactionService.createTransaction(crypto,
-                transactionCreateDTO.amountOfCrypto, crypto.price, crypto.getArsPrice(),
-                user, getTransactionType(transactionCreateDTO.transactionType));
-       // TODO: transaction.state = PENDING;
-        // TODO:precio_postman: 2.1  precio sistema: 2.0
-        // TODO: if cryptoHasMarginValuePrice(transactionCreateDTO.cryptoPrice, crypto.price)
-
-                 // TODO: else transaction.cancel
+        if(cryptoHasMarginValuePrice(transactionCreateDTO.cryptoPrice, crypto.price)){
+            transaction = createTransaction(transactionCreateDTO, user, crypto);
+        }else {
+            transaction = createTransaction(transactionCreateDTO, user, crypto);
+            transactionService.updateTransaction(transaction, Transaction.Status.CANCELED);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(TransactionDTO.from(transaction));
+    }
+
+    public Boolean cryptoHasMarginValuePrice(Double user_price, Double crypto_price){
+        Double result = 0.0;
+        result = 100 * ((user_price - crypto_price) / crypto_price);
+        Double positive_result = Math.abs(result);
+
+        return positive_result < 5;
     }
 
     @GetMapping("/api/transactions")
@@ -62,6 +68,16 @@ public class TransactionController {
         Transaction transaction = transactionService.findTransaction(transaction_id);
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
     }
+
+    @GetMapping("/api/transactions/process/{transaction_id}/user/{user_id}")
+    public ResponseEntity<TransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long user_id) throws Exception {
+        Transaction transaction = transactionService.findTransaction(transaction_id);
+        User user = userService.findUser(user_id);
+        transactionService.processTransaction(transaction, user);
+        return ResponseEntity.ok().body(TransactionDTO.from(transaction));
+    }
+
+    // Auxiliar methods
 
     public Transaction.Type getTransactionType(String type){
         Transaction.Type transactionType = null;
@@ -90,5 +106,12 @@ public class TransactionController {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("User not found");
+    }
+
+    public Transaction createTransaction(TransactionCreateDTO transactionCreateDTO, User user, CryptoCurrency crypto) throws IOException {
+        Transaction transaction = transactionService.createTransaction(crypto,
+                transactionCreateDTO.amountOfCrypto, crypto.price, crypto.getArsPrice(),
+                user, getTransactionType(transactionCreateDTO.transactionType));
+        return transaction;
     }
 }

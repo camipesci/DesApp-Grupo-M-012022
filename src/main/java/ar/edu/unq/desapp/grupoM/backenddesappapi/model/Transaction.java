@@ -3,7 +3,13 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import lombok.Builder;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 
 
@@ -35,7 +41,7 @@ public class Transaction {
     @NotNull
     public Transaction.Status status;
     @NotNull
-    public Date date;
+    public LocalDateTime date;
 
     public User getUser() {
         return user;
@@ -84,8 +90,7 @@ public class Transaction {
         this.cryptoArsPrice = cryptoArsPrice;
         this.user = user;
         this.type = type;
-        this.date = new Date();
+        this.date = LocalDateTime.now();
         this.status = Status.PENDING;
     }
-
 }
