@@ -17,7 +17,7 @@ public class MockUserGenerateService {
 
     public MockUserGenerateService generateUsers() {
         User user1=  User.builder()
-                .id(userIdGenerationService.newUserId())
+                .user_id(userIdGenerationService.newUserId())
                 .name("Ricardo")
                 .lastName("Fort")
                 .address("Av. La plata 123")
@@ -29,7 +29,7 @@ public class MockUserGenerateService {
         userRepository.save(user1);
 
         User user2=  User.builder()
-                .id(userIdGenerationService.newUserId())
+                .user_id(userIdGenerationService.newUserId())
                 .name("Martita")
                 .lastName("Fort")
                 .address("Av. La plata 321")

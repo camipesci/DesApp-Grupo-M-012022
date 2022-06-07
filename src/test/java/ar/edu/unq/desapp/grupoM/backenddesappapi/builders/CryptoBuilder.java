@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
-import java.time.LocalDate;
+import java.util.Date;
 
 
 public class CryptoBuilder {
@@ -9,7 +9,7 @@ public class CryptoBuilder {
 
     private String nameCrypto = "BNBUSDT";
     private Double price = 120.10;
-    private LocalDate price_date = LocalDate.now();
+    private Date price_date = new Date();
 
 
     public static CryptoBuilder crypto(){ return new CryptoBuilder();}
@@ -28,7 +28,7 @@ public class CryptoBuilder {
         return this;
     }
 
-    public CryptoBuilder withPrice_date(LocalDate aPrice_date){
+    public CryptoBuilder withPrice_date(Date aPrice_date){
         price_date = aPrice_date;
         return this;
     }

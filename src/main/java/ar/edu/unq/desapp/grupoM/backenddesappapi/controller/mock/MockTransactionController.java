@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.mock;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockTransactionGenerateService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionQueryService;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ public class MockTransactionController {
 
     private final MockTransactionGenerateService dummyTransactionGenerateService;
     @Autowired
-    private TransactionQueryService transactionQueryService;
+    private TransactionService transactionQueryService;
 
     public MockTransactionController(MockTransactionGenerateService dummyTransactionGenerateService) {
         this.dummyTransactionGenerateService = dummyTransactionGenerateService;
