@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +37,10 @@ public class TransactionDTO {
     public Transaction.TransactionType transactionType;
     @JsonProperty
     public String date;
+    @JsonProperty
+    public Integer wallet;
+    @JsonProperty
+    public String cvu;
 
     public static TransactionDTO from(Transaction transaction) {
         return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
@@ -57,12 +62,7 @@ public class TransactionDTO {
 
     public TransactionDTO( CryptoDTO cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice,  Double cryptoArsPrice,
                            UserDTO user, Transaction.TransactionType transactionType) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date raw_date = new Date();
-        String formatted_date = formatter.format(raw_date);
-        // TODO: wallet = user.wallet if tipo purchase else null
-        // TODO: cvu = user.wallet if tipo sale else null
-        // TODO:  if transactionType compra =
+
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
@@ -70,9 +70,26 @@ public class TransactionDTO {
         this.transactionPrice =  cryptoArsPrice * cryptoAmount;
         this.user = user;
         this.transactionType = transactionType;
-        this.date = formatted_date;
-        // TODO: this.wallet;
-        // TODO: this.cvu;
+        this.date = formatted_date();
+        this.wallet = user_wallet(user.getWallet(), transactionType);
+        this.cvu = user_cvu(user.getCvu(), transactionType);
 
     }
-}
+
+    public String formatted_date(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date raw_date = new Date();
+        String formatted_date = formatter.format(raw_date);
+        return formatted_date;
+    }
+
+    public String user_cvu(String user_cvu, Transaction.TransactionType type){
+        if(type == Transaction.TransactionType.SALE){ return user_cvu;}
+        else { return null; }
+    }
+
+    public Integer user_wallet(Integer user_wallet, Transaction.TransactionType type){
+        if(type == Transaction.TransactionType.PURCHASE){ return user_wallet;}
+        else { return null; }
+    }
+    }
