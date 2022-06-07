@@ -1,18 +1,10 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +26,9 @@ public class TransactionDTO {
     @JsonProperty
     public UserDTO user;
     @JsonProperty
-    public Transaction.TransactionType transactionType;
+    public Transaction.Type type;
+    @JsonProperty
+    public Transaction.Status status;
     @JsonProperty
     public String date;
     @JsonProperty
@@ -45,7 +39,7 @@ public class TransactionDTO {
     public static TransactionDTO from(Transaction transaction) {
         return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                                  transaction.transactionType);
+                                  transaction.type, transaction.status);
     }
 
     public static List<TransactionDTO> from(List<Transaction> transactions) {
@@ -54,14 +48,14 @@ public class TransactionDTO {
         {
             TransactionDTO transactionDTO = new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                     transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                    transaction.transactionType);
+                    transaction.type, transaction.status);
             transactionsDTOList.add(transactionDTO);
         }
         return transactionsDTOList;
     }
 
     public TransactionDTO( CryptoDTO cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice,  Double cryptoArsPrice,
-                           UserDTO user, Transaction.TransactionType transactionType) {
+                           UserDTO user, Transaction.Type type, Transaction.Status status) {
 
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
@@ -69,10 +63,11 @@ public class TransactionDTO {
         this.cryptoArsPrice = cryptoArsPrice;
         this.transactionPrice =  cryptoArsPrice * cryptoAmount;
         this.user = user;
-        this.transactionType = transactionType;
+        this.type = type;
         this.date = formatted_date();
-        this.wallet = user_wallet(user.getWallet(), transactionType);
-        this.cvu = user_cvu(user.getCvu(), transactionType);
+        this.wallet = user_wallet(user.getWallet(), type);
+        this.cvu = user_cvu(user.getCvu(), type);
+        this.status = status;
 
     }
 
@@ -83,13 +78,13 @@ public class TransactionDTO {
         return formatted_date;
     }
 
-    public String user_cvu(String user_cvu, Transaction.TransactionType type){
-        if(type == Transaction.TransactionType.SALE){ return user_cvu;}
+    public String user_cvu(String user_cvu, Transaction.Type type){
+        if(type == Transaction.Type.SALE){ return user_cvu;}
         else { return null; }
     }
 
-    public Integer user_wallet(Integer user_wallet, Transaction.TransactionType type){
-        if(type == Transaction.TransactionType.PURCHASE){ return user_wallet;}
+    public Integer user_wallet(Integer user_wallet, Transaction.Type type){
+        if(type == Transaction.Type.PURCHASE){ return user_wallet;}
         else { return null; }
     }
     }

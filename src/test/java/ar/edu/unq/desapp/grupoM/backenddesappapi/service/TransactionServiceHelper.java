@@ -8,8 +8,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionService;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +49,7 @@ public class TransactionServiceHelper {
                                                                    transaction.getCryptoPrice(),
                                                                    transaction.getCryptoArsPrice(),
                                                                    transaction.getUser(),
-                                                                   transaction.getTransactionType());
+                                                                   transaction.getType());
     }
 
 

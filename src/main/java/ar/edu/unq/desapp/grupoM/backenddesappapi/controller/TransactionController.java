@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionDTO;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -64,14 +63,14 @@ public class TransactionController {
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
     }
 
-    public Transaction.TransactionType getTransactionType(String type){
-        Transaction.TransactionType transactionType = null;
+    public Transaction.Type getTransactionType(String type){
+        Transaction.Type transactionType = null;
         switch (type.toLowerCase()){
             case "purchase":
-                transactionType = Transaction.TransactionType.PURCHASE;
+                transactionType = Transaction.Type.PURCHASE;
                 break;
             case "sale":
-                transactionType = Transaction.TransactionType.SALE;
+                transactionType = Transaction.Type.SALE;
                 break;
         }
 

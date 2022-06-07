@@ -31,7 +31,9 @@ public class Transaction {
     @NotNull
     private User user;
     @NotNull
-    public Transaction.TransactionType transactionType;
+    public Transaction.Type type;
+    @NotNull
+    public Transaction.Status status;
     @NotNull
     public Date date;
 
@@ -63,20 +65,27 @@ public class Transaction {
         this.user = user;
     }
 
-    public enum TransactionType {
+    public enum Type {
         PURCHASE,
         SALE
     }
 
+    public enum Status {
+        PENDING,
+        CONFIRMED,
+        CANCELED
+    }
+
     public Transaction(@NotNull CryptoCurrency cryptoCurrency, @NotNull Double cryptoAmount, @NotNull Double cryptoPrice
-            , @NotNull Double cryptoArsPrice, @NotNull User user, @NotNull  Transaction.TransactionType transactionType) {
+            , @NotNull Double cryptoArsPrice, @NotNull User user, @NotNull Transaction.Type type) {
         this.cryptoCurrency = cryptoCurrency;
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
         this.cryptoArsPrice = cryptoArsPrice;
         this.user = user;
-        this.transactionType = transactionType;
+        this.type = type;
         this.date = new Date();
+        this.status = Status.PENDING;
     }
 
 }

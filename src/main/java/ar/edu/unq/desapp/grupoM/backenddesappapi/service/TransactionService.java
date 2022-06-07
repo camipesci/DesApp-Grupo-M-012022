@@ -25,10 +25,10 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(CryptoCurrency cryptoCurrency, Double cryptoAmount, Double cryptoPrice,
-                                         Double cryptoArsPrice, User user, Transaction.TransactionType transactionType){
+                                         Double cryptoArsPrice, User user, Transaction.Type type){
 
         Transaction newTransaction = new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,
-                                                     cryptoArsPrice, user, transactionType);
+                                                     cryptoArsPrice, user, type);
 
         return transactionRepository.save(newTransaction);
     }
