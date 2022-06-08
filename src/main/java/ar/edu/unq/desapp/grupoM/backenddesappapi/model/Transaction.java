@@ -36,6 +36,8 @@ public class Transaction {
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User interestedUser;
     @NotNull
     public Transaction.Type type;
     @NotNull

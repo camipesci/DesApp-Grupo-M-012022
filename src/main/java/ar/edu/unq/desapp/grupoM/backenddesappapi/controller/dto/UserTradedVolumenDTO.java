@@ -1,50 +1,47 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class CryptoDTO {
+public class UserTradedVolumenDTO {
     @JsonProperty
-    public String symbol;
+    public LocalDateTime date;
 
     @JsonProperty
-    public Double price;
+    public UserDTO user;
 
     @JsonProperty
-    public String price_date;
+    public List<CryptoDTO> cryptos;
 
-    public static CryptoDTO from(CryptoCurrency crypto) {
-        return new CryptoDTO(crypto.getSymbol(), crypto.getPrice(), crypto.getPrice_date());
+    @JsonProperty
+    public Double totalUSDVolumen;
+
+    @JsonProperty
+    public Double totalARSVolumen;
+
+
+
+
+    public UserTradedVolumenDTO from(UserDTO user, LocalDateTime date, List<CryptoDTO> cryptos, Double totalUSDVolumen, Double totalARSVolumen ) {
+        return new UserTradedVolumenDTO(user, date, cryptos, totalUSDVolumen, totalARSVolumen);
     }
 
-    public static List<CryptoDTO> from(List<CryptoCurrency> cryptos) {
-        List<CryptoDTO> cryptosDTOList = new ArrayList<CryptoDTO>();
-        for (CryptoCurrency crypto : cryptos)
-        {
-            CryptoDTO newUserDto = new CryptoDTO(crypto.symbol, crypto.price, crypto.price_date);
-            cryptosDTOList.add(newUserDto);
-        }
-        return cryptosDTOList;
-    }
 
-    public CryptoDTO(String symbol, Double price, Date price_date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date raw_date = new Date();
-        String formatted_date = formatter.format(raw_date);
-        this.symbol = symbol;
-        this.price = price;
-        this.price_date = formatted_date;
-
-
+    public UserTradedVolumenDTO(UserDTO user, LocalDateTime date, List<CryptoDTO> cryptos, Double totalUSDVolumen, Double totalARSVolumen) {
+        this.user = user;
+        this.date = date;
+        this.cryptos = cryptos;
+        this.totalUSDVolumen = totalUSDVolumen;
+        this.totalARSVolumen = totalARSVolumen;
     }
 }

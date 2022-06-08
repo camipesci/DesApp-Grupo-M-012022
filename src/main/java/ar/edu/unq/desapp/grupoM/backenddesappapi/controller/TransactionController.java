@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionCreateDTO;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -44,7 +43,7 @@ public class TransactionController {
             transaction = createTransaction(transactionCreateDTO, user, crypto);
         }else {
             transaction = createTransaction(transactionCreateDTO, user, crypto);
-            transactionService.updateTransaction(transaction, Transaction.Status.CANCELED);
+            transactionService.updateTransactionStatus(transaction, Transaction.Status.CANCELED);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(TransactionDTO.from(transaction));
     }
@@ -69,12 +68,28 @@ public class TransactionController {
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
     }
 
-    @GetMapping("/api/transactions/process/{transaction_id}/user/{user_id}")
-    public ResponseEntity<TransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long user_id) throws Exception {
-        Transaction transaction = transactionService.findTransaction(transaction_id);
+    @GetMapping("/api/transactions/users/{user_id}")
+    public ResponseEntity<TransactionDTO> getTransactionByUser(@PathVariable Long user_id) throws Exception {
         User user = userService.findUser(user_id);
-        transactionService.processTransaction(transaction, user);
+        Transaction transaction = transactionService.findTransactionByUser(user);
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
+    }
+
+    @GetMapping("/api/transactions/process/{transaction_id}/user/{user_id}")
+    public ResponseEntity<ProcessedTransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long user_id) throws Exception {
+        Transaction transaction = transactionService.findTransaction(transaction_id);
+        User interested_user = userService.findUser(user_id);
+        transactionService.processTransaction(transaction, interested_user);
+        // i bring the user again with the transaction and operations values updated
+        interested_user = userService.findUser(user_id);
+        UserDTO interested_user_dto = UserDTO.from(interested_user);
+        return ResponseEntity.ok().body(ProcessedTransactionDTO.from(transaction,interested_user_dto ));
+    }
+
+    @PostMapping("/api/transactions/users/{user_id}/traded_volumes")
+    public ResponseEntity<UserTradedVolumenDTO> getTradedVolume(@PathVariable Long user_id, @RequestBody DatesDTO dates){
+        UserTradedVolumenDTO userTradedVolumeDTOS = transactionService.getTradedVolumes(dates, user_id);
+        return ResponseEntity.ok().body(transactionService.getTradedVolumes(dates,user_id));
     }
 
     // Auxiliar methods
