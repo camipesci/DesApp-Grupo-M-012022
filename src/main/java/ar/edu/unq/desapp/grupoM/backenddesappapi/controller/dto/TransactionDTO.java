@@ -24,17 +24,13 @@ public class TransactionDTO {
     @JsonProperty
     public Double transactionPrice;
     @JsonProperty
-    public UserDTO user;
+    public String user;
     @JsonProperty
     public Transaction.Type type;
     @JsonProperty
     public Transaction.Status status;
     @JsonProperty
     public String date;
-    @JsonProperty
-    public Integer wallet;
-    @JsonProperty
-    public String cvu;
 
     public static TransactionDTO from(Transaction transaction) {
         return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
@@ -61,11 +57,9 @@ public class TransactionDTO {
         this.cryptoPrice = cryptoPrice;
         this.cryptoArsPrice = cryptoArsPrice;
         this.transactionPrice =  cryptoArsPrice * cryptoAmount;
-        this.user = user;
+        this.user = user.getName();
         this.type = type;
         this.date = formatted_date();
-        this.wallet = user_wallet(user.getWallet(), type);
-        this.cvu = user_cvu(user.getCvu(), type);
         this.status = status;
 
     }
@@ -77,13 +71,5 @@ public class TransactionDTO {
         return formatted_date;
     }
 
-    public String user_cvu(String user_cvu, Transaction.Type type){
-        if(type == Transaction.Type.SALE){ return user_cvu;}
-        else { return null; }
-    }
 
-    public Integer user_wallet(Integer user_wallet, Transaction.Type type){
-        if(type == Transaction.Type.PURCHASE){ return user_wallet;}
-        else { return null; }
-    }
     }
