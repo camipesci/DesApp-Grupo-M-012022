@@ -94,6 +94,7 @@ public class TransactionService {
         LocalDateTime to = LocalDateTime.parse(dates.getTo(), formatter);
 
         List<Transaction> confirmed_transactions = this.transactionRepository.findTransactionsByUserOrInterestedUserAndStatusAndDateIsBetween(user, user, Transaction.Status.CONFIRMED, from, to);
+        // TODO: ESTO DEBERIA DEVOLVER UNA LISTA DE ACTIVESDTO CON LOS DATOS DE (NOMBRE DE CRIPTO, NUMEROS DE CRIPTOS COMPRADAS DE LA TRNSACCION, CRYPTO PRICE Y CRYPTO ARS PRICE)
         List<CryptoCurrency> list_of_cryptos = this.listOfCryptosFromTransactions(confirmed_transactions);
 
         return new UserTradedVolumenDTO(UserDTO.from(user), LocalDateTime.now(),CryptoDTO.from(list_of_cryptos), totalUSDVolumen(confirmed_transactions), totalARSVolumen(confirmed_transactions));

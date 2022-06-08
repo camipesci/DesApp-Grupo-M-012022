@@ -14,7 +14,7 @@ import java.net.URL;
 @NoArgsConstructor
 public class USDPriceController {
     public Double getUSDPriceDouble() throws IOException {
-        // Setup url and credentials to thi usd api
+        // Setup url and credentials to hit usd api
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");

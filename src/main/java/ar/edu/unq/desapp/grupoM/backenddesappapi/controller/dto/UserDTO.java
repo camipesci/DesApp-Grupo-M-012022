@@ -67,4 +67,17 @@ public class UserDTO {
         this.score = score;
         this.operations = operations;
     }
+
+    public String getCompleteName(){
+        return this.name + " " + this.lastName;
+    }
+
+    public String getUserReputation() {
+        if (this.score == 0) {
+            return "No operations";
+        } else {
+            Integer reputation = this.score / this.operations;
+            return reputation.toString();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProcessedTransactionDTO {
     @JsonProperty
-    public CryptoDTO  cryptoCurrency;
+    public String  cryptoCurrency;
     @JsonProperty
     public Double cryptoAmount;
     @JsonProperty
@@ -25,9 +26,9 @@ public class ProcessedTransactionDTO {
     @JsonProperty
     public Double transactionPrice;
     @JsonProperty
-    public UserDTO user;
+    public UserTransactionDTO user;
     @JsonProperty
-    public UserDTO interestedUSer;
+    public UserTransactionDTO interestedUSer;
     @JsonProperty
     public Transaction.Type type;
     @JsonProperty
@@ -39,20 +40,20 @@ public class ProcessedTransactionDTO {
     @JsonProperty
     public String cvu;
 
-    public static ProcessedTransactionDTO from(Transaction transaction, UserDTO interestedUser) {
+    public static ProcessedTransactionDTO from(Transaction transaction, UserTransactionDTO interestedUser) {
         return new ProcessedTransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
                                   transaction.type, transaction.status, interestedUser);
     }
 
     public ProcessedTransactionDTO(CryptoDTO cryptoCurrency, Double cryptoAmount, Double cryptoPrice, Double cryptoArsPrice,
-                                   UserDTO user, Transaction.Type type, Transaction.Status status, UserDTO interestedUSer) {
-        this.cryptoCurrency = cryptoCurrency;
+                                   UserDTO user, Transaction.Type type, Transaction.Status status, UserTransactionDTO interestedUSer) {
+        this.cryptoCurrency = cryptoCurrency.getSymbol();
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;
         this.cryptoArsPrice = cryptoArsPrice;
         this.transactionPrice =  cryptoArsPrice * cryptoAmount;
-        this.user = user;
+        this.user = UserTransactionDTO.from(user);
         this.interestedUSer = interestedUSer;
         this.type = type;
         this.date = formatted_date();
