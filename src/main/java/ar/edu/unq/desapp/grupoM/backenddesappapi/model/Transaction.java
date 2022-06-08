@@ -3,14 +3,8 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 import lombok.Builder;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.util.Date;
 
 
 @Entity

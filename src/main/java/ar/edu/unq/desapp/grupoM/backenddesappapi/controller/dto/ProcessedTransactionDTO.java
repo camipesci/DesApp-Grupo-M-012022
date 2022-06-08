@@ -45,18 +45,6 @@ public class ProcessedTransactionDTO {
                                   transaction.type, transaction.status, interestedUser);
     }
 
-    /*public static List<ProcessedTransactionDTO> from(List<Transaction> transactions) {
-        List<ProcessedTransactionDTO> transactionsDTOList = new ArrayList<ProcessedTransactionDTO>();
-        for (Transaction transaction : transactions)
-        {
-            ProcessedTransactionDTO transactionDTO = new ProcessedTransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
-                    transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                    transaction.type, transaction.status);
-            transactionsDTOList.add(transactionDTO);
-        }
-        return transactionsDTOList;
-    }*/
-
     public ProcessedTransactionDTO(CryptoDTO cryptoCurrency, Double cryptoAmount, Double cryptoPrice, Double cryptoArsPrice,
                                    UserDTO user, Transaction.Type type, Transaction.Status status, UserDTO interestedUSer) {
         this.cryptoCurrency = cryptoCurrency;

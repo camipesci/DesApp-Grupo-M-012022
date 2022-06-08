@@ -97,8 +97,8 @@ public class TransactionService {
 
     public Double totalUSDVolumen(List<Transaction> transactions) {
         Double total_usd_volumen = 0.0;
-        for(int i = 0; i < transactions.size(); i++) {
-            total_usd_volumen = total_usd_volumen + transactions.get(i).getCryptoPrice();
+        for(Transaction transaction : transactions) {
+            total_usd_volumen = total_usd_volumen + transaction.getCryptoPrice();
         }
         return total_usd_volumen;
     }

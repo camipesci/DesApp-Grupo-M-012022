@@ -88,7 +88,7 @@ public class TransactionController {
 
     @PostMapping("/api/transactions/users/{user_id}/traded_volumes")
     public ResponseEntity<UserTradedVolumenDTO> getTradedVolume(@PathVariable Long user_id, @RequestBody DatesDTO dates){
-        UserTradedVolumenDTO userTradedVolumeDTOS = transactionService.getTradedVolumes(dates, user_id);
+
         return ResponseEntity.ok().body(transactionService.getTradedVolumes(dates,user_id));
     }
 

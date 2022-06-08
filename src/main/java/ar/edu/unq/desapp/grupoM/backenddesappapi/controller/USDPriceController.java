@@ -19,32 +19,16 @@ import java.net.URL;
 @NoArgsConstructor
 public class USDPriceController {
 
-    @GetMapping("/api/usd_price")
-    public ResponseEntity<String> getUSDPrice() throws IOException {
-        URL url = new URL("https://api.estadisticasbcra.com/usd_of");
-        HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestProperty("Accept", "application/json");
-        http.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2NjA0MDYsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYW1pbGEucGVzY2kuYUBnbWFpbC5jb20ifQ.F-5_ZVANljRvZ3qdfA9R-P2LH0PiuBJmOJOkmMJoPDiFeShlVK_FiQ0UDCOrRAthBKER2B0y98jGH_QibkUwQw");
-
-        String response = this.getResponseBody(http);
-        JSONArray usd_prices_array = new JSONArray(response);
-        JSONObject today_usd_price = new JSONObject();
-        JSONObject usd_price = (JSONObject) usd_prices_array.get(usd_prices_array.length() -1);
-        Double price_value = usd_price.getDouble("v");
-        today_usd_price.put("today_usd_price",  usd_prices_array.get(usd_prices_array.length() -1));
-        return ResponseEntity.ok().body(price_value.toString());
-
-    }
-
     public Double getUSDPriceDouble() throws IOException {
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");
+        //TO DO: move token to another file
         http.setRequestProperty("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2NjA0MDYsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjYW1pbGEucGVzY2kuYUBnbWFpbC5jb20ifQ.F-5_ZVANljRvZ3qdfA9R-P2LH0PiuBJmOJOkmMJoPDiFeShlVK_FiQ0UDCOrRAthBKER2B0y98jGH_QibkUwQw");
 
         String response = this.getResponseBody(http);
         JSONArray usd_prices_array = new JSONArray(response);
-        JSONObject today_usd_price = new JSONObject();
+
         JSONObject usd_price = (JSONObject) usd_prices_array.get(usd_prices_array.length() -1);
         Double price_value = usd_price.getDouble("v");
         return price_value;
