@@ -13,14 +13,14 @@ public class TransactionBuilder  {
     public Double cryptoPrice = 120.10;
     public Double cryptoArsPrice = 200.20;
     public User user = UserBuilder.user().build();
-    public Transaction.TransactionType transactionType = Transaction.TransactionType.PURCHASE;
+    public Transaction.Type type = Transaction.Type.PURCHASE;
 
 
 
     public static TransactionBuilder transaction(){ return new TransactionBuilder();}
 
     public Transaction build() {
-        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user,transactionType);
+        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user, type);
     }
 
     public TransactionBuilder withCryptoCurrency(CryptoCurrency aCryptoCurrency){

@@ -43,7 +43,8 @@ public class MockTransactionGenerateService {
                 .cryptoPrice (2.0)
                 .cryptoArsPrice (1000.0)
                 .user (user1)
-                .transactionType (Transaction.TransactionType.SALE)
+                .type (Transaction.Type.SALE)
+                .status(Transaction.Status.PENDING)
                 .build();
         transactionrRepository.save(transaction1);
 
@@ -54,7 +55,8 @@ public class MockTransactionGenerateService {
                 .cryptoPrice (2.0)
                 .cryptoArsPrice (1000.0)
                 .user (user1)
-                .transactionType (Transaction.TransactionType.PURCHASE)
+                .type (Transaction.Type.PURCHASE)
+                .status(Transaction.Status.PENDING)
                 .build();
         transactionrRepository.save(transaction2);
 

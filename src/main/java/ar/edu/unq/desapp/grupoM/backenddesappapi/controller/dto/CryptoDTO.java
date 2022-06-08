@@ -31,7 +31,7 @@ public class CryptoDTO {
         List<CryptoDTO> cryptosDTOList = new ArrayList<CryptoDTO>();
         for (CryptoCurrency crypto : cryptos)
         {
-            CryptoDTO newUserDto = new CryptoDTO(crypto.symbol, crypto.price, crypto.price_date);
+            CryptoDTO newUserDto = new CryptoDTO(crypto.getSymbol(), crypto.getPrice(), crypto.getPrice_date());
             cryptosDTOList.add(newUserDto);
         }
         return cryptosDTOList;

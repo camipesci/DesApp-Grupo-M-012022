@@ -7,6 +7,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -33,6 +34,18 @@ public class UserService {
 
 
         return userRepository.save(userToModify);
+    }
+
+    public void updateUserScore(User user, Integer score){
+        User userToModify = userRepository.findById(user.getUser_id()).get();
+        userToModify.setScore(userToModify.getScore() + score);
+        userRepository.save(userToModify);
+    }
+
+    public void updateUserOperations(User user){
+        User userToModify = userRepository.findById(user.getUser_id()).get();
+        userToModify.setOperations(userToModify.getOperations() + 1);
+        userRepository.save(userToModify);
     }
 
     public List<User> getUsers() {
