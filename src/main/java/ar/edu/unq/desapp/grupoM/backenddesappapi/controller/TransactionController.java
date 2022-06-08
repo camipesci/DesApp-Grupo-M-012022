@@ -58,7 +58,7 @@ public class TransactionController {
 
     @GetMapping("/api/transactions")
     public ResponseEntity<List<TransactionDTO>> getTransactions() {
-        List<Transaction> transactions = transactionService.getTransactions();
+        List<Transaction> transactions = transactionService.getTransactionsByStatus(Transaction.Status.PENDING);
         return ResponseEntity.ok().body(TransactionDTO.from(transactions));
     }
 

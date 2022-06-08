@@ -31,7 +31,7 @@ public class BinanceController {
         CryptoCurrency dataBaseCrypto = null;
         try{
             dataBaseCrypto = currencyService.findBySymbolIs(symbol).stream().findFirst().get();}catch(Exception e) {
-            //  Block of code to handle errors
+
         }
 
         if (dataBaseCrypto != null && crypto.symbol.equals(dataBaseCrypto.symbol)){

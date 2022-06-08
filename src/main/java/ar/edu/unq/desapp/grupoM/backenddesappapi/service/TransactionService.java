@@ -30,6 +30,10 @@ public class TransactionService {
         return (List<Transaction>) transactionRepository.findAll();
     }
 
+    public List<Transaction> getTransactionsByStatus(Transaction.Status status) {
+        return (List<Transaction>) transactionRepository.findTransactionsByStatus(status);
+    }
+
     public Transaction findTransaction(Long id) throws Exception {
         return transactionRepository.findById(id).orElseThrow(() -> new Exception("Transaction not found"));
     }
@@ -127,5 +131,7 @@ public class TransactionService {
     public void updateUserOperations(User user){
         userService.updateUserOperations(user);
     }
+
+
 }
 

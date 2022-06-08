@@ -16,4 +16,6 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
                                                                                       @NotNull Transaction.Status status, @NotNull LocalDateTime date,
                                                                                       @NotNull LocalDateTime date2);
     Transaction findTransactionsByUserOrInterestedUser(@NotNull User user, @NotNull User interestedUser);
+
+    List<Transaction> findTransactionsByStatus(@NotNull Transaction.Status status);
 }
