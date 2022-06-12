@@ -15,13 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 public class UserTradedVolumenDTO {
     @JsonProperty
-    public LocalDateTime date;
-
-    @JsonProperty
     public UserDTO user;
 
     @JsonProperty
-    public List<CryptoDTO> cryptos;
+    public LocalDateTime date;
 
     @JsonProperty
     public Double totalUSDVolumen;
@@ -29,7 +26,8 @@ public class UserTradedVolumenDTO {
     @JsonProperty
     public Double totalARSVolumen;
 
-
+    @JsonProperty
+    public List<CryptoDTO> cryptos;
 
 
     public UserTradedVolumenDTO from(UserDTO user, LocalDateTime date, List<CryptoDTO> cryptos, Double totalUSDVolumen, Double totalARSVolumen ) {
@@ -40,8 +38,9 @@ public class UserTradedVolumenDTO {
     public UserTradedVolumenDTO(UserDTO user, LocalDateTime date, List<CryptoDTO> cryptos, Double totalUSDVolumen, Double totalARSVolumen) {
         this.user = user;
         this.date = date;
-        this.cryptos = cryptos;
         this.totalUSDVolumen = totalUSDVolumen;
         this.totalARSVolumen = totalARSVolumen;
+        this.cryptos = cryptos;
+
     }
 }

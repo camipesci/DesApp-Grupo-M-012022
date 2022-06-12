@@ -75,15 +75,15 @@ public class TransactionController {
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
     }
 
-    @GetMapping("/api/transactions/process/{transaction_id}/user/{user_id}")
+    @PutMapping("/api/transactions/{transaction_id}/process/users/{user_id}")
     public ResponseEntity<ProcessedTransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long user_id) throws Exception {
         Transaction transaction = transactionService.findTransaction(transaction_id);
         User interested_user = userService.findUser(user_id);
         transactionService.processTransaction(transaction, interested_user);
         // i bring the user again with the transaction and operations values updated
-        interested_user = userService.findUser(user_id);
-        UserDTO interested_user_dto = UserDTO.from(interested_user);
-        return ResponseEntity.ok().body(ProcessedTransactionDTO.from(transaction,interested_user_dto ));
+        UserDTO interested_user_dto = UserDTO.from(userService.findUser(user_id));
+        UserTransactionDTO interested_user_transaction_dto = UserTransactionDTO.from(interested_user_dto);
+        return ResponseEntity.ok().body(ProcessedTransactionDTO.from(transaction,interested_user_transaction_dto));
     }
 
     @PostMapping("/api/transactions/users/{user_id}/traded_volumes")
