@@ -18,6 +18,7 @@ public class USDPriceAPI {
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");
+        // Token had to  be hardcoded because circle ci was breaking
         http.setRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODY3OTg3NjEsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJmbGVtaXRhcHJvQGdtYWlsLmNvbSJ9.WZz_UgeOpOgaNYNhuM3e6KoctscWaaRuaBugSf8tbHz92JZW2oYpJG-iDyH3B2VcodPj4snkPnq83fPnS8ynqw");
 
         // Proccess USD API Response
