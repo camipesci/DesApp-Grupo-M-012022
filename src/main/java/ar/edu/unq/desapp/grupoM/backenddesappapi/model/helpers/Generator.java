@@ -19,7 +19,7 @@ public class Generator {
     }
 
     private Integer getRandomNumber(Integer min, Integer max) {
-        Integer random_int = (int) Math.floor(Math.random()*(max-min+1)+min);
+        Integer random_int = (int) new SecureRandom().nextInt(max - min + 1) + min;
         return random_int;
     }
 }
