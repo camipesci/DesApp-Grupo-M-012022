@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ProcessedTransactionDTO {
     @JsonProperty
+    public Long id;
+    @JsonProperty
     public String  cryptoCurrency;
     @JsonProperty
     public Double cryptoAmount;
@@ -43,11 +45,12 @@ public class ProcessedTransactionDTO {
     public static ProcessedTransactionDTO from(Transaction transaction, UserTransactionDTO interestedUser) {
         return new ProcessedTransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                                  transaction.type, transaction.status, interestedUser);
+                                  transaction.type, transaction.status, interestedUser, transaction.getId());
     }
 
     public ProcessedTransactionDTO(CryptoDTO cryptoCurrency, Double cryptoAmount, Double cryptoPrice, Double cryptoArsPrice,
-                                   UserDTO user, Transaction.Type type, Transaction.Status status, UserTransactionDTO interestedUSer) {
+                                   UserDTO user, Transaction.Type type, Transaction.Status status, UserTransactionDTO interestedUSer, Long id) {
+        this.id = id;
         this.cryptoCurrency = cryptoCurrency.getSymbol();
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;

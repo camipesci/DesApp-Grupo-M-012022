@@ -2,9 +2,11 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CurrencyService;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,34 +18,37 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Api(tags = "Crypto Controller")
+@Tag(name = "Crypto Controller", description = "Manage Crypto ABM")
 @RestController
 public class BinanceController {
 
     RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
-    private CurrencyService currencyService;
+    private CryptoService cryptoService;
 
+    @Operation(summary = "Get and persist a crypto by its name")
     @GetMapping("/api/cryptos/{symbol}")
     public ResponseEntity<CryptoDTO> getCryptoPrice(@PathVariable String symbol) {
         CryptoCurrency crypto = restTemplate.getForObject("https://api1.binance.com/api/v3/ticker/price?symbol=" + symbol, CryptoCurrency.class);
         CryptoCurrency dataBaseCrypto = null;
         try{
-            dataBaseCrypto = currencyService.findBySymbolIs(symbol).stream().findFirst().get();}catch(Exception e) {
+            dataBaseCrypto = cryptoService.findBySymbolIs(symbol).stream().findFirst().get();}catch(Exception e) {
 
         }
 
         if (dataBaseCrypto != null && crypto.symbol.equals(dataBaseCrypto.symbol)){
-            CryptoCurrency updateCrypto = currencyService.updateCrypto(crypto.symbol,crypto.price);
+            CryptoCurrency updateCrypto = cryptoService.updateCrypto(crypto.symbol,crypto.price);
             return ResponseEntity.ok().body(CryptoDTO.from(updateCrypto));
         }else {
-            CryptoCurrency newCrypto = currencyService.createCrypto(crypto.symbol, crypto.price);
+            CryptoCurrency newCrypto = cryptoService.createCrypto(crypto.symbol, crypto.price);
             return ResponseEntity.ok().body(CryptoDTO.from(newCrypto));
         }
 
     }
 
+    @Operation(summary = "Gets and persists all cryptos related to the project scope")
     @GetMapping("/api/cryptos")
     public ResponseEntity<List<CryptoDTO>> getAllCryptosPrice() {
         List<CryptoCurrency> cryptoCurrencyList = new ArrayList<CryptoCurrency>();
@@ -52,15 +57,15 @@ public class BinanceController {
 
             CryptoCurrency dataBaseCrypto = null;
             try{
-                dataBaseCrypto = currencyService.findBySymbolIs(crypto.symbol).stream().findFirst().get();}catch(Exception e) {
+                dataBaseCrypto = cryptoService.findBySymbolIs(crypto.symbol).stream().findFirst().get();}catch(Exception e) {
                 //  Block of code to handle errors
             }
 
             if (dataBaseCrypto != null && crypto.symbol.equals(dataBaseCrypto.symbol)){
-                CryptoCurrency updateCrypto = currencyService.updateCrypto(crypto.symbol,crypto.price);
+                CryptoCurrency updateCrypto = cryptoService.updateCrypto(crypto.symbol,crypto.price);
                 cryptoCurrencyList.add(updateCrypto);
             }else {
-                CryptoCurrency newCrypto = currencyService.createCrypto(crypto.symbol, crypto.price);
+                CryptoCurrency newCrypto = cryptoService.createCrypto(crypto.symbol, crypto.price);
                 cryptoCurrencyList.add(newCrypto);
             }
         }
@@ -73,18 +78,5 @@ public class BinanceController {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("Crypto not found");
-    }
-
-    @GetMapping("/api/cryptos_test/{symbol}")
-    public ResponseEntity<CryptoDTO> cryptoTest(@PathVariable String symbol) {
-        CryptoCurrency crypto = restTemplate.getForObject("https://api1.binance.com/api/v3/ticker/price?symbol=" + symbol, CryptoCurrency.class);
-        CryptoCurrency dataBaseCrypto = null;
-        try{
-            dataBaseCrypto = currencyService.findBySymbolIs(symbol).stream().findFirst().get();}catch(Exception e) {
-            //  Block of code to handle errors
-        }
-
-        return ResponseEntity.ok().body(CryptoDTO.from(dataBaseCrypto));
-
     }
 }

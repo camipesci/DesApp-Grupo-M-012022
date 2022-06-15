@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -34,12 +36,13 @@ public class TransactionService {
         return (List<Transaction>) transactionRepository.findTransactionsByStatus(status);
     }
 
-    public Transaction findTransaction(Long id) throws Exception {
-        return transactionRepository.findById(id).orElseThrow(() -> new Exception("Transaction not found"));
+    public Transaction findTransaction(Long id) throws TransactionNotFoundException {
+        return transactionRepository.findById(id).orElseThrow(() -> new TransactionNotFoundException("Transaction not found"));
     }
 
-    public Transaction findTransactionByUser(User user) {
+    public Transaction findTransactionByUser(User user) throws TransactionNotFoundException {
         return transactionRepository.findTransactionsByUserOrInterestedUser(user, user);
+
     }
 
     public Transaction createTransaction(CryptoCurrency cryptoCurrency, Double cryptoAmount, Double cryptoPrice,
@@ -47,7 +50,6 @@ public class TransactionService {
 
         Transaction newTransaction = new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,
                                                      cryptoArsPrice, user, type);
-
         return transactionRepository.save(newTransaction);
     }
 
@@ -94,7 +96,6 @@ public class TransactionService {
         LocalDateTime to = LocalDateTime.parse(dates.getTo(), formatter);
 
         List<Transaction> confirmed_transactions = this.transactionRepository.findTransactionsByUserOrInterestedUserAndStatusAndDateIsBetween(user, user, Transaction.Status.CONFIRMED, from, to);
-        // TODO: ESTO DEBERIA DEVOLVER UNA LISTA DE ACTIVESDTO CON LOS DATOS DE (NOMBRE DE CRIPTO, NUMEROS DE CRIPTOS COMPRADAS DE LA TRNSACCION, CRYPTO PRICE Y CRYPTO ARS PRICE)
         List<CryptoCurrency> list_of_cryptos = this.listOfCryptosFromTransactions(confirmed_transactions);
 
         return new UserTradedVolumenDTO(UserDTO.from(user), LocalDateTime.now(),CryptoDTO.from(list_of_cryptos), totalUSDVolumen(confirmed_transactions), totalARSVolumen(confirmed_transactions));

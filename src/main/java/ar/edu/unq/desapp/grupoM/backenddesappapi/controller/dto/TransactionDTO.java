@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TransactionDTO {
+    @JsonProperty
+    public Long id;
     @JsonProperty
     public String  cryptoCurrency;
     @JsonProperty
@@ -35,7 +38,7 @@ public class TransactionDTO {
     public static TransactionDTO from(Transaction transaction) {
         return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                                  transaction.type, transaction.status);
+                                  transaction.type, transaction.status, transaction.getId());
     }
 
     public static List<TransactionDTO> from(List<Transaction> transactions) {
@@ -44,14 +47,15 @@ public class TransactionDTO {
         {
             TransactionDTO transactionDTO = new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
                     transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
-                    transaction.type, transaction.status);
+                    transaction.type, transaction.status, transaction.getId());
             transactionsDTOList.add(transactionDTO);
         }
         return transactionsDTOList;
     }
 
-    public TransactionDTO( CryptoDTO cryptoCurrency,  Double cryptoAmount,  Double cryptoPrice,  Double cryptoArsPrice,
-                           UserDTO user, Transaction.Type type, Transaction.Status status) {
+    public TransactionDTO(CryptoDTO cryptoCurrency, Double cryptoAmount, Double cryptoPrice, Double cryptoArsPrice,
+                          UserDTO user, Transaction.Type type, Transaction.Status status, Long id) {
+        this.id = id;
         this.cryptoCurrency = cryptoCurrency.getSymbol();
         this.cryptoAmount = cryptoAmount;
         this.cryptoPrice = cryptoPrice;

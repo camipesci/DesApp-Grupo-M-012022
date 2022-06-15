@@ -18,7 +18,7 @@ public class UserTradedVolumenDTO {
     public UserDTO user;
 
     @JsonProperty
-    public LocalDateTime date;
+    public String date;
 
     @JsonProperty
     public Double totalUSDVolumen;
@@ -37,10 +37,16 @@ public class UserTradedVolumenDTO {
 
     public UserTradedVolumenDTO(UserDTO user, LocalDateTime date, List<CryptoDTO> cryptos, Double totalUSDVolumen, Double totalARSVolumen) {
         this.user = user;
-        this.date = date;
+        this.date = formatted_date();
         this.totalUSDVolumen = totalUSDVolumen;
         this.totalARSVolumen = totalARSVolumen;
         this.cryptos = cryptos;
 
+    }
+    public String formatted_date(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date raw_date = new Date();
+        String formatted_date = formatter.format(raw_date);
+        return formatted_date;
     }
 }

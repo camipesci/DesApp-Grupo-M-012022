@@ -1,6 +1,9 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.jetbrains.annotations.NotNull;
 import lombok.Builder;
 import javax.persistence.*;
@@ -18,7 +21,8 @@ public class Transaction {
     @GeneratedValue
     private Long id;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CryptoCurrency  cryptoCurrency;
     @NotNull
     public Double cryptoAmount;
@@ -29,7 +33,9 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User interestedUser;
     @NotNull
