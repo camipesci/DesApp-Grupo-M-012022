@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

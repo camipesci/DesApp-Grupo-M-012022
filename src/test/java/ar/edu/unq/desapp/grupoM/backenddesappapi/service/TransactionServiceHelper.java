@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserController;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.mock.MockTransactionController;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
@@ -35,9 +34,6 @@ public class TransactionServiceHelper {
 
     @Autowired
     TransactionService transactionQueryService;
-
-    @Autowired
-    MockTransactionController mockTransactionController;
 
     @BeforeEach
     void setup() {

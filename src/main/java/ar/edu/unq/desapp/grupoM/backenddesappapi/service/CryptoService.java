@@ -2,10 +2,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class CurrencyService {
+public class CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;

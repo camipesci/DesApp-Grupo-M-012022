@@ -1,13 +1,11 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceController;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceAPI;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.Date;
 
@@ -37,8 +35,8 @@ public class CryptoCurrency {
     }
 
     public Double getArsPrice() throws IOException {
-        USDPriceController usdPriceController = new USDPriceController();
-        Double usd_price = usdPriceController.getUSDPriceDouble();
+        USDPriceAPI usdPriceAPI = new USDPriceAPI();
+        Double usd_price = usdPriceAPI.getUSDPriceDouble();
         return usd_price * price;
     }
 

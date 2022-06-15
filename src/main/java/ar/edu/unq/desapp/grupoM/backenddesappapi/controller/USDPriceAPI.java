@@ -12,13 +12,13 @@ import java.net.URL;
 
 @RestController
 @NoArgsConstructor
-public class USDPriceController {
+public class USDPriceAPI {
     public Double getUSDPriceDouble() throws IOException {
         // Setup url and credentials to hit usd api
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");
-        http.setRequestProperty("Authorization", "Bearer " + System.getenv("USD_TOKEN"));
+        http.setRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODY3OTg3NjEsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJmbGVtaXRhcHJvQGdtYWlsLmNvbSJ9.WZz_UgeOpOgaNYNhuM3e6KoctscWaaRuaBugSf8tbHz92JZW2oYpJG-iDyH3B2VcodPj4snkPnq83fPnS8ynqw");
 
         // Proccess USD API Response
         String response = this.getResponseBody(http);

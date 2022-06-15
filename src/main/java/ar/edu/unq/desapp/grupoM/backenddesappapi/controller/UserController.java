@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.mock.MockUserGenerateService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,13 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Api(tags = "User services")
-@Tag(name = "User services", description = "Manage users")
+@Api(tags = "User Controller")
+@Tag(name = "User Controller", description = "Manage User ABM")
 @RestController
 public class UserController {
-    @Autowired
-    MockUserGenerateService dummyUserGenerateService;
-
     @Autowired
     private UserService userService;
 
@@ -34,21 +30,21 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UserDTO.from(user));
     }
 
-    @Operation(summary = "get all users")
+    @Operation(summary = "Get all users")
     @GetMapping("/api/users")
     public ResponseEntity<List<UserDTO>> getUsers() {
         List<User> users = userService.getUsers();
         return ResponseEntity.ok().body(UserDTO.from(users));
     }
 
-    @Operation(summary = "get a user by id")
+    @Operation(summary = "Get a user by id")
     @GetMapping("/api/users/{user_id}")
     public ResponseEntity<UserDTO> findUser(@PathVariable Long user_id) throws UserNotFoundException{
         User user = userService.findUser(user_id);
         return ResponseEntity.ok().body(UserDTO.from(user));
     }
 
-    @Operation(summary = "updates a user by id ")
+    @Operation(summary = "Update a user by id ")
     @PutMapping("/api/users/{id}")
     @ResponseBody
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
@@ -57,18 +53,11 @@ public class UserController {
         return ResponseEntity.ok().body(UserDTO.from(updatedUser));
     }
 
-    @Operation(summary = "delete a user")
+    @Operation(summary = "Deletes a user")
     @DeleteMapping("/api/users/{user_id}")
     public ResponseEntity deleteUser(@PathVariable Long user_id) throws EmptyResultDataAccessException {
         userService.deleteUser(user_id);
         return ResponseEntity.ok().body("User deleted");
-    }
-
-    // mock
-
-    @GetMapping("/api/dummy_data")
-    public void generateDummyUsers() {
-        dummyUserGenerateService.generateUsers();
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -85,4 +74,4 @@ public class UserController {
                 .body("User not found");
     }
 
-    }
+}

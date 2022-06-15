@@ -30,7 +30,6 @@ class UserControllerTest extends TestControllerHelper {
     @Test
     void getUsers() {
         // there is a user created in test helper and we test that it is in users list
-        assertEquals(userController.getUsers().getBody().size(),1);
         assertEquals(userController.getUsers().getBody().get(0).name, controller_user.name);
     }
 
@@ -42,7 +41,10 @@ class UserControllerTest extends TestControllerHelper {
     @Test
     void deleteUser() throws Exception {
         // user delete
+        Integer initial_amount_of_users = userController.getUsers().getBody().size();
         userController.deleteUser(controller_user.id);
-        assertEquals(userController.getUsers().getBody().size(), 0);
+
+
+        assertEquals(userController.getUsers().getBody().size(), initial_amount_of_users - 1);
     }
 }
