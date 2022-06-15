@@ -8,7 +8,7 @@ public class UserBuilder {
     private String lastname = "Fort";
     private String email = "ricardoFort@gmail.com";
     private String address = "Av. Mitre 1030";
-    private String password = "Ricardo123@";
+    private String password = System.getenv("USER_PW");
 
     public static UserBuilder user(){ return new UserBuilder();}
 
