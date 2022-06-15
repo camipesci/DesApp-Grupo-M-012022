@@ -15,11 +15,11 @@ class TransactionTest {
         User user = UserBuilder.user().build();
         Transaction transaction1 = TransactionBuilder.transaction().withUser(user).build();
 
-        assertEquals(transaction1.getUserId(), user.id );
+        assertEquals(transaction1.getUser(), user );
         assertEquals(transaction1.getCryptoAmount(), 0.01 );
         assertEquals(transaction1.getCryptoPrice(), 120.10 );
         assertEquals(transaction1.getCryptoArsPrice(), 200.20 );
-        assertEquals(transaction1.getCryptoCurrency(), "BNBUSDT" );
+        assertEquals(transaction1.getCryptoCurrency().symbol, "BNBUSDT" );
 
     }
 

@@ -1,36 +1,36 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserQueryService;
-import org.json.JSONException;
-import org.json.JSONObject;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class TestControllerHelper {
+public class UserServiceHelper {
     public UserBuilder userBuilder = new UserBuilder();
     public User user = userBuilder.build();
     public User another_user = userBuilder.withName("Another name").build();
-    public User controller_user;
+    public User h2_user;
 
     @Autowired
-    UserQueryService userQueryService;
-
+    UserService userQueryService;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    UserQueryController userQueryController;
+    UserController userQueryController;
+
+    @Autowired
+    TransactionService transactionQueryService;
 
     @BeforeEach
     void setup() {
         // create user
-       controller_user = userQueryController.createUser(user).getBody();
+        h2_user = userQueryService.createUser(user.name,user.lastName,user.email,user.address,user.password);
     }
 
 

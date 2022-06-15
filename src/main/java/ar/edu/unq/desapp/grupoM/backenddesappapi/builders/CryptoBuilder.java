@@ -8,7 +8,7 @@ public class CryptoBuilder {
 
 
     private String nameCrypto = "BNBUSDT";
-    private Double price = 120.10;
+    private Double price = 2.0;
     private Date price_date = new Date();
 
 

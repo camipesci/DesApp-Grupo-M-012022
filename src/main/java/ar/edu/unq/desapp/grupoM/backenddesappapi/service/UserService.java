@@ -1,60 +1,61 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
+
+
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.InvalidEmailException;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.webservice.UserController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-
-
 
 @Service
 public class UserService {
-    List<User> users = new ArrayList<User>();
-    Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    public  List<User> allUsers() {
-        return this.users;
+    @Autowired
+    private UserRepository userRepository;
+
+    public User createUser(String name, String lastName, String email, String address, String password) {
+        User newUser = new User(name, lastName, email, address, password);
+
+        return userRepository.save(newUser);
     }
 
-    public User createUser(User newUser) {
-        User user = newUser;
-        users.add(user);
-        return user;
+    public User updateUser(Long id, String name, String lastName, String email, String address, String password) {
+        User userToModify = userRepository.findById(id).get();
+        userToModify.name = name;
+        userToModify.lastName = lastName;
+        userToModify.email = email;
+        userToModify.address = address;
+        userToModify.password = password;
+
+
+        return userRepository.save(userToModify);
     }
 
-    public List<User> deleteUser(@PathVariable Integer user_wallet) {
-        allUsers().removeIf(u -> u.getWallet().equals(user_wallet));
-         return allUsers();
+    public void updateUserScore(User user, Integer score){
+        User userToModify = userRepository.findById(user.getUser_id()).get();
+        userToModify.setScore(userToModify.getScore() + score);
+        userRepository.save(userToModify);
     }
 
-
-    public User getUser(@PathVariable Integer user_wallet) {
-        User user = allUsers().stream().filter(u -> u.getWallet().equals(user_wallet)).findFirst().get();
-        return user;
+    public void updateUserOperations(User user){
+        User userToModify = userRepository.findById(user.getUser_id()).get();
+        userToModify.setOperations(userToModify.getOperations() + 1);
+        userRepository.save(userToModify);
     }
 
-    public User updateUser(Integer user_wallet, User userUpdate) {
-        User newUser = userUpdate;
-        User userToModify = null;
-        try {
-            userToModify = allUsers().stream().filter(u -> u.getWallet().equals(user_wallet)).findFirst().get();
-            userToModify.setAddress(userUpdate.getAddress());
-            userToModify.setCvu(userUpdate.getCvu());
-            userToModify.setEmail(userUpdate.getEmail());
-            userToModify.setLastName(userUpdate.getLastName());
-            userToModify.setName(userUpdate.getName());
-            userToModify.setPassword(userUpdate.getPassword());
-            userToModify.setWallet(userUpdate.getWallet());
-        }
-        catch(InvalidEmailException e ){
-            logger.info("Error while updating user " + e.getMessage());
-        }
-
-        return userToModify;
+    public List<User> getUsers() {
+        return (List<User>) userRepository.findAll();
     }
 
+    public User findUser(Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    public void deleteUser(Long id) throws UserNotFoundException{
+        userRepository.deleteById(id);
+    }
 }
+
