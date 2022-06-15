@@ -22,7 +22,7 @@ class UserServiceUser extends UserServiceHelper {
 
     @Test
     void updateUser() throws Exception {
-        User updated_user = userQueryService.updateUser(h2_user.getId(), another_user.name,another_user.lastName,another_user.email,another_user.address,another_user.password,another_user.cvu, another_user.wallet);
+        User updated_user = userQueryService.updateUser(h2_user.getId(), another_user.name,another_user.lastName,another_user.email,another_user.address,another_user.password);
 
         assertEquals(userQueryService.findUser(updated_user.getId()).name,updated_user.name);
     }

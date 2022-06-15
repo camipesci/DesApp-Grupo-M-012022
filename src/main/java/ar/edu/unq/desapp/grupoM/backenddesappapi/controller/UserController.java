@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
@@ -24,7 +25,7 @@ public class UserController {
     @Operation(summary = "Create a user")
     @PostMapping("/api/users")
     @ResponseBody
-    public ResponseEntity<UserDTO> createUser(@RequestBody User newUser) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserCreateDTO newUser) {
         User user = userService.createUser(newUser.name, newUser.lastName, newUser.email, newUser.address,
                 newUser.password);
         return ResponseEntity.status(HttpStatus.CREATED).body(UserDTO.from(user));
@@ -47,9 +48,9 @@ public class UserController {
     @Operation(summary = "Update a user by id ")
     @PutMapping("/api/users/{id}")
     @ResponseBody
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserCreateDTO updateUser) {
         User updatedUser = userService.updateUser(id, updateUser.name, updateUser.lastName, updateUser.email, updateUser.address,
-                updateUser.password, updateUser.cvu, updateUser.wallet);
+                updateUser.password);
         return ResponseEntity.ok().body(UserDTO.from(updatedUser));
     }
 

@@ -22,14 +22,12 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User updateUser(Long id, String name, String lastName, String email, String address, String password, String cvu, Integer wallet) {
+    public User updateUser(Long id, String name, String lastName, String email, String address, String password) {
         User userToModify = userRepository.findById(id).get();
         userToModify.name = name;
         userToModify.lastName = lastName;
         userToModify.email = email;
         userToModify.address = address;
-        userToModify.cvu = cvu;
-        userToModify.wallet = wallet;
         userToModify.password = password;
 
 
