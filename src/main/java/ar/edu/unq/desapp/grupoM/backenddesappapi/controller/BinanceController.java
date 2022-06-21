@@ -79,10 +79,15 @@ public class BinanceController {
             try{
                 dataBaseCrypto = cryptoService.findBySymbolIs(crypto_enum.toString()).stream().findFirst().get();}catch(Exception e) {}
 
-            if (dataBaseCrypto != null && LastCrpytoUpdate10MinutesAgo(crypto_enum.toString())){
-                binanceCrypto = callBinanceAPI(crypto_enum.toString());
-                CryptoCurrency updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol,binanceCrypto.price);
-                cryptoCurrencyList.add(updateCrypto);
+            if (dataBaseCrypto != null){
+                if(LastCrpytoUpdate10MinutesAgo(crypto_enum.toString())) {
+                    binanceCrypto = callBinanceAPI(crypto_enum.toString());
+                    CryptoCurrency updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
+                    cryptoCurrencyList.add(updateCrypto);
+                }
+                else {
+                    cryptoCurrencyList.add(dataBaseCrypto);
+                }
             }else {
                 binanceCrypto = callBinanceAPI(crypto_enum.toString());
                 CryptoCurrency newCrypto = cryptoService.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
