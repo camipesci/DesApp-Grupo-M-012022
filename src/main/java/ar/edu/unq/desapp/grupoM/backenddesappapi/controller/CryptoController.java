@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.DatabaseInitializate;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,12 +28,13 @@ import java.util.concurrent.TimeUnit;
 @Api(tags = "Crypto Controller")
 @Tag(name = "Crypto Controller", description = "Manage Crypto ABM")
 @RestController
-public class BinanceController {
+public class CryptoController {
 
     RestTemplate restTemplate = new RestTemplate();
 
     Logger log = LoggerFactory.getLogger(DatabaseInitializate.class);
 
+    BinanceAPI binanceAPI = new BinanceAPI();
     @Autowired
     private CryptoService cryptoService;
 
@@ -45,16 +42,16 @@ public class BinanceController {
     @GetMapping("/api/cryptos/{symbol}")
     @Transactional
     public ResponseEntity<CryptoDTO> getCryptoPrice(@PathVariable String symbol) {
-        CryptoCurrency dataBaseCrypto = null;
-        CryptoCurrency binanceCrypto = null;
+        Crypto dataBaseCrypto = null;
+        Crypto binanceCrypto = null;
         try{
             dataBaseCrypto = getCryptoFromDatabase(symbol);}catch(Exception e) {
         }
 
         if (dataBaseCrypto != null){
-            if(LastCrpytoUpdate10MinutesAgo(symbol)) {
+            if(LastCrpytoUpdate2MinutesAgo(symbol)) {
                 binanceCrypto = callBinanceAPI(symbol);
-                CryptoCurrency updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
+                Crypto updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
                 return ResponseEntity.ok().body(CryptoDTO.from(updateCrypto));
             }
             else {
@@ -62,7 +59,7 @@ public class BinanceController {
             }
         }else {
             binanceCrypto = callBinanceAPI(symbol);
-            CryptoCurrency newCrypto = cryptoService.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
+            Crypto newCrypto = cryptoService.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
             return ResponseEntity.ok().body(CryptoDTO.from(newCrypto));
         }
 
@@ -72,29 +69,29 @@ public class BinanceController {
     @GetMapping("/api/cryptos")
     @Transactional
     public ResponseEntity<List<CryptoDTO>> getAllCryptosPrice() {
-        List<CryptoCurrency> cryptoCurrencyList = new ArrayList<CryptoCurrency>();
-        for (CryptoCurrency.Cryptos crypto_enum :CryptoCurrency.Cryptos.values()) {
-            CryptoCurrency dataBaseCrypto = null;
-            CryptoCurrency binanceCrypto = null;
+        List<Crypto> cryptoList = new ArrayList<Crypto>();
+        for (Crypto.Cryptos crypto_enum : Crypto.Cryptos.values()) {
+            Crypto dataBaseCrypto = null;
+            Crypto binanceCrypto = null;
             try{
                 dataBaseCrypto = cryptoService.findBySymbolIs(crypto_enum.toString()).stream().findFirst().get();}catch(Exception e) {}
 
             if (dataBaseCrypto != null){
-                if(LastCrpytoUpdate10MinutesAgo(crypto_enum.toString())) {
+                if(LastCrpytoUpdate2MinutesAgo(crypto_enum.toString())) {
                     binanceCrypto = callBinanceAPI(crypto_enum.toString());
-                    CryptoCurrency updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
-                    cryptoCurrencyList.add(updateCrypto);
+                    Crypto updateCrypto = cryptoService.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
+                    cryptoList.add(updateCrypto);
                 }
                 else {
-                    cryptoCurrencyList.add(dataBaseCrypto);
+                    cryptoList.add(dataBaseCrypto);
                 }
             }else {
                 binanceCrypto = callBinanceAPI(crypto_enum.toString());
-                CryptoCurrency newCrypto = cryptoService.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
-                cryptoCurrencyList.add(newCrypto);
+                Crypto newCrypto = cryptoService.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
+                cryptoList.add(newCrypto);
             }
         }
-        return ResponseEntity.ok().body(CryptoDTO.from(cryptoCurrencyList));
+        return ResponseEntity.ok().body(CryptoDTO.from(cryptoList));
     }
 
     // Exception handle
@@ -109,22 +106,22 @@ public class BinanceController {
 
     // Auxiliar methods
 
-    public CryptoCurrency callBinanceAPI(String symbol){
-        CryptoCurrency crypto = restTemplate.getForObject("https://api1.binance.com/api/v3/ticker/price?symbol=" + symbol, CryptoCurrency.class);
+    public Crypto callBinanceAPI(String symbol){
+        Crypto crypto = binanceAPI.call(symbol);
         log.info("Updating " + symbol + " price from Binance api");
         return crypto;
     }
 
-    public Boolean LastCrpytoUpdate10MinutesAgo(String symbol){
-        CryptoCurrency crypto = getCryptoFromDatabase(symbol);
+    public Boolean LastCrpytoUpdate2MinutesAgo(String symbol){
+        Crypto crypto = getCryptoFromDatabase(symbol);
         Date date_now = new Date();
         long duration  =   date_now.getTime() - crypto.getPrice_date().getTime();
         long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
         log.info(crypto.getName() + " last price update was " + diffInMinutes + " minutes ago");
-        return diffInMinutes >= 10;
+        return diffInMinutes >= 2;
     }
 
-    public CryptoCurrency getCryptoFromDatabase(String symbol){
+    public Crypto getCryptoFromDatabase(String symbol){
         return cryptoService.findBySymbolIs(symbol).stream().findFirst().get();
     }
 }

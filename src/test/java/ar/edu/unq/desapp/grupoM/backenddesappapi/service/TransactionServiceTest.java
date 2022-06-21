@@ -10,13 +10,13 @@ class TransactionServiceTest extends TransactionServiceHelper {
 
     @Test
     void getTransactions() {
-       assertEquals(transactionQueryService.getTransactions().get(0).getId(), h2_transaction.getId());
-       assertEquals(transactionQueryService.getTransactions().size(), 1);
+       assertEquals(transactionService.getTransactions().get(0).getId(), h2_transaction.getId());
+       assertEquals(transactionService.getTransactions().size(), 1);
     }
 
     @Test
     void findTransaction() throws Exception {
-        assertEquals(transactionQueryService.findTransaction(h2_transaction.getId()).getId(), h2_transaction.getId());
-        assertEquals(transactionQueryService.getTransactions().size(), 1);
+        assertEquals(transactionService.findTransaction(h2_transaction.getId()).getId(), h2_transaction.getId());
+        assertEquals(transactionService.getTransactions().size(), 1);
     }
 }

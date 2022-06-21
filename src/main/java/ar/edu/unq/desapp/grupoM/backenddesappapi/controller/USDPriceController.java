@@ -12,7 +12,7 @@ import java.net.URL;
 
 @RestController
 @NoArgsConstructor
-public class USDPriceAPI {
+public class USDPriceController {
     public Double getUSDPriceDouble() throws IOException {
         // Setup url and credentials to hit usd api
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");

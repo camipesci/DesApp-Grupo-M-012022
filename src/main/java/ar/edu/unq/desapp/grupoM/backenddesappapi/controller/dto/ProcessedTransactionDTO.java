@@ -1,16 +1,12 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -43,7 +39,7 @@ public class ProcessedTransactionDTO {
     public String cvu;
 
     public static ProcessedTransactionDTO from(Transaction transaction, UserTransactionDTO interestedUser) {
-        return new ProcessedTransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
+        return new ProcessedTransactionDTO(CryptoDTO.from(transaction.getCrypto()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
                                   transaction.type, transaction.status, interestedUser, transaction.getId());
     }

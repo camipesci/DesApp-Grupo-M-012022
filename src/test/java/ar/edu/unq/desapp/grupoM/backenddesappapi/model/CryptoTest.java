@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class CryptoCurrencyTest {
+class CryptoTest {
 
-    ArrayList<CryptoCurrency> cryptos = new ArrayList<CryptoCurrency>();
+    ArrayList<Crypto> cryptos = new ArrayList<Crypto>();
 
     @Test
     public void createCryptoCurrencyTest() {
-        CryptoCurrency BNBUSDT = CryptoBuilder.crypto().build();
+        Crypto BNBUSDT = CryptoBuilder.crypto().build();
         assertEquals(BNBUSDT.getName(), "BNBUSDT");
 
     }

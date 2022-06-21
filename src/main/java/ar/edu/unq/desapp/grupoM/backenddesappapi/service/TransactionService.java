@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
@@ -10,14 +10,12 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -27,6 +25,12 @@ public class TransactionService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CryptoService cryptoService;
+
+
+
 
     public List<Transaction> getTransactions() {
         return (List<Transaction>) transactionRepository.findAll();
@@ -45,12 +49,48 @@ public class TransactionService {
 
     }
 
-    public Transaction createTransaction(CryptoCurrency cryptoCurrency, Double cryptoAmount, Double cryptoPrice,
-                                         Double cryptoArsPrice, User user, Transaction.Type type){
+    public Transaction createTransaction(TransactionCreateDTO transactionCreateDTO) throws IOException {
 
-        Transaction newTransaction = new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,
-                                                     cryptoArsPrice, user, type);
-        return transactionRepository.save(newTransaction);
+        Crypto crypto = cryptoService.findBySymbolIs(transactionCreateDTO.cryptoSymbol).get(0);
+        User user = userService.findUser(transactionCreateDTO.userId);
+        Transaction transaction = null;
+
+        if(cryptoHasMarginValuePrice(transactionCreateDTO.cryptoPrice, crypto.price) ){
+            transaction = new Transaction(crypto,
+                    transactionCreateDTO.getAmountOfCrypto(), crypto.getPrice(), crypto.getArsPrice(),
+                    user, getTransactionType(transactionCreateDTO.getTransactionType()));
+
+        }else {
+            transaction = new Transaction(crypto,
+                    transactionCreateDTO.getAmountOfCrypto(), crypto.getPrice(), crypto.getArsPrice(),
+                    user, getTransactionType(transactionCreateDTO.getTransactionType()));
+            transactionRepository.save(transaction);
+            this.updateTransactionStatus(transaction, Transaction.Status.CANCELED);
+        }
+
+        return transactionRepository.save(transaction);
+    }
+    public Transaction.Type getTransactionType(String type){
+        Transaction.Type transactionType = null;
+        switch (type.toLowerCase()){
+            case "purchase":
+                transactionType = Transaction.Type.PURCHASE;
+                break;
+            case "sale":
+                transactionType = Transaction.Type.SALE;
+                break;
+        }
+
+        return transactionType;
+    }
+
+
+    public Boolean cryptoHasMarginValuePrice(Double user_price, Double crypto_price){
+        Double result = 0.0;
+        result = 100 * ((user_price - crypto_price) / crypto_price);
+        Double positive_result = Math.abs(result);
+
+        return positive_result < 5;
     }
 
     public Transaction updateTransactionStatus(Transaction transaction, Transaction.Status status) {
@@ -96,7 +136,7 @@ public class TransactionService {
         LocalDateTime to = LocalDateTime.parse(dates.getTo(), formatter);
 
         List<Transaction> confirmed_transactions = this.transactionRepository.findTransactionsByUserOrInterestedUserAndStatusAndDateIsBetween(user, user, Transaction.Status.CONFIRMED, from, to);
-        List<CryptoCurrency> list_of_cryptos = this.listOfCryptosFromTransactions(confirmed_transactions);
+        List<Crypto> list_of_cryptos = this.listOfCryptosFromTransactions(confirmed_transactions);
 
         return new UserTradedVolumenDTO(UserDTO.from(user), LocalDateTime.now(),CryptoDTO.from(list_of_cryptos), totalUSDVolumen(confirmed_transactions), totalARSVolumen(confirmed_transactions));
     }
@@ -117,11 +157,11 @@ public class TransactionService {
         return total_ars_volumen;
     }
 
-    public List<CryptoCurrency> listOfCryptosFromTransactions(List<Transaction> transactions) {
-        List<CryptoCurrency> cryptos = new ArrayList<CryptoCurrency>();
+    public List<Crypto> listOfCryptosFromTransactions(List<Transaction> transactions) {
+        List<Crypto> cryptos = new ArrayList<Crypto>();
         for (Transaction transaction : transactions)
         {
-            cryptos.add(transaction.getCryptoCurrency());
+            cryptos.add(transaction.getCrypto());
         }
         return cryptos;
     }

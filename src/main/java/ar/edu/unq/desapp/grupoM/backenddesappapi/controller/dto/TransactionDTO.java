@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +35,7 @@ public class TransactionDTO {
     public String date;
 
     public static TransactionDTO from(Transaction transaction) {
-        return new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
+        return new TransactionDTO(CryptoDTO.from(transaction.getCrypto()),transaction.cryptoAmount, transaction.cryptoPrice,
                                   transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
                                   transaction.type, transaction.status, transaction.getId());
     }
@@ -45,7 +44,7 @@ public class TransactionDTO {
         List<TransactionDTO> transactionsDTOList = new ArrayList<TransactionDTO>();
         for (Transaction transaction : transactions)
         {
-            TransactionDTO transactionDTO = new TransactionDTO(CryptoDTO.from(transaction.getCryptoCurrency()),transaction.cryptoAmount, transaction.cryptoPrice,
+            TransactionDTO transactionDTO = new TransactionDTO(CryptoDTO.from(transaction.getCrypto()),transaction.cryptoAmount, transaction.cryptoPrice,
                     transaction.cryptoArsPrice, UserDTO.from(transaction.getUser()),
                     transaction.type, transaction.status, transaction.getId());
             transactionsDTOList.add(transactionDTO);

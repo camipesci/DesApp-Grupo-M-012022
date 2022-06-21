@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,13 +22,13 @@ public class CryptoDTO {
     @JsonProperty
     public String price_date;
 
-    public static CryptoDTO from(CryptoCurrency crypto) {
+    public static CryptoDTO from(Crypto crypto) {
         return new CryptoDTO(crypto.getSymbol(), crypto.getPrice(), crypto.getPrice_date());
     }
 
-    public static List<CryptoDTO> from(List<CryptoCurrency> cryptos) {
+    public static List<CryptoDTO> from(List<Crypto> cryptos) {
         List<CryptoDTO> cryptosDTOList = new ArrayList<CryptoDTO>();
-        for (CryptoCurrency crypto : cryptos)
+        for (Crypto crypto : cryptos)
         {
             CryptoDTO newUserDto = new CryptoDTO(crypto.getSymbol(), crypto.getPrice(), crypto.getPrice_date());
             cryptosDTOList.add(newUserDto);
