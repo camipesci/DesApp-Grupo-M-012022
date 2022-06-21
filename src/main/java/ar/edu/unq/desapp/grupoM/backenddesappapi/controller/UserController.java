@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 @Api(tags = "User Controller")
 @Tag(name = "User Controller", description = "Manage User ABM")
@@ -25,6 +26,7 @@ public class UserController {
     @Operation(summary = "Create a user")
     @PostMapping("/api/users")
     @ResponseBody
+    @Transactional
     public ResponseEntity<UserDTO> createUser(@RequestBody UserCreateDTO newUser) {
         User user = userService.createUser(newUser.name, newUser.lastName, newUser.email, newUser.address,
                 newUser.password);
@@ -33,6 +35,7 @@ public class UserController {
 
     @Operation(summary = "Get all users")
     @GetMapping("/api/users")
+    @Transactional
     public ResponseEntity<List<UserDTO>> getUsers() {
         List<User> users = userService.getUsers();
         return ResponseEntity.ok().body(UserDTO.from(users));
@@ -40,6 +43,7 @@ public class UserController {
 
     @Operation(summary = "Get a user by id")
     @GetMapping("/api/users/{user_id}")
+    @Transactional
     public ResponseEntity<UserDTO> findUser(@PathVariable Long user_id) throws UserNotFoundException{
         User user = userService.findUser(user_id);
         return ResponseEntity.ok().body(UserDTO.from(user));
@@ -48,6 +52,7 @@ public class UserController {
     @Operation(summary = "Update a user by id ")
     @PutMapping("/api/users/{id}")
     @ResponseBody
+    @Transactional
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserCreateDTO updateUser) {
         User updatedUser = userService.updateUser(id, updateUser.name, updateUser.lastName, updateUser.email, updateUser.address,
                 updateUser.password);
@@ -56,11 +61,13 @@ public class UserController {
 
     @Operation(summary = "Deletes a user")
     @DeleteMapping("/api/users/{user_id}")
+    @Transactional
     public ResponseEntity deleteUser(@PathVariable Long user_id) throws EmptyResultDataAccessException {
         userService.deleteUser(user_id);
         return ResponseEntity.ok().body("User deleted");
     }
 
+    // Exception Handle
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity handleException(UserNotFoundException e) {
         return ResponseEntity
