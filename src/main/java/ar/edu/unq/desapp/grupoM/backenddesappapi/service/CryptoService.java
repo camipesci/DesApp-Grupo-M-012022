@@ -29,17 +29,21 @@ public class CryptoService {
     }
 
     public List<Crypto> findBySymbolIs(String symbol) {
+     return  cryptoRepository.findBySymbolIs(symbol);
+    }
+
+    public List<Crypto> findCryptoOrCallBinanceAPI(String symbol) {
         // Cryptos from database will have the latest from the cron
-        List<Crypto> listCrypto = new ArrayList<Crypto>();
-        listCrypto = cryptoRepository.findBySymbolIs(symbol);
+        List<Crypto> listCrypto = cryptoRepository.findBySymbolIs(symbol);
         if(listCrypto.size() == 0){
             Crypto crypto = binanceAPI.call(symbol);
+            crypto.setPrice_date(new Date());
             listCrypto.add(crypto);
         }else{
             return listCrypto;
         }
 
-     return listCrypto;
+        return listCrypto;
     }
 
     public Crypto updateCrypto(String symbol, Double price) {

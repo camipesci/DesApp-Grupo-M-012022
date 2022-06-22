@@ -48,6 +48,16 @@ public class TransactionBuilder  {
         return this;
     }
 
+    public TransactionBuilder withUserAndCrypto(User aUser, Crypto aCrypto){
+        user = aUser;
+        crypto = aCrypto;
+        cryptoAmount = 0.01;
+        cryptoPrice = 120.10;
+        cryptoArsPrice = 200.20;
+        type = Transaction.Type.PURCHASE;
+        return this;
+    }
+
 
 
 

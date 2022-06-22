@@ -45,17 +45,17 @@ public class TransactionService {
     }
 
     public Transaction findTransactionByUser(User user) throws TransactionNotFoundException {
-        return transactionRepository.findTransactionsByUserOrInterestedUser(user, user);
 
+        return transactionRepository.findTransactionsByUserOrInterestedUser(user, user);
     }
 
     public Transaction createTransaction(TransactionCreateDTO transactionCreateDTO) throws IOException {
 
-        Crypto crypto = cryptoService.findBySymbolIs(transactionCreateDTO.cryptoSymbol).get(0);
+        Crypto crypto = cryptoService.findCryptoOrCallBinanceAPI(transactionCreateDTO.cryptoSymbol).get(0);
         User user = userService.findUser(transactionCreateDTO.userId);
         Transaction transaction = null;
 
-        if(cryptoHasMarginValuePrice(transactionCreateDTO.cryptoPrice, crypto.price) ){
+        if(cryptoHasMarginValuePrice(transactionCreateDTO.getCryptoPrice(), crypto.getPrice()) ){
             transaction = new Transaction(crypto,
                     transactionCreateDTO.getAmountOfCrypto(), crypto.getPrice(), crypto.getArsPrice(),
                     user, getTransactionType(transactionCreateDTO.getTransactionType()));
@@ -103,7 +103,8 @@ public class TransactionService {
 
     public Transaction updateTransactionInterestedUser(Transaction transaction, User interestedUser) {
         Transaction transactionToModify = transactionRepository.findById(transaction.getId()).get();
-        transactionToModify.setInterestedUser(interestedUser);
+        User user = userService.findUser(interestedUser.getUser_id());
+        transactionToModify.setInterestedUser(user);
 
 
         return transactionRepository.save(transactionToModify);
@@ -126,11 +127,12 @@ public class TransactionService {
         }
         this.updateTransactionStatus(transaction, Transaction.Status.CONFIRMED);
         this.updateTransactionInterestedUser(transaction, interestedUser);
+        //TODO: Crear transaccion opuesta para el interested_user
     }
 
-    public UserTradedVolumenDTO getTradedVolumes(DatesDTO dates, Long id) {
+    public UserTradedVolumenDTO getTradedVolumes(DatesDTO dates, Long user_id) {
 
-        User user = userService.findUser(id);
+        User user = userService.findUser(user_id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime from = LocalDateTime.parse(dates.getFrom(), formatter);
         LocalDateTime to = LocalDateTime.parse(dates.getTo(), formatter);

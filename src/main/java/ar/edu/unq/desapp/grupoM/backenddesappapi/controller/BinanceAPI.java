@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@RestController
 public class BinanceAPI {
 
     RestTemplate restTemplate = new RestTemplate();

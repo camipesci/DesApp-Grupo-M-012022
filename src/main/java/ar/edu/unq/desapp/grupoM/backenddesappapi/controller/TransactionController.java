@@ -42,7 +42,6 @@ public class TransactionController {
     @ResponseBody
     @Transactional
     public ResponseEntity<TransactionDTO> createTransaction(@RequestBody TransactionCreateDTO transactionCreateDTO) throws IOException {
-
         return ResponseEntity.status(HttpStatus.CREATED).body(TransactionDTO.from(transactionService.createTransaction(transactionCreateDTO)));
     }
 
@@ -67,6 +66,8 @@ public class TransactionController {
     @Transactional
     public ResponseEntity<TransactionDTO> getTransactionByUser(@PathVariable Long user_id) throws TransactionNotFoundException {
         User user = userService.findUser(user_id);
+        System.out.println("PRINT USER FIND BY");
+        System.out.println(user);
         Transaction transaction = transactionService.findTransactionByUser(user);
         return ResponseEntity.ok().body(TransactionDTO.from(transaction));
     }
@@ -94,16 +95,10 @@ public class TransactionController {
     @PostMapping("/api/transactions/users/{user_id}/traded_volumes")
     @Transactional
     public ResponseEntity<UserTradedVolumenDTO> getTradedVolume(@PathVariable Long user_id, @RequestBody DatesDTO dates){
-
         return ResponseEntity.ok().body(transactionService.getTradedVolumes(dates,user_id));
     }
 
     // Auxiliar methods
-
-
-
-
-
     @ExceptionHandler(TransactionNotFoundException.class)
     public ResponseEntity handleException(TransactionNotFoundException transaction) {
         return ResponseEntity

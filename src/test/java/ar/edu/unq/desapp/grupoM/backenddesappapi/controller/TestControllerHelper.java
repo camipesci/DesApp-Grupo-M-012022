@@ -40,7 +40,7 @@ public class TestControllerHelper {
     void setup() {
         // create user
        controller_user = userController.createUser(create_user_data).getBody();
-       crypto = binanceAPI.getCryptoPrice("ALICEUSDT").getBody();
+       crypto = CryptoDTO.from(binanceAPI.call("ALICEUSDT"));
     }
 
 

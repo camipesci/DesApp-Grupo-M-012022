@@ -20,6 +20,8 @@ public class CryptoBuilder {
 
     public CryptoBuilder withNameCrypto(String aName){
         nameCrypto = aName;
+        price = 120.10;
+        price_date = new Date();
         return this;
     }
 

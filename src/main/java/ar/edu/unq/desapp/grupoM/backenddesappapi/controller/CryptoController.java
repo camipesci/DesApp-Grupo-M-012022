@@ -73,8 +73,8 @@ public class CryptoController {
         for (Crypto.Cryptos crypto_enum : Crypto.Cryptos.values()) {
             Crypto dataBaseCrypto = null;
             Crypto binanceCrypto = null;
-            try{
-                dataBaseCrypto = cryptoService.findBySymbolIs(crypto_enum.toString()).stream().findFirst().get();}catch(Exception e) {}
+
+            try{dataBaseCrypto = cryptoService.findBySymbolIs(crypto_enum.toString()).stream().findFirst().get();}catch(Exception e) {}
 
             if (dataBaseCrypto != null){
                 if(LastCrpytoUpdate2MinutesAgo(crypto_enum.toString())) {

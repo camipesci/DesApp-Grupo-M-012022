@@ -19,7 +19,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Crypto.class, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "crypto_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Crypto crypto;
     @NotNull
@@ -28,13 +29,14 @@ public class Transaction {
     public Double cryptoPrice;
     @NotNull
     public Double cryptoArsPrice;
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "interested_user_id", referencedColumnName = "user_id")
     private User interestedUser;
     @NotNull
     public Transaction.Type type;

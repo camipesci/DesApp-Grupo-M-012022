@@ -17,7 +17,8 @@ public class Crypto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "crypto_id")
+    private Long crypto_id;
     @NotNull
     public String symbol;
     @NotNull
@@ -27,11 +28,11 @@ public class Crypto {
 
 
     public Long getId() {
-        return id;
+        return crypto_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long crypto_id) {
+        this.crypto_id = crypto_id;
     }
 
     public Double getArsPrice() throws IOException {
