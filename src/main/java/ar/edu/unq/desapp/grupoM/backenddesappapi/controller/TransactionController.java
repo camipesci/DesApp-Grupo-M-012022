@@ -42,10 +42,18 @@ public class TransactionController {
     }
 
     @Operation(summary = "Get all active transactions")
+    @GetMapping("/api/transactionsActive")
+    @Transactional
+    public ResponseEntity<List<TransactionDTO>> getTransactionsActive() {
+        List<Transaction> transactions = transactionService.getTransactionsByStatus(Transaction.Status.PENDING);
+        return ResponseEntity.ok().body(TransactionDTO.from(transactions));
+    }
+
+    @Operation(summary = "Get all  transactions")
     @GetMapping("/api/transactions")
     @Transactional
     public ResponseEntity<List<TransactionDTO>> getTransactions() {
-        List<Transaction> transactions = transactionService.getTransactionsByStatus(Transaction.Status.PENDING);
+        List<Transaction> transactions = transactionService.getTransactions();
         return ResponseEntity.ok().body(TransactionDTO.from(transactions));
     }
 
@@ -69,7 +77,7 @@ public class TransactionController {
     @Operation(summary = "Proccess a transaction")
     @PutMapping("/api/transactions/transaction={transaction_id}/process/users/interested_user={interested_user_id}")
     @Transactional
-    public ResponseEntity<ProcessedTransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long interested_user_id) throws TransactionNotFoundException {
+    public ResponseEntity<ProcessedTransactionDTO> processTransaction(@PathVariable Long transaction_id, @PathVariable Long interested_user_id) throws TransactionNotFoundException, IOException {
 
         Transaction transaction = transactionService.findTransaction(transaction_id);
         User interested_user = userService.findUser(interested_user_id);

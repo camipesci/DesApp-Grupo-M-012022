@@ -7,6 +7,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -111,7 +112,7 @@ public class TransactionService {
 
 
 
-    public ProcessedTransactionDTO processTransaction(Transaction transaction, User interestedUser) {
+    public ProcessedTransactionDTO processTransaction(Transaction transaction, User interestedUser) throws IOException {
         updateUserOperations(transaction.getUser());
         updateUserOperations(interestedUser);
 
@@ -130,8 +131,20 @@ public class TransactionService {
         UserDTO interested_user_dto = UserDTO.from(userService.findUser(interestedUser.getUser_id()));
         UserTransactionDTO interested_user_transaction_dto = UserTransactionDTO.from(interested_user_dto);
 
+        this.updateTransactionStatus(createTransactionPurchase(transaction,interested_user_dto),Transaction.Status.CONFIRMED);
+
         return ProcessedTransactionDTO.from(transaction, interested_user_transaction_dto);
 
+    }
+
+    public Transaction createTransactionPurchase(Transaction transaction, UserDTO interested_user_dto ) throws IOException {
+
+        Transaction transactionDuplicate = new Transaction(transaction.getCrypto(),transaction.getCryptoAmount(),
+                transaction.getCryptoPrice(), transaction.cryptoArsPrice,
+                this.userService.findUser(interested_user_dto.getId()),
+                Transaction.Type.PURCHASE);
+
+        return createTransaction(TransactionCreateDTO.from(transactionDuplicate));
 
     }
 
