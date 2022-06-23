@@ -42,7 +42,7 @@ public class TransactionController {
     }
 
     @Operation(summary = "Get all active transactions")
-    @GetMapping("/api/transactionsActive")
+    @GetMapping("/api/transactions/active")
     @Transactional
     public ResponseEntity<List<TransactionDTO>> getTransactionsActive() {
         List<Transaction> transactions = transactionService.getTransactionsByStatus(Transaction.Status.PENDING);

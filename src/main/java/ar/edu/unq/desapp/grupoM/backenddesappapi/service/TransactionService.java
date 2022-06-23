@@ -7,9 +7,9 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +51,7 @@ public class TransactionService {
 
     public Transaction createTransaction(TransactionCreateDTO transactionCreateDTO) throws IOException {
 
-        Crypto crypto = cryptoService.findCryptoOrCallBinanceAPI(transactionCreateDTO.cryptoSymbol).get(0);
+        Crypto crypto = cryptoService.findCrypto(transactionCreateDTO.cryptoSymbol);
         User user = userService.findUser(transactionCreateDTO.userId);
         Transaction transaction = null;
 
@@ -113,6 +113,19 @@ public class TransactionService {
 
 
     public ProcessedTransactionDTO processTransaction(Transaction transaction, User interestedUser) throws IOException {
+        UserDTO interested_user_dto = updateUserData(transaction, interestedUser);
+
+        this.updateTransactionStatus(transaction, Transaction.Status.CONFIRMED);
+
+        UserTransactionDTO interested_user_transaction_dto = UserTransactionDTO.from(interested_user_dto);
+
+        this.updateTransactionStatus(createTransactionPurchase(transaction,interested_user_dto),Transaction.Status.CONFIRMED);
+
+        return ProcessedTransactionDTO.from(transaction, interested_user_transaction_dto);
+
+    }
+
+    public UserDTO updateUserData(Transaction transaction, User interestedUser){
         updateUserOperations(transaction.getUser());
         updateUserOperations(interestedUser);
 
@@ -125,16 +138,10 @@ public class TransactionService {
             updateUserScore(transaction.getUser(),5);
             updateUserScore(interestedUser,5);
         }
-        this.updateTransactionStatus(transaction, Transaction.Status.CONFIRMED);
         this.updateTransactionInterestedUser(transaction, interestedUser);
 
         UserDTO interested_user_dto = UserDTO.from(userService.findUser(interestedUser.getUser_id()));
-        UserTransactionDTO interested_user_transaction_dto = UserTransactionDTO.from(interested_user_dto);
-
-        this.updateTransactionStatus(createTransactionPurchase(transaction,interested_user_dto),Transaction.Status.CONFIRMED);
-
-        return ProcessedTransactionDTO.from(transaction, interested_user_transaction_dto);
-
+        return interested_user_dto;
     }
 
     public Transaction createTransactionPurchase(Transaction transaction, UserDTO interested_user_dto ) throws IOException {
