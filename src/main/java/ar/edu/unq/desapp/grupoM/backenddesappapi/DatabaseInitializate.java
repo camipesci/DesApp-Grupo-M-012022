@@ -1,8 +1,11 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.CryptoBuilder;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionService;
@@ -25,6 +28,7 @@ public class DatabaseInitializate {
 
     public UserBuilder userBuilder = new UserBuilder();
     public CryptoBuilder cryptoBuilder = new CryptoBuilder();
+    public TransactionBuilder transactionBuilder = new TransactionBuilder();
 
 
     private static Logger log = LoggerFactory.getLogger(DatabaseInitializate.class);
@@ -47,6 +51,16 @@ public class DatabaseInitializate {
         Crypto crypto_2_data = cryptoBuilder.withNameCrypto("ALICEUSDT").build();
         Crypto crypto = cryptoService.createCrypto(crypto_1_data.getSymbol(), crypto_1_data.getPrice());
         Crypto crypto2 =  cryptoService.createCrypto(crypto_2_data.getSymbol(), crypto_2_data.getPrice());
+
+        // Transaction data
+        Transaction transaction = transactionBuilder.build();
+        transaction.setUser(user1);
+        transaction.setCrypto(crypto);
+        Transaction transaction2 = transactionBuilder.build();
+        transaction2.setUser(user2);
+        transaction2.setCrypto(crypto2);
+        transactionService.createTransaction(TransactionCreateDTO.from(transaction));
+        transactionService.createTransaction(TransactionCreateDTO.from(transaction2));
 
         log.info("---------------- Seeding finished  ----------------");
     }

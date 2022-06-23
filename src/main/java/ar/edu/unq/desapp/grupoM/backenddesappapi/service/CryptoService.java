@@ -8,6 +8,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -61,7 +62,9 @@ public class CryptoService {
         }
     }
 
+    @Scheduled(cron = "0 0/10 * * * *") // this is a cron that runs every 10 minutes
     public List<Crypto> getCryptos(){
+        log.info("Crypto price cron started");
         List<Crypto> cryptoList = new ArrayList<Crypto>();
         for (Crypto.Cryptos crypto_enum : Crypto.Cryptos.values()) {
             Crypto dataBaseCrypto = null;
@@ -84,6 +87,7 @@ public class CryptoService {
                 cryptoList.add(newCrypto);
             }
         }
+        log.info("Crypto price cron finished");
         return cryptoList;
     }
 
