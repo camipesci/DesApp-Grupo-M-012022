@@ -1,21 +1,18 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.CryptoBuilder;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.TransactionService;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Component
 public class DatabaseInitializate {

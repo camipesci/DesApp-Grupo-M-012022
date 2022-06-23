@@ -9,7 +9,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNot
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -112,7 +111,7 @@ public class TransactionService {
 
 
 
-    public void processTransaction(Transaction transaction, User interestedUser) {
+    public ProcessedTransactionDTO processTransaction(Transaction transaction, User interestedUser) {
         updateUserOperations(transaction.getUser());
         updateUserOperations(interestedUser);
 
@@ -127,7 +126,13 @@ public class TransactionService {
         }
         this.updateTransactionStatus(transaction, Transaction.Status.CONFIRMED);
         this.updateTransactionInterestedUser(transaction, interestedUser);
-        //TODO: Crear transaccion opuesta para el interested_user
+
+        UserDTO interested_user_dto = UserDTO.from(userService.findUser(interestedUser.getUser_id()));
+        UserTransactionDTO interested_user_transaction_dto = UserTransactionDTO.from(interested_user_dto);
+
+        return ProcessedTransactionDTO.from(transaction, interested_user_transaction_dto);
+
+
     }
 
     public UserTradedVolumenDTO getTradedVolumes(DatesDTO dates, Long user_id) {

@@ -9,7 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,24 +61,11 @@ public class UserController {
     @Operation(summary = "Deletes a user")
     @DeleteMapping("/api/users/{user_id}")
     @Transactional
-    public ResponseEntity deleteUser(@PathVariable Long user_id) throws EmptyResultDataAccessException {
+    public ResponseEntity deleteUser(@PathVariable Long user_id) {
         userService.deleteUser(user_id);
         return ResponseEntity.ok().body("User deleted");
     }
 
-    // Exception Handle
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity handleException(UserNotFoundException e) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("User not found");
-    }
 
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity handleException(EmptyResultDataAccessException e) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("User not found");
-    }
 
 }

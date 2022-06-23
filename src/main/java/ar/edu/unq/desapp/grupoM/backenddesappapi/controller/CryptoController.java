@@ -10,13 +10,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -94,15 +91,7 @@ public class CryptoController {
         return ResponseEntity.ok().body(CryptoDTO.from(cryptoList));
     }
 
-    // Exception handle
 
-    @ExceptionHandler(HttpClientErrorException.class)
-    // This is the exception raised by binance when passing an invalid crypto name
-    public ResponseEntity handleException(HttpClientErrorException e) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("Crypto not found");
-    }
 
     // Auxiliar methods
 
@@ -124,4 +113,5 @@ public class CryptoController {
     public Crypto getCryptoFromDatabase(String symbol){
         return cryptoService.findBySymbolIs(symbol).stream().findFirst().get();
     }
+
 }
