@@ -6,8 +6,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundEx
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -23,7 +21,7 @@ public class UserService {
     }
 
     public User updateUser(Long id, String name, String lastName, String email, String address, String password) {
-        User userToModify = userRepository.findById(id).get();
+        User userToModify = this.findUser(id);
         userToModify.name = name;
         userToModify.lastName = lastName;
         userToModify.email = email;

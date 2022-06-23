@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import java.util.Date;
 
 
@@ -14,12 +14,14 @@ public class CryptoBuilder {
 
     public static CryptoBuilder crypto(){ return new CryptoBuilder();}
 
-    public CryptoCurrency build() {
-        return new CryptoCurrency(nameCrypto, price, price_date);
+    public Crypto build() {
+        return new Crypto(nameCrypto, price, price_date);
     }
 
     public CryptoBuilder withNameCrypto(String aName){
         nameCrypto = aName;
+        price = 120.10;
+        price_date = new Date();
         return this;
     }
 

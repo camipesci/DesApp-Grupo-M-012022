@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,8 +39,6 @@ public class User  {
     public Integer wallet;
 
     public Integer operations;
-
-    public Integer successful_operations;
 
     public Integer score;
 

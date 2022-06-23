@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceAPI;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceController;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -13,11 +13,12 @@ import java.util.Date;
 @Table(name = "cryptos")
 @Data
 @NoArgsConstructor
-public class CryptoCurrency {
+public class Crypto {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "crypto_id")
+    private Long crypto_id;
     @NotNull
     public String symbol;
     @NotNull
@@ -27,16 +28,16 @@ public class CryptoCurrency {
 
 
     public Long getId() {
-        return id;
+        return crypto_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long crypto_id) {
+        this.crypto_id = crypto_id;
     }
 
     public Double getArsPrice() throws IOException {
-        USDPriceAPI usdPriceAPI = new USDPriceAPI();
-        Double usd_price = usdPriceAPI.getUSDPriceDouble();
+        USDPriceController usdPriceController = new USDPriceController();
+        Double usd_price = usdPriceController.getUSDPriceDouble();
         return usd_price * price;
     }
 
@@ -58,7 +59,7 @@ public class CryptoCurrency {
         }
 
 
-    public CryptoCurrency(@NotNull String symbol, @NotNull Double price, @NotNull Date price_date) {
+    public Crypto(@NotNull String symbol, @NotNull Double price, @NotNull Date price_date) {
         this.symbol = symbol;
         this.price = price;
         this.price_date = price_date;

@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.builders;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.CryptoCurrency;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 
@@ -8,7 +8,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 public class TransactionBuilder  {
 
 
-    public CryptoCurrency cryptoCurrency = CryptoBuilder.crypto().build();
+    public Crypto crypto = CryptoBuilder.crypto().build();
     public Double cryptoAmount = 0.01;
     public Double cryptoPrice = 120.10;
     public Double cryptoArsPrice = 200.20;
@@ -20,11 +20,11 @@ public class TransactionBuilder  {
     public static TransactionBuilder transaction(){ return new TransactionBuilder();}
 
     public Transaction build() {
-        return new Transaction(cryptoCurrency, cryptoAmount, cryptoPrice,cryptoArsPrice,user, type);
+        return new Transaction(crypto, cryptoAmount, cryptoPrice,cryptoArsPrice,user, type);
     }
 
-    public TransactionBuilder withCryptoCurrency(CryptoCurrency aCryptoCurrency){
-        cryptoCurrency = aCryptoCurrency;
+    public TransactionBuilder withCryptoCurrency(Crypto aCrypto){
+        crypto = aCrypto;
         return this;
     }
 
@@ -45,6 +45,16 @@ public class TransactionBuilder  {
 
      public TransactionBuilder withUser(User aUser){
         user = aUser;
+        return this;
+    }
+
+    public TransactionBuilder withUserAndCrypto(User aUser, Crypto aCrypto){
+        user = aUser;
+        crypto = aCrypto;
+        cryptoAmount = 0.01;
+        cryptoPrice = 120.10;
+        cryptoArsPrice = 200.20;
+        type = Transaction.Type.PURCHASE;
         return this;
     }
 

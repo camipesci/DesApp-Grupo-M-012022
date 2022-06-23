@@ -1,11 +1,8 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
@@ -36,14 +33,14 @@ public class TestControllerHelper {
     UserController userController;
 
     @Autowired
-    BinanceController binanceController;
+    BinanceAPI binanceAPI;
 
 
     @BeforeEach
     void setup() {
         // create user
        controller_user = userController.createUser(create_user_data).getBody();
-       crypto = binanceController.getCryptoPrice("ALICEUSDT").getBody();
+       crypto = CryptoDTO.from(binanceAPI.call("ALICEUSDT"));
     }
 
 

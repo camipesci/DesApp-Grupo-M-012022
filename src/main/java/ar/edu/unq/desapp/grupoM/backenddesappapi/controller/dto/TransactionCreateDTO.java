@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,14 @@ public class TransactionCreateDTO {
         this.cryptoPrice = cryptoPrice;
         this.transactionType = transactionType;
         this.userId = userId;
+    }
+
+    public static TransactionCreateDTO from (Transaction transaction) {
+        return new TransactionCreateDTO(transaction.getCrypto().getSymbol(),
+        transaction.getCryptoAmount(),
+        transaction.getCryptoPrice(),
+        transaction.getType().toString(), transaction.getUserId().getUser_id());
+
     }
 
 

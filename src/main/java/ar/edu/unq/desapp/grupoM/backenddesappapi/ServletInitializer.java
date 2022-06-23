@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.BackendDesappApiApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
