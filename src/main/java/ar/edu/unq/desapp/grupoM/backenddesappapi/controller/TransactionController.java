@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.aspect.LogExecutionTime;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -95,7 +96,7 @@ public class TransactionController {
         return ResponseEntity.ok().body(transactionService.getTradedVolumes(dates,user_id));
     }
 
-
+    //Aux method
     public void validateUserAndTransaction(Long interested_user_id, Transaction transaction ){
         if(interested_user_id == transaction.getUser().getUser_id()){
             throw new InvalidUserException(interested_user_id);

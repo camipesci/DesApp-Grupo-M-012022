@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.aspect.LogExecutionTime;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -19,6 +20,7 @@ import java.util.List;
 @Tag(name = "User Controller", description = "Manage User ABM")
 @RestController
 public class UserController {
+
     @Autowired
     private UserService userService;
 
