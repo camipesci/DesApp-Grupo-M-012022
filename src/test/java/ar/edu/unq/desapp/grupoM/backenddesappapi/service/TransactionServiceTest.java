@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TransactionServiceTest extends TransactionServiceHelper {
-
+/*
     @Test
     void getTransactions() {
        assertEquals(transactionService.getTransactions().get(0).getId(), h2_transaction.getId());
@@ -19,4 +19,6 @@ class TransactionServiceTest extends TransactionServiceHelper {
         assertEquals(transactionService.findTransaction(h2_transaction.getId()).getId(), h2_transaction.getId());
         assertEquals(transactionService.getTransactions().size(), 1);
     }
+
+ */
 }

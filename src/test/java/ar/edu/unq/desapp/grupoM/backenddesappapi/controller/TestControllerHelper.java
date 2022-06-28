@@ -1,7 +1,10 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.CryptoDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserCreateDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.external_api.BinanceAPI;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;

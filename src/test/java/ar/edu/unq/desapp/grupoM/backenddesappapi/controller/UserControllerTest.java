@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

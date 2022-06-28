@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.*;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -165,7 +165,7 @@ public class TransactionService {
         List<Transaction> confirmed_transactions = this.transactionRepository.findTransactionsByUserOrInterestedUserAndStatusAndDateIsBetween(user, user, Transaction.Status.CONFIRMED, from, to);
         List<Crypto> list_of_cryptos = this.listOfCryptosFromTransactions(confirmed_transactions);
 
-        return new UserTradedVolumenDTO(UserDTO.from(user), LocalDateTime.now(),CryptoDTO.from(list_of_cryptos), totalUSDVolumen(confirmed_transactions), totalARSVolumen(confirmed_transactions));
+        return new UserTradedVolumenDTO(UserDTO.from(user), LocalDateTime.now(), CryptoDTO.from(list_of_cryptos), totalUSDVolumen(confirmed_transactions), totalARSVolumen(confirmed_transactions));
     }
 
     public Double totalUSDVolumen(List<Transaction> transactions) {

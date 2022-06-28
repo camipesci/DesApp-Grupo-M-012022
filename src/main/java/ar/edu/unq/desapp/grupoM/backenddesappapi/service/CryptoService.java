@@ -2,15 +2,11 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
 
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.DatabaseInitializate;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.BinanceAPI;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.external_api.BinanceAPI;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Date;

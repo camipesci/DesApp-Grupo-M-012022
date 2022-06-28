@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.dto;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

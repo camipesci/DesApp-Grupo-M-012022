@@ -1,11 +1,10 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.dto;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
