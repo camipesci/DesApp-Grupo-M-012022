@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
+import ar.edu.unq.desapp.grupoM.backenddesappapi.aspect.LogExecutionTime;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
@@ -18,6 +19,7 @@ import java.util.List;
 @Tag(name = "Crypto Controller", description = "Manage Crypto ABM")
 @RestController
 public class CryptoController {
+
     @Autowired
     private CryptoService cryptoService;
 
