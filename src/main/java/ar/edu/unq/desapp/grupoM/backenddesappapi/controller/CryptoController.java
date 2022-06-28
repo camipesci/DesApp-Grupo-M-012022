@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.aspect.LogExecutionTime;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.CryptoDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.CryptoDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.CryptoService;
 import io.swagger.annotations.Api;

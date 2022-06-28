@@ -1,7 +1,8 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserCreateDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
@@ -18,7 +19,6 @@ public class TestControllerHelper {
     public UserCreateDTO create_user_data = new UserCreateDTO(create_dto.getName(), create_dto.getLastName(), create_dto.getEmail(), create_dto.getAddress(), create_dto.getPassword());
     public UserCreateDTO update_user_data = new UserCreateDTO(update_dto.getName(), update_dto.getLastName(), update_dto.getEmail(), update_dto.getAddress(), update_dto.getPassword());
     public UserDTO controller_user;
-    public CryptoDTO crypto;
 
     @Autowired
     UserService userService;
@@ -32,15 +32,11 @@ public class TestControllerHelper {
     @Autowired
     UserController userController;
 
-    @Autowired
-    BinanceAPI binanceAPI;
-
 
     @BeforeEach
     void setup() {
         // create user
        controller_user = userController.createUser(create_user_data).getBody();
-       crypto = CryptoDTO.from(binanceAPI.call("ALICEUSDT"));
     }
 
 

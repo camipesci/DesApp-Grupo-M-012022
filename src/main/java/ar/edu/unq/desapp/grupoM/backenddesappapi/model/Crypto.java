@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.model;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.USDPriceController;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.external_api.USDPriceAPI;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -36,8 +36,8 @@ public class Crypto {
     }
 
     public Double getArsPrice() throws IOException {
-        USDPriceController usdPriceController = new USDPriceController();
-        Double usd_price = usdPriceController.getUSDPriceDouble();
+        USDPriceAPI usdPriceAPI = new USDPriceAPI();
+        Double usd_price = usdPriceAPI.getUSDPriceDouble();
         return usd_price * price;
     }
 

@@ -1,18 +1,18 @@
-package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.external_api;
 
 import lombok.NoArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RestController;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@RestController
+
 @NoArgsConstructor
-public class USDPriceController {
+public class USDPriceAPI {
     public Double getUSDPriceDouble() throws IOException {
         // Setup url and credentials to hit usd api
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");

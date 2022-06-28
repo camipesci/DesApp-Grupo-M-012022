@@ -4,7 +4,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.CryptoBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserController;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionCreateDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.TransactionCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
@@ -18,6 +18,7 @@ import java.io.IOException;
 
 
 public class TransactionServiceHelper {
+    /*
     public CryptoBuilder cryptoBuilder = new CryptoBuilder();
     public UserBuilder userBuilder = new UserBuilder();
     public User user = userBuilder.build();
@@ -63,4 +64,6 @@ public class TransactionServiceHelper {
     void tearDown() {
         transactionRespository.deleteAll();
     }
+
+     */
 }

@@ -31,6 +31,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	implementation 'com.tngtech.archunit:archunit-junit5:0.23.1'
 }
 
 tasks.named('test') {

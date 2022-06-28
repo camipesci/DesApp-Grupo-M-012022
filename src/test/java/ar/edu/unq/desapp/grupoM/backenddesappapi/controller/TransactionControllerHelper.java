@@ -2,8 +2,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.TransactionBuilder;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.builders.UserBuilder;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.*;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Transaction;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.*;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.TransactionRepository;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;

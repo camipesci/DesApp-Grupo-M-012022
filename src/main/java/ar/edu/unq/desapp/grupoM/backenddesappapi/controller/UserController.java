@@ -1,8 +1,7 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.aspect.LogExecutionTime;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserCreateDTO;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.UserDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserCreateDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
