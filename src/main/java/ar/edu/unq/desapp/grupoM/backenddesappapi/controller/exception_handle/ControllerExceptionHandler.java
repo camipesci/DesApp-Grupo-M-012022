@@ -1,13 +1,11 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.controller.exception_handle;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.InvalidTransactionException;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.InvalidUserException;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.TransactionNotFoundException;
-import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
 import org.json.JSONObject;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
@@ -91,4 +89,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(transaction_invalid_json);
     }
 
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity handleException(InvalidTokenException e) {
+        String transaction_invalid_json = new JSONObject()
+                .put("message","Name or Password Invalid").toString();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(transaction_invalid_json);
+    }
 }
