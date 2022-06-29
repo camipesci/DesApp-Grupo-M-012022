@@ -19,7 +19,7 @@ import java.time.Instant;
 @Slf4j
 @Component
 public class LogExecutionTimeAspectAnnotation {
-/*
+
 
     @Pointcut("within( ar.edu.unq.desapp.grupoM.backenddesappapi.controller.*)")
     public void controller() { }
@@ -30,10 +30,16 @@ public class LogExecutionTimeAspectAnnotation {
     @Around("controller() && allMethods()")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
         // HTTP request info
-        HttpServletRequest httpRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String httpMethod = httpRequest.getMethod();
-        String URI = httpRequest.getRequestURI();
+        HttpServletRequest httpRequest = null;
+        String httpMethod = null;
+        String URI = null;
+        try {
+            httpRequest = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            httpMethod = httpRequest.getMethod();
+            URI = httpRequest.getRequestURI();
+        }catch (Exception e){
 
+        }
         // Date execution info
         Timestamp date = Timestamp.from(Instant.now());
 
@@ -52,11 +58,14 @@ public class LogExecutionTimeAspectAnnotation {
     }
 
     private void methodInfoAndTime(Timestamp date, Long executionTime, String httpMethod, String URI, Signature signature, String args) {
-        log.info("Date: " + date + " Started request " + httpMethod + " " + URI);
+        log.info(" ------------- LOG START ------------- ");
+        log.info("Date: " + date);
+        log.info("Request: " + httpMethod + " " + URI);
         log.info("Method name: "  + signature);
-        log.info("Request input: " + args );
+        log.info("Params: " + args );
         log.info("Finished method in " + executionTime + " ms");
+        log.info(" ------------- LOG FINISH ------------- ");
     }
-*/
+
 
 }
