@@ -19,6 +19,7 @@ import java.time.Instant;
 @Slf4j
 @Component
 public class LogExecutionTimeAspectAnnotation {
+/*
 
     @Pointcut("within( ar.edu.unq.desapp.grupoM.backenddesappapi.controller.*)")
     public void controller() { }
@@ -56,5 +57,6 @@ public class LogExecutionTimeAspectAnnotation {
         log.info("Request input: " + args );
         log.info("Finished method in " + executionTime + " ms");
     }
+*/
 
 }

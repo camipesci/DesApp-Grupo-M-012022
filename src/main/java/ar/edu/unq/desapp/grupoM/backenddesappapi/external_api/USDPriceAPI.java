@@ -19,7 +19,7 @@ public class USDPriceAPI {
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");
         // Token had to  be hardcoded because circle ci was breaking
-        http.setRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODgwMDU2MDEsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJsdWNpYS1wZXNjaUBob3RtYWlsLmNvbSJ9.ulNkZFXON5vpWBl3tTArrKob5t0Euyw3Do9qO06hlp5UORf4RVwGumqiiyyrBE0eAeeWl282NyXSO-mnetk2zw");
+        http.setRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODgwNjg0NzAsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJzZXJ2aWNpb3N0cmlidW5hbGVzQGhvdG1haWwuY29tIn0.raPdHfgl4KAqcmqYavldRg3NYMW5iBdkw2fYcJNiOAUyCqM9MPBDEJVUp96PzXOOXMzsBltHE5q2sYXuM4rGew");
 
         // Proccess USD API Response
         String response = this.getResponseBody(http);

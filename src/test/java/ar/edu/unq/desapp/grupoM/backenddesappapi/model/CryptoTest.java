@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class CryptoTest {
 
-    ArrayList<Crypto> cryptos = new ArrayList<Crypto>();
-
     @Test
     public void createCryptoCurrencyTest() {
         Crypto BNBUSDT = CryptoBuilder.crypto().build();

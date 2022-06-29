@@ -1,26 +1,45 @@
-/*package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
+package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 
-import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.dto.TransactionDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.TransactionCreateDTO;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.TransactionDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest
-class TransactionControllerTest extends TransactionControllerHelper{
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class TransactionControllerTest extends ControllerTest {
 
     @Test
-    void createTransaction() throws IOException {
-        TransactionDTO created_transaction = transactionController.createTransaction(create_transaction_data).getBody();
+    void createTransactionAndfindTransactionById() {
 
-        assertEquals(created_transaction.getTransactionPrice(), create_transaction_data.getCryptoPrice());
-        assertEquals(created_transaction.getUser(), create_transaction_data.getUserId());
-        assertEquals(created_transaction.cryptoAmount, create_transaction_data.cryptoAmount);
-        assertEquals(created_transaction.cryptoArsPrice, create_transaction_data.cryptoArsPrice);
-        assertEquals(created_transaction.cryptoPrice, create_transaction_data.cryptoPrice);
-        assertEquals(created_transaction.cryptoCurrency.symbol, create_transaction_data.getCryptoCurrency().symbol);
+        TransactionCreateDTO transactionCreateDTO = createTransactionDTO();
+
+        TransactionDTO responseCreateTransaction = createTransaction(transactionCreateDTO);
+
+
+       TransactionDTO responseFindTransaction = findTransactionById(responseCreateTransaction.getId());
+
+     //   assertThat(responseCreateTransaction.getCryptoCurrency()).isEqualTo(transactionCreateDTO.getCryptoSymbol());
+
+     //   assertThat(responseFindTransaction.getCryptoCurrency()).isEqualTo(transactionCreateDTO.getCryptoSymbol());
     }
 
-}*/
+    @Test
+    public void createTransactionFailsWithUserIsNotFound() {
+        Long notRegisteredUserId = -1L;
+        TransactionCreateDTO transactionCreateDTO = new TransactionCreateDTO("BNB", 100.0, 100.1, "Purchase", notRegisteredUserId);
+
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(transactionURL(), new HttpEntity(transactionCreateDTO), String.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
+    }
+
+
+
+}
