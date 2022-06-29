@@ -14,6 +14,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 public class ArchitectureTest {
 
 
+
     @ArchTest
     public static final ArchRule repositoryAnnotationShouldBeUsedOnlyInRepositoryClases = classes()
             .that().areAnnotatedWith(Repository.class)
@@ -39,7 +40,8 @@ public class ArchitectureTest {
     @ArchTest
     public static final ArchRule servicesShouldOnlyBeAccessedByControllersAndAspects = classes()
         .that().resideInAPackage ("..service..")
-        .should().onlyBeAccessed().byAnyPackage("..controller..", "..service..", "..aspects..");
+        .should().onlyBeAccessed().byAnyPackage("..controller..", "..service..", "..aspects..", "..security..");
+
 
     @ArchTest
     public static final ArchRule classesWithNameServiceAtTheEndShouldBeOnlyInServicePackage = classes()

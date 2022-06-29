@@ -3,11 +3,14 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+
+@SpringBootTest(classes = ar.edu.unq.desapp.grupoM.backenddesappapi.BackendDesappApiApplication.class)
 class UserControllerTest extends TestControllerHelper {
 
     @Test
