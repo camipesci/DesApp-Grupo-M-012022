@@ -1,11 +1,10 @@
 package ar.edu.unq.desapp.grupoM.backenddesappapi.service;
+
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class UserServiceUser extends UserServiceHelper {
 
     @Test

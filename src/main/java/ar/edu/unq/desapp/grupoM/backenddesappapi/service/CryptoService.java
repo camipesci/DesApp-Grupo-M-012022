@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.external_api.BinanceAPI;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.Crypto;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,22 +43,20 @@ public class CryptoService {
             dataBaseCrypto = getCryptoFromDatabase(symbol);}catch(Exception e) {
         }
 
-        if (dataBaseCrypto != null){
-            if(LastCrpytoUpdate2MinutesAgo(symbol)) {
-                binanceCrypto = callBinanceAPI(symbol);
-                Crypto updateCrypto = this.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
-                return updateCrypto;
-            }
-            else {
-                return dataBaseCrypto;
-            }
-        }else {
+        if (dataBaseCrypto != null && LastCrpytoUpdate2MinutesAgo(symbol)){
+            binanceCrypto = callBinanceAPI(symbol);
+            Crypto updateCrypto = this.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
+            return updateCrypto;
+        }
+        else if (dataBaseCrypto != null){ return dataBaseCrypto; }
+        else {
             binanceCrypto = callBinanceAPI(symbol);
             Crypto newCrypto = this.createCrypto(binanceCrypto.symbol, binanceCrypto.price);
             return newCrypto;
         }
     }
 
+    //TODO: Uncomment this cron from demo
     //@Scheduled(cron = "0 0/10 * * * *") // this is a cron that runs every 10 minutes
     public List<Crypto> getCryptos(){
         log.info("Crypto price cron started");

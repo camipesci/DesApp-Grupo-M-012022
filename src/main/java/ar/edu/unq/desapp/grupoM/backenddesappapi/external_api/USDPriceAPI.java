@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.external_api;
 import lombok.NoArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +14,16 @@ import java.net.URL;
 
 @NoArgsConstructor
 public class USDPriceAPI {
+    @Value("${bcra_token}")
+    private String bcra_token;
+
     public Double getUSDPriceDouble() throws IOException {
         // Setup url and credentials to hit usd api
         URL binance_url = new URL("https://api.estadisticasbcra.com/usd_of");
         HttpURLConnection http = (HttpURLConnection)binance_url.openConnection();
         http.setRequestProperty("Accept", "application/json");
-        // Token had to  be hardcoded because circle ci was breaking
-        http.setRequestProperty("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc5ODUyNTksInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjcGVzY2lAdXZxLmVkdS5hciJ9._9rD03OoGdbDJLsbKsw8izS6EvpSC0dGuEqttgIRNLbpjAScZODxRBf01D5yMs5mZU7UNWgG1IkPbZcaEKASbg");
+
+        http.setRequestProperty("Authorization", "Bearer " + bcra_token.toString());
 
         // Proccess USD API Response
         String response = this.getResponseBody(http);

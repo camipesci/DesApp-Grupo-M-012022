@@ -3,14 +3,17 @@ package ar.edu.unq.desapp.grupoM.backenddesappapi.controller;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserCreateDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.dto.UserDTO;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
+import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.InvalidTokenException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -67,6 +70,14 @@ public class UserController {
         return ResponseEntity.ok().body("User deleted");
     }
 
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity handleException(InvalidTokenException e) {
+        String transaction_invalid_json = new JSONObject()
+                .put("message","Invalid Token").toString();
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(transaction_invalid_json);
+    }
 
 
 }

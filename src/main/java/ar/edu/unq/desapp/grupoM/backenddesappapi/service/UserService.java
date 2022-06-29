@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.User;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.UserNotFoundException;
 import ar.edu.unq.desapp.grupoM.backenddesappapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -13,9 +14,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User createUser(String name, String lastName, String email, String address, String password) {
-        User newUser = new User(name, lastName, email, address, password);
+        String encodedPassword = passwordEncoder.encode(password);
+        User newUser = new User(name, lastName, email, address, encodedPassword);
 
         return userRepository.save(newUser);
     }

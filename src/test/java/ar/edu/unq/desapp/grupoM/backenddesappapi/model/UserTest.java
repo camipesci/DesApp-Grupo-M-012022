@@ -6,7 +6,6 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.model.exceptions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 public class UserTest {
 
     //Valid User Creation
