@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class CryptoTest {
 
     ArrayList<Crypto> cryptos = new ArrayList<Crypto>();

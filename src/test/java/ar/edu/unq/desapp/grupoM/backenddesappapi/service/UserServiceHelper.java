@@ -7,8 +7,9 @@ import ar.edu.unq.desapp.grupoM.backenddesappapi.controller.UserController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-
+@SpringBootTest
 public class UserServiceHelper {
     public UserBuilder userBuilder = new UserBuilder();
     public User user = userBuilder.build();
