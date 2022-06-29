@@ -58,6 +58,7 @@ public class CryptoService {
         }
     }
 
+    //TODO: Uncomment this cron from demo
     //@Scheduled(cron = "0 0/10 * * * *") // this is a cron that runs every 10 minutes
     public List<Crypto> getCryptos(){
         log.info("Crypto price cron started");
