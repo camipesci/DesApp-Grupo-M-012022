@@ -32,7 +32,8 @@ public class CryptoService {
     }
 
     public List<Crypto> findBySymbolIs(String symbol) {
-     return  cryptoRepository.findBySymbolIs(symbol);
+
+        return  cryptoRepository.findBySymbolIs(symbol);
     }
 
     public Crypto findCrypto(String symbol){
@@ -43,7 +44,7 @@ public class CryptoService {
         }
 
         if (dataBaseCrypto != null){
-            if(LastCrpytoUpdate2MinutesAgo(symbol)) {
+            if(LastCryptoUpdate2MinutesAgo(symbol)) {
                 binanceCrypto = callBinanceAPI(symbol);
                 Crypto updateCrypto = this.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
                 return updateCrypto;
@@ -69,7 +70,7 @@ public class CryptoService {
             try{dataBaseCrypto = this.findBySymbolIs(crypto_enum.toString()).stream().findFirst().get();}catch(Exception e) {}
 
             if (dataBaseCrypto != null){
-                if(LastCrpytoUpdate2MinutesAgo(crypto_enum.toString())) {
+                if(LastCryptoUpdate2MinutesAgo(crypto_enum.toString())) {
                     binanceCrypto = callBinanceAPI(crypto_enum.toString());
                     Crypto updateCrypto = this.updateCrypto(binanceCrypto.symbol, binanceCrypto.price);
                     cryptoList.add(updateCrypto);
@@ -104,7 +105,7 @@ public class CryptoService {
         return crypto;
     }
 
-    public Boolean LastCrpytoUpdate2MinutesAgo(String symbol){
+    public Boolean LastCryptoUpdate2MinutesAgo(String symbol){
         Crypto crypto = getCryptoFromDatabase(symbol);
         Date date_now = new Date();
         long duration  =   date_now.getTime() - crypto.getPrice_date().getTime();
